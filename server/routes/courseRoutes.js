@@ -19,6 +19,9 @@ router
     courseCtrl.listByInstructor
   );
 
+router.route("/api/courses/:courseId").get(courseCtrl.read);
+
+router.param("courseId", courseCtrl.courseByID);
 router.param("userId", userCtrl.userByID);
 
 export default router;

@@ -29,6 +29,11 @@ const create = (req, res) => {
   });
 };
 
+const read = (req, res) => {
+  req.course.image = undefined;
+  return res.json(req.course);
+};
+
 const listByInstructor = (req, res) => {
   Course.find({ instructor: req.profile._id }, (err, courses) => {
     if (err) {
@@ -40,7 +45,25 @@ const listByInstructor = (req, res) => {
   }).populate("instructor", "_id name");
 };
 
+const courseByID = async (req, res, next, id) => {
+  try {
+    let course = await Course.findById(id).populate("instructor", "_id name");
+    if (!course)
+      return res.status("400").json({
+        error: "Course not found",
+      });
+    req.course = course;
+    next();
+  } catch (err) {
+    return res.status("400").json({
+      error: "Could not fetch course",
+    });
+  }
+};
+
 export default {
   create,
+  read,
   listByInstructor,
+  courseByID,
 };
