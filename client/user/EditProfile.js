@@ -50,6 +50,7 @@ export default function EditProfile({ match }) {
     open: false,
     error: "",
     redirectToProfile: false,
+    educator: false,
   });
   const jwt = auth.isAuthenticated();
 
@@ -67,7 +68,12 @@ export default function EditProfile({ match }) {
       if (data && data.error) {
         setValues({ ...values, error: data.error });
       } else {
-        setValues({ ...values, name: data.name, email: data.email });
+        setValues({
+          ...values,
+          name: data.name,
+          email: data.email,
+          educator: data.educator,
+        });
       }
     });
     return function cleanup() {
@@ -80,7 +86,7 @@ export default function EditProfile({ match }) {
       name: values.name || undefined,
       email: values.email || undefined,
       password: values.password || undefined,
-      educator: values.educator || undefined,
+      educator: values.educator,
     };
     update(
       {
