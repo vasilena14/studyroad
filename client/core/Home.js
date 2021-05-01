@@ -30,6 +30,8 @@ export default function Home() {
       <Typography variant="h6" className={classes.title}>
         Home Page
       </Typography>
+      <Link to="/users">Users</Link>
+
       <CardMedia
         className={classes.media}
         image={testImage}
