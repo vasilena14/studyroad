@@ -5,13 +5,19 @@ import compress from "compression";
 import cors from "cors";
 import helmet from "helmet";
 import path from "path";
-
-//only for development mode - comment out for production
-import devBundle from "./devBundle";
-
 import Template from "./../template";
 import userRoutes from "./routes/userRoutes";
 import authRoutes from "./routes/authRoutes";
+
+import React from "react";
+import ReactDOMServer from "react-dom/server";
+import { StaticRouter } from "react-router-dom";
+import MainRouter from "./../client/MainRouter";
+import { ServerStyleSheets, ThemeProvider } from "@material-ui/styles";
+import theme from "./../client/theme";
+
+//only for development mode - comment out for production
+import devBundle from "./devBundle";
 
 const CURRENT_WORKING_DIR = process.cwd();
 const app = express();
@@ -31,8 +37,28 @@ app.use("/dist", express.static(path.join(CURRENT_WORKING_DIR, "dist")));
 app.use("/", userRoutes);
 app.use("/", authRoutes);
 
-app.get("/", (req, res) => {
-  res.status(200).send(Template());
+app.get("*", (req, res) => {
+  const sheets = new ServerStyleSheets();
+  const context = {};
+  const markup = ReactDOMServer.renderToString(
+    sheets.collect(
+      <StaticRouter location={req.url} context={context}>
+        <ThemeProvider theme={theme}>
+          <MainRouter />
+        </ThemeProvider>
+      </StaticRouter>
+    )
+  );
+  if (context.url) {
+    return res.redirect(303, context.url);
+  }
+  const css = sheets.toString();
+  res.status(200).send(
+    Template({
+      markup: markup,
+      css: css,
+    })
+  );
 });
 
 //Catches unauthorized errors

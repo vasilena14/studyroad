@@ -1,6 +1,12 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, CardContent, CardMedia, Typography } from "@material-ui/core";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Link,
+} from "@material-ui/core";
 import testImage from "./../assets/images/testImage.jpg";
 
 const useStyles = makeStyles((theme) => ({
@@ -37,8 +43,6 @@ export default function Home() {
       <Typography variant="h6" className={classes.title}>
         Home Page
       </Typography>
-      <Link to="/users">Users</Link>
-
       <CardMedia
         className={classes.media}
         image={testImage}
