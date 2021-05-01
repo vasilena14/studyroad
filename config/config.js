@@ -11,4 +11,5 @@ const config = {
       (process.env.MONGO_PORT || "27017") +
       "/studyroad",
 };
+
 export default config;
