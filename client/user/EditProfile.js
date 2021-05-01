@@ -78,6 +78,7 @@ export default function EditProfile({ match }) {
       name: values.name || undefined,
       email: values.email || undefined,
       password: values.password || undefined,
+      educator: values.educator || undefined,
     };
     update(
       {
@@ -91,12 +92,19 @@ export default function EditProfile({ match }) {
       if (data && data.error) {
         setValues({ ...values, error: data.error });
       } else {
-        setValues({ ...values, userId: data._id, redirectToProfile: true });
+        auth.updateUser(data, () => {
+          setValues({ ...values, userId: data._id, redirectToProfile: true });
+        });
       }
     });
   };
+
   const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
+  };
+
+  const handleCheck = (event, checked) => {
+    setValues({ ...values, educator: checked });
   };
 
   if (values.redirectToProfile) {
@@ -136,7 +144,25 @@ export default function EditProfile({ match }) {
           onChange={handleChange("password")}
           margin="normal"
         />
-        <br />{" "}
+        <br />
+        <br />
+        <Typography variant="subtitle1" className={classes.subheading}>
+          I am an Educator
+        </Typography>
+        <FormControlLabel
+          control={
+            <Switch
+              classes={{
+                checked: classes.checked,
+                bar: classes.bar,
+              }}
+              checked={values.educator}
+              onChange={handleCheck}
+            />
+          }
+          label={values.educator ? "Yes" : "No"}
+        />
+        <br />
         {values.error && (
           <Typography component="p" color="error">
             <Icon color="error" className={classes.error}>
