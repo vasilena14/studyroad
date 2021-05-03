@@ -19,6 +19,10 @@ router
     courseCtrl.listByInstructor
   );
 
+router
+  .route("/api/courses/:courseId/lesson/new")
+  .put(authCtrl.requireSignin, courseCtrl.isInstructor, courseCtrl.newLesson);
+
 router.route("/api/courses/:courseId").get(courseCtrl.read);
 
 router.param("courseId", courseCtrl.courseByID);

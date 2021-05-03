@@ -6,6 +6,7 @@ const LessonSchema = new mongoose.Schema({
   resource_url: String,
 });
 const Lesson = mongoose.model("Lesson", LessonSchema);
+
 const CourseSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -37,6 +38,7 @@ const CourseSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  lessons: [LessonSchema],
 });
 
 export default mongoose.model("Course", CourseSchema);
