@@ -8,6 +8,7 @@ import EditProfile from "./user/EditProfile";
 import Profile from "./user/Profile";
 import PrivateRoute from "./auth/PrivateRoute";
 import Menu from "./core/Menu";
+import Course from "./course/Course";
 import NewCourse from "./course/NewCourse";
 import MyCourses from "./course/MyCourses";
 

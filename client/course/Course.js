@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from " react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardHeader,
   CardMedia,
   Typography,
   IconButton,
+  Divider,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import Edit from "@material-ui/icons/Edit";
-import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 import { read } from "./api-course.js";
+import { Link } from "react-router-dom";
+import auth from "./../auth/auth-helper";
+import NewLesson from "./NewLesson";
 
 const useStyles = makeStyles((theme) => ({
   root: theme.mixins.gutters({
@@ -81,6 +84,10 @@ export default function Course({ match }) {
     };
   }, [match.params.courseId]);
 
+  const addLesson = (course) => {
+    setCourse(course);
+  };
+
   const imageUrl = course._id
     ? `/api/courses/photo/${course._id}?${new Date().getTime()}`
     : "/api/courses/defaultphoto";
@@ -131,6 +138,30 @@ export default function Course({ match }) {
           </Typography>
         </div>
       </div>
+
+      <Divider />
+
+      <CardHeader
+        title={
+          <Typography variant="h6" className={classes.subheading}>
+            Lessons
+          </Typography>
+        }
+        subheader={
+          <Typography variant="body1" className={classes.subheading}>
+            {course.lessons && course.lessons.length} lessons
+          </Typography>
+        }
+        action={
+          auth.isAuthenticated().user &&
+          auth.isAuthenticated().user._id == course.instructor._id &&
+          !course.published && (
+            <span className={classes.action}>
+              <NewLesson courseId={course._id} addLesson={addLesson} />
+            </span>
+          )
+        }
+      />
     </div>
   );
 }
