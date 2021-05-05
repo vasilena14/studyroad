@@ -32,6 +32,7 @@ const MainRouter = () => {
           path="/teach/course/edit/:courseId"
           component={EditCourse}
         />
+        <PrivateRoute path="/teach/course/:courseId" component={Course} />
       </Switch>
     </div>
   );

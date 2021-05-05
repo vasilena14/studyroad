@@ -5,13 +5,14 @@ import {
   CardMedia,
   Button,
   TextField,
+  ListItem,
   ListItemText,
   ListItemAvatar,
   ListItemSecondaryAction,
   Avatar,
   IconButton,
 } from "@material-ui/core";
-import { FileUpload, ArrowUp, DeleteIcon } from "@material-ui/icons";
+import { AddPhotoAlternate, ArrowUpward, Delete } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import { read, update } from "./api-course.js";
 import { Link } from "react-router-dom";
@@ -231,7 +232,7 @@ export default function EditCourse({ match }) {
             <label htmlFor="icon-button-file">
               <Button variant="outlined" color="secondary" component="span">
                 Change Photo
-                <FileUpload />
+                <AddPhotoAlternate />
               </Button>
             </label>{" "}
             <span className={classes.filename}>
@@ -255,7 +256,7 @@ export default function EditCourse({ match }) {
                           onClick={moveUp(index)}
                           className={classes.upArrow}
                         >
-                          <ArrowUp />
+                          <ArrowUpward />
                         </IconButton>
                       )}
                     </>
@@ -304,7 +305,7 @@ export default function EditCourse({ match }) {
                         color="primary"
                         onClick={deleteLesson(index)}
                       >
-                        <DeleteIcon />
+                        <Delete />
                       </IconButton>
                     </ListItemSecondaryAction>
                   )}

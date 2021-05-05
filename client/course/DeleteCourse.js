@@ -8,7 +8,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from "@material-ui/core/IconButton";
+} from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import auth from "./../auth/auth-helper";
 import { remove } from "./api-course.js";
