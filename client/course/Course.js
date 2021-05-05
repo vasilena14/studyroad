@@ -18,6 +18,7 @@ import { read } from "./api-course.js";
 import { Link } from "react-router-dom";
 import auth from "./../auth/auth-helper";
 import NewLesson from "./NewLesson";
+import DeleteCourse from "./DeleteCourse";
 
 const useStyles = makeStyles((theme) => ({
   root: theme.mixins.gutters({
@@ -95,6 +96,10 @@ export default function Course({ match }) {
     setCourse(course);
   };
 
+  const removeCourse = (course) => {
+    setValues({ ...values, redirect: true });
+  };
+
   const imageUrl = course._id
     ? `/api/courses/photo/${course._id}?${new Date().getTime()}`
     : "/api/courses/defaultphoto";
@@ -124,6 +129,8 @@ export default function Course({ match }) {
                       <Edit />
                     </IconButton>
                   </Link>
+
+                  <DeleteCourse course={course} onRemove={removeCourse} />
                 </span>
               )}
             </>
