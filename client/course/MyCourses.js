@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
+  List,
   ListItem,
   ListItemAvatar,
   ListItemText,
   Avatar,
   Divider,
+  Paper,
+  Typography,
+  Button,
+  Icon,
 } from "@material-ui/core";
 import auth from "./../auth/auth-helper";
 import { listByInstructor } from "./api-course.js";
-import { Redirect, Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: theme.mixins.gutters({
@@ -71,24 +76,49 @@ export default function MyCourses() {
   if (redirectToSignin) {
     return <Redirect to="/signin" />;
   }
+
   return (
-    <Link to={"/teach/course/" + course._id} key={i}>
-      <ListItem button>
-        <ListItemAvatar>
-          <Avatar
-            src={
-              "/api/courses/photo/" + course._id + "?" + new Date().getTime()
-            }
-            className={classes.avatar}
-          />
-        </ListItemAvatar>
-        <ListItemText
-          primary={course.name}
-          secondary={course.description}
-          className={classes.listText}
-        />
-      </ListItem>
-      <Divider />
-    </Link>
+    <div>
+      <Paper className={classes.root} elevation={4}>
+        <Typography type="title" className={classes.title}>
+          Your Courses
+          <span className={classes.addButton}>
+            <Link to="/teach/course/new">
+              <Button color="primary" variant="contained">
+                <Icon className={classes.leftIcon}>add_box</Icon> New Course
+              </Button>
+            </Link>
+          </span>
+        </Typography>
+
+        <List dense>
+          {courses.map((course, i) => {
+            return (
+              <Link to={"/teach/course/" + course._id} key={i}>
+                <ListItem button>
+                  <ListItemAvatar>
+                    <Avatar
+                      src={
+                        "/api/courses/photo/" +
+                        course._id +
+                        "?" +
+                        new Date().getTime()
+                      }
+                      className={classes.avatar}
+                    />
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={course.name}
+                    secondary={course.description}
+                    className={classes.listText}
+                  />
+                </ListItem>
+                <Divider />
+              </Link>
+            );
+          })}
+        </List>
+      </Paper>
+    </div>
   );
 }

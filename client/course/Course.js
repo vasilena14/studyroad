@@ -11,11 +11,12 @@ import {
   ListItemAvatar,
   Avatar,
   ListItemText,
+  Button,
 } from "@material-ui/core";
 import Edit from "@material-ui/icons/Edit";
 import { makeStyles } from "@material-ui/core/styles";
 import { read } from "./api-course.js";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import auth from "./../auth/auth-helper";
 import NewLesson from "./NewLesson";
 import DeleteCourse from "./DeleteCourse";
@@ -100,6 +101,12 @@ export default function Course({ match }) {
     setValues({ ...values, redirect: true });
   };
 
+  const clickPublish = () => {
+    if (course.lessons.length > 0) {
+      setOpen(true);
+    }
+  };
+
   const imageUrl = course._id
     ? `/api/courses/photo/${course._id}?${new Date().getTime()}`
     : "/api/courses/defaultphoto";
@@ -130,7 +137,24 @@ export default function Course({ match }) {
                     </IconButton>
                   </Link>
 
-                  <DeleteCourse course={course} onRemove={removeCourse} />
+                  {!course.published ? (
+                    <>
+                      <Button
+                        color="secondary"
+                        variant="outlined"
+                        onClick={clickPublish}
+                      >
+                        {course.lessons.length == 0
+                          ? "Add at least 1 lesson to publish"
+                          : "Publish"}
+                      </Button>
+                      <DeleteCourse course={course} onRemove={removeCourse} />
+                    </>
+                  ) : (
+                    <Button color="primary" variant="outlined">
+                      Published
+                    </Button>
+                  )}
                 </span>
               )}
             </>
