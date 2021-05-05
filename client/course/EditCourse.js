@@ -6,8 +6,11 @@ import {
   Button,
   TextField,
   ListItemText,
+  ListItemAvatar,
+  Avatar,
+  IconButton,
 } from "@material-ui/core";
-import FileUpload from "@material-ui/icons/AddPhotoAlternate";
+import { FileUpload, ArrowUp } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import { read, update } from "./api-course.js";
 import { Link } from "react-router-dom";
@@ -54,6 +57,12 @@ const useStyles = makeStyles((theme) => ({
   filename: {
     marginLeft: "10px",
   },
+  upArrow: {
+    border: "2px solid #f57c00",
+    marginLeft: 3,
+    marginTop: 10,
+    padding: 4,
+  },
 }));
 
 export default function EditCourse({ match }) {
@@ -97,6 +106,14 @@ export default function EditCourse({ match }) {
   const handleLessonChange = (name, index) => (event) => {
     const lessons = course.lessons;
     lessons[index][name] = event.target.value;
+    setCourse({ ...course, lessons: lessons });
+  };
+
+  const moveUp = (index) => (event) => {
+    const lessons = course.lessons;
+    const moveUp = lessons[index];
+    lessons[index] = lessons[index - 1];
+    lessons[index - 1] = moveUp;
     setCourse({ ...course, lessons: lessons });
   };
 
@@ -221,6 +238,21 @@ export default function EditCourse({ match }) {
             return (
               <span key={index}>
                 <ListItem className={classes.list}>
+                  <ListItemAvatar>
+                    <>
+                      <Avatar>{index + 1}</Avatar>
+                      {index != 0 && (
+                        <IconButton
+                          aria-label="up"
+                          color="primary"
+                          onClick={moveUp(index)}
+                          className={classes.upArrow}
+                        >
+                          <ArrowUp />
+                        </IconButton>
+                      )}
+                    </>
+                  </ListItemAvatar>
                   <ListItemText
                     primary={
                       <>
