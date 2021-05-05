@@ -5,6 +5,7 @@ import {
   CardMedia,
   Button,
   TextField,
+  ListItemText,
 } from "@material-ui/core";
 import FileUpload from "@material-ui/icons/AddPhotoAlternate";
 import { makeStyles } from "@material-ui/core/styles";
@@ -70,6 +71,7 @@ export default function EditCourse({ match }) {
     redirect: false,
     error: "",
   });
+
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
@@ -90,6 +92,12 @@ export default function EditCourse({ match }) {
   const handleChange = (name) => (event) => {
     const value = name === "image" ? event.target.files[0] : event.target.value;
     setCourse({ ...course, [name]: value });
+  };
+
+  const handleLessonChange = (name, index) => (event) => {
+    const lessons = course.lessons;
+    lessons[index][name] = event.target.value;
+    setCourse({ ...course, lessons: lessons });
   };
 
   const clickSubmit = () => {
@@ -208,6 +216,50 @@ export default function EditCourse({ match }) {
             <br />
           </div>
         </div>
+        {course.lessons &&
+          course.lessons.map((lesson, index) => {
+            return (
+              <span key={index}>
+                <ListItem className={classes.list}>
+                  <ListItemText
+                    primary={
+                      <>
+                        <TextField
+                          margin="dense"
+                          label="Title"
+                          type="text"
+                          fullWidth
+                          value={lesson.title}
+                          onChange={handleLessonChange("title", index)}
+                        />
+                        <br />
+                        <TextField
+                          margin="dense"
+                          multiline
+                          rows="5"
+                          label="Content"
+                          type="text"
+                          fullWidth
+                          value={lesson.content}
+                          onChange={handleLessonChange("content", index)}
+                        />
+                        <br />
+                        <TextField
+                          margin="dense"
+                          label="Resource link"
+                          type="text"
+                          fullWidth
+                          value={lesson.resource_url}
+                          onChange={handleLessonChange("resource_url", index)}
+                        />
+                        <br />
+                      </>
+                    }
+                  />
+                </ListItem>
+              </span>
+            );
+          })}
       </Card>
     </div>
   );
