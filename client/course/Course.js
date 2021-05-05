@@ -12,6 +12,10 @@ import {
   Avatar,
   ListItemText,
   Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@material-ui/core";
 import Edit from "@material-ui/icons/Edit";
 import { makeStyles } from "@material-ui/core/styles";
@@ -107,6 +111,27 @@ export default function Course({ match }) {
     }
   };
 
+  const publish = () => {
+    let courseData = new FormData();
+    courseData.append("published", true);
+    update(
+      {
+        courseId: match.params.courseId,
+      },
+      {
+        t: jwt.token,
+      },
+      courseData
+    ).then((data) => {
+      if (data && data.error) {
+        setValues({ ...values, error: data.error });
+      } else {
+        setCourse({ ...course, published: true });
+        setOpen(false);
+      }
+    });
+  };
+
   const imageUrl = course._id
     ? `/api/courses/photo/${course._id}?${new Date().getTime()}`
     : "/api/courses/defaultphoto";
@@ -160,61 +185,86 @@ export default function Course({ match }) {
             </>
           }
         />
+
+        <div className={classes.flex}>
+          <CardMedia
+            className={classes.media}
+            image={imageUrl}
+            title={course.name}
+          />
+          <div className={classes.details}>
+            <Typography variant="body1" className={classes.subheading}>
+              {course.description}
+              <br />
+            </Typography>
+          </div>
+        </div>
+
+        <Divider />
+        <div>
+          <CardHeader
+            title={
+              <Typography variant="h6" className={classes.subheading}>
+                Lessons
+              </Typography>
+            }
+            subheader={
+              <Typography variant="body1" className={classes.subheading}>
+                {course.lessons && course.lessons.length} lessons
+              </Typography>
+            }
+            action={
+              jwt.user &&
+              jwt.user._id == course.instructor._id &&
+              !course.published && (
+                <span className={classes.action}>
+                  <NewLesson courseId={course._id} addLesson={addLesson} />
+                </span>
+              )
+            }
+          />
+          <List>
+            {course.lessons &&
+              course.lessons.map((lesson, index) => {
+                return (
+                  <span key={index}>
+                    <ListItem>
+                      <ListItemAvatar>
+                        <Avatar>{index + 1}</Avatar>
+                      </ListItemAvatar>
+                      <ListItemText primary={lesson.title} />
+                    </ListItem>
+                    <Divider variant="inset" component="li" />
+                  </span>
+                );
+              })}
+          </List>
+        </div>
       </Card>
 
-      <div className={classes.flex}>
-        <CardMedia
-          className={classes.media}
-          image={imageUrl}
-          title={course.name}
-        />
-        <div className={classes.details}>
-          <Typography variant="body1" className={classes.subheading}>
-            {course.description}
-            <br />
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">Publish Course</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1">
+            Publishing this course will make it live to students for enrollment.{" "}
           </Typography>
-        </div>
-      </div>
-
-      <Divider />
-
-      <CardHeader
-        title={
-          <Typography variant="h6" className={classes.subheading}>
-            Lessons
+          <Typography variant="body1">
+            Make sure all lessons are ready for publishing.
           </Typography>
-        }
-        subheader={
-          <Typography variant="body1" className={classes.subheading}>
-            {course.lessons && course.lessons.length} lessons
-          </Typography>
-        }
-        action={
-          jwt.user &&
-          jwt.user._id == course.instructor._id &&
-          !course.published && (
-            <span className={classes.action}>
-              <NewLesson courseId={course._id} addLesson={addLesson} />
-            </span>
-          )
-        }
-      />
-      <List>
-        {course.lessons &&
-          course.lessons.map((lesson, index) => {
-            return (
-              <span key={index}>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>{index + 1}</Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary={lesson.title} />
-                </ListItem>
-                <Divider variant="inset" component="li" />
-              </span>
-            );
-          })}
-      </List>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary" variant="contained">
+            Cancel
+          </Button>
+          <Button onClick={publish} color="secondary" variant="contained">
+            Publish
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
