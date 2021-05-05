@@ -7,10 +7,11 @@ import {
   TextField,
   ListItemText,
   ListItemAvatar,
+  ListItemSecondaryAction,
   Avatar,
   IconButton,
 } from "@material-ui/core";
-import { FileUpload, ArrowUp } from "@material-ui/icons";
+import { FileUpload, ArrowUp, DeleteIcon } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
 import { read, update } from "./api-course.js";
 import { Link } from "react-router-dom";
@@ -106,6 +107,12 @@ export default function EditCourse({ match }) {
   const handleLessonChange = (name, index) => (event) => {
     const lessons = course.lessons;
     lessons[index][name] = event.target.value;
+    setCourse({ ...course, lessons: lessons });
+  };
+
+  const deleteLesson = (index) => (event) => {
+    const lessons = course.lessons;
+    lessons.splice(index, 1);
     setCourse({ ...course, lessons: lessons });
   };
 
@@ -288,6 +295,19 @@ export default function EditCourse({ match }) {
                       </>
                     }
                   />
+
+                  {!course.published && (
+                    <ListItemSecondaryAction>
+                      <IconButton
+                        edge="end"
+                        aria-label="up"
+                        color="primary"
+                        onClick={deleteLesson(index)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  )}
                 </ListItem>
               </span>
             );
