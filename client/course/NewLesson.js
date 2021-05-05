@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NewLesson(props) {
   const classes = useStyles();
+  const jwt = auth.isAuthenticated();
   const [open, setOpen] = useState(false);
   const [values, setValues] = useState({
     title: "",
@@ -33,7 +34,6 @@ export default function NewLesson(props) {
   };
 
   const clickSubmit = () => {
-    const jwt = auth.isAuthenticated();
     const lesson = {
       title: values.title || undefined,
       content: values.content || undefined,

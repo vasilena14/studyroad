@@ -43,9 +43,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MyCourses() {
   const classes = useStyles();
+  const jwt = auth.isAuthenticated();
   const [courses, setCourses] = useState([]);
   const [redirectToSignin, setRedirectToSignin] = useState(false);
-  const jwt = auth.isAuthenticated();
 
   useEffect(() => {
     const abortController = new AbortController();

@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NewCourse() {
   const classes = useStyles();
+  const jwt = auth.isAuthenticated();
   const [values, setValues] = useState({
     name: "",
     description: "",
@@ -56,7 +57,6 @@ export default function NewCourse() {
     redirect: false,
     error: "",
   });
-  const jwt = auth.isAuthenticated();
 
   const handleChange = (name) => (event) => {
     const value = name === "image" ? event.target.files[0] : event.target.value;

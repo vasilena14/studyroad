@@ -6,6 +6,11 @@ import {
   Typography,
   IconButton,
   Divider,
+  List,
+  ListItem,
+  ListItemAvatar,
+  Avatar,
+  ListItemText,
 } from "@material-ui/core";
 import Edit from "@material-ui/icons/Edit";
 import { makeStyles } from "@material-ui/core/styles";
@@ -63,8 +68,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Course({ match }) {
   const classes = useStyles();
+  const jwt = auth.isAuthenticated();
   const [course, setCourse] = useState({ instructor: {} });
   const [values, setValues] = useState({
+    redirect: false,
     error: "",
   });
 
@@ -110,16 +117,15 @@ export default function Course({ match }) {
           }
           action={
             <>
-              {auth.isAuthenticated().user &&
-                auth.isAuthenticated().user._id == course.instructor._id && (
-                  <span className={classes.action}>
-                    <Link to={"/teach/course/edit/" + course._id}>
-                      <IconButton aria-label="Edit" color="secondary">
-                        <Edit />
-                      </IconButton>
-                    </Link>
-                  </span>
-                )}
+              {jwt.user && jwt.user._id == course.instructor._id && (
+                <span className={classes.action}>
+                  <Link to={"/teach/course/edit/" + course._id}>
+                    <IconButton aria-label="Edit" color="secondary">
+                      <Edit />
+                    </IconButton>
+                  </Link>
+                </span>
+              )}
             </>
           }
         />
@@ -153,8 +159,8 @@ export default function Course({ match }) {
           </Typography>
         }
         action={
-          auth.isAuthenticated().user &&
-          auth.isAuthenticated().user._id == course.instructor._id &&
+          jwt.user &&
+          jwt.user._id == course.instructor._id &&
           !course.published && (
             <span className={classes.action}>
               <NewLesson courseId={course._id} addLesson={addLesson} />
@@ -162,6 +168,22 @@ export default function Course({ match }) {
           )
         }
       />
+      <List>
+        {course.lessons &&
+          course.lessons.map((lesson, index) => {
+            return (
+              <span key={index}>
+                <ListItem>
+                  <ListItemAvatar>
+                    <Avatar>{index + 1}</Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary={lesson.title} />
+                </ListItem>
+                <Divider variant="inset" component="li" />
+              </span>
+            );
+          })}
+      </List>
     </div>
   );
 }
