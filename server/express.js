@@ -9,6 +9,7 @@ import Template from "./../template";
 import userRoutes from "./routes/userRoutes";
 import authRoutes from "./routes/authRoutes";
 import courseRoutes from "./routes/courseRoutes";
+import enrollmentRoutes from "./routes/enrollmentRoutes";
 
 import React from "react";
 import ReactDOMServer from "react-dom/server";
@@ -38,6 +39,7 @@ app.use("/dist", express.static(path.join(CURRENT_WORKING_DIR, "dist")));
 app.use("/", userRoutes);
 app.use("/", authRoutes);
 app.use("/", courseRoutes);
+app.use("/", enrollmentRoutes);
 
 app.get("*", (req, res) => {
   const sheets = new ServerStyleSheets();
