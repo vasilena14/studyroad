@@ -133,6 +133,17 @@ const courseByID = async (req, res, next, id) => {
   }
 };
 
+const listPublished = (req, res) => {
+  Course.find({ published: true }, (err, courses) => {
+    if (err) {
+      return res.status(400).json({
+        error: errorHandler.getErrorMessage(err),
+      });
+    }
+    res.json(courses);
+  }).populate("instructor", "_id name");
+};
+
 export default {
   create,
   read,
@@ -142,4 +153,5 @@ export default {
   courseByID,
   isInstructor,
   newLesson,
+  listPublished,
 };
