@@ -19,7 +19,7 @@ import {
 } from "@material-ui/core";
 import Edit from "@material-ui/icons/Edit";
 import { makeStyles } from "@material-ui/core/styles";
-import { read } from "./api-course.js";
+import { read, update } from "./api-course.js";
 import { Link, Redirect } from "react-router-dom";
 import auth from "./../auth/auth-helper";
 import NewLesson from "./NewLesson";
