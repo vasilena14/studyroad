@@ -60,7 +60,7 @@ export default function Home() {
 
   return (
     <div>
-      <Card className={classes.card}>
+      {/* <Card className={classes.card}>
         <Typography variant="h6" className={classes.title}>
           Home Page
         </Typography>
@@ -74,7 +74,7 @@ export default function Home() {
             StudyRoad home page.
           </Typography>
         </CardContent>
-      </Card>
+      </Card> */}
 
       <Card className={classes.card}>
         <Typography variant="h5" component="h2" className={classes.title}>
