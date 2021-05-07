@@ -76,7 +76,6 @@ export default function MyCourses() {
   if (redirectToSignin) {
     return <Redirect to="/signin" />;
   }
-
   return (
     <div>
       <Paper className={classes.root} elevation={4}>
@@ -90,7 +89,6 @@ export default function MyCourses() {
             </Link>
           </span>
         </Typography>
-
         <List dense>
           {courses.map((course, i) => {
             return (

@@ -75,6 +75,7 @@ export default function Enrollment({ match }) {
     error: "",
     drawer: -1,
   });
+  const [totalComplete, setTotalComplete] = useState(0);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -96,8 +97,49 @@ export default function Enrollment({ match }) {
     };
   }, [match.params.enrollmentId]);
 
-  const selectDrawer = (index) => (event) => {
+  const selectDrawer = (index) => () => {
     setValues({ ...values, drawer: index });
+  };
+
+  const totalCompleted = (lessons) => {
+    let count = lessons.reduce((total, lessonStatus) => {
+      return total + (lessonStatus.complete ? 1 : 0);
+    }, 0);
+    setTotalComplete(count);
+    return count;
+  };
+
+  const markComplete = () => {
+    if (!enrollment.lessonStatus[values.drawer].complete) {
+      const lessonStatus = enrollment.lessonStatus;
+      lessonStatus[values.drawer].complete = true;
+
+      let count = totalCompleted(lessonStatus);
+
+      let updatedData = {};
+      updatedData.lessonStatusId = lessonStatus[values.drawer]._id;
+      updatedData.complete = true;
+
+      if (count == lessonStatus.length) {
+        updatedData.courseCompleted = Date.now();
+      }
+
+      complete(
+        {
+          enrollmentId: match.params.enrollmentId,
+        },
+        {
+          t: jwt.token,
+        },
+        updatedData
+      ).then((data) => {
+        if (data && data.error) {
+          setValues({ ...values, error: data.error });
+        } else {
+          setEnrollment({ ...enrollment, lessonStatus: lessonStatus });
+        }
+      });
+    }
   };
 
   const imageUrl = enrollment.course._id
@@ -169,7 +211,21 @@ export default function Enrollment({ match }) {
           <Card className={classes.card}>
             <CardHeader
               title={enrollment.course.lessons[values.drawer].title}
-              // action={<Button onClick={markComplete} variant={enrollment.lessonStatus[values.drawer].complete? 'contained' : 'outlined'} color="secondary">{enrollment.lessonStatus[values.drawer].complete? "Completed" : "Mark as complete"}</Button>}
+              action={
+                <Button
+                  onClick={markComplete}
+                  variant={
+                    enrollment.lessonStatus[values.drawer].complete
+                      ? "contained"
+                      : "outlined"
+                  }
+                  color="secondary"
+                >
+                  {enrollment.lessonStatus[values.drawer].complete
+                    ? "Completed"
+                    : "Mark as complete"}
+                </Button>
+              }
             />
             <CardContent>
               <Typography variant="body1" className={classes.para}>
