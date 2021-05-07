@@ -12,6 +12,13 @@ router
     enrollmentCtrl.findEnrollment,
     enrollmentCtrl.create
   );
+
 router.param("courseId", courseCtrl.courseByID);
+
+router
+  .route("/api/enrollment/:enrollmentId")
+  .get(authCtrl.requireSignin, enrollmentCtrl.isStudent, enrollmentCtrl.read);
+
+router.param("enrollmentId", enrollmentCtrl.enrollmentByID);
 
 export default router;
