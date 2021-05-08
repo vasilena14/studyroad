@@ -14,6 +14,10 @@ router
   .get(authC.requireSignin, enrollmentC.isStudent, enrollmentC.read);
 
 router
+  .route("/api/enrollment/enrolled")
+  .get(authC.requireSignin, enrollmentC.getAllEnrolled);
+
+router
   .route("/api/enrollment/complete/:enrollmentId")
   .put(authC.requireSignin, enrollmentC.isStudent, enrollmentC.complete);
 
