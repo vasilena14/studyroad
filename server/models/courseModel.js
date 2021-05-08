@@ -5,7 +5,6 @@ const LessonSchema = new mongoose.Schema({
   content: String,
   resource_url: String,
 });
-const Lesson = mongoose.model("Lesson", LessonSchema);
 
 const CourseSchema = new mongoose.Schema({
   name: {
@@ -23,13 +22,14 @@ const CourseSchema = new mongoose.Schema({
   },
   category: {
     type: String,
+    trim: true,
     required: "Category is required",
   },
   published: {
     type: Boolean,
     default: false,
   },
-  instructor: {
+  tutor: {
     type: mongoose.Schema.ObjectId,
     ref: "User",
   },

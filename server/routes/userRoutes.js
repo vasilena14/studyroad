@@ -1,17 +1,17 @@
 import express from "express";
-import userCtrl from "../controllers/userController";
-import authCtrl from "../controllers/authController";
+import userC from "../controllers/userController";
+import authC from "../controllers/authController";
 
 const router = express.Router();
 
-router.route("/api/users").get(userCtrl.list).post(userCtrl.create);
+router.route("/api/users").get(userC.getAll).post(userC.create);
 
 router
   .route("/api/users/:userId")
-  .get(authCtrl.requireSignin, userCtrl.read)
-  .put(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.update)
-  .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.remove);
+  .get(authC.requireSignin, userC.read)
+  .put(authC.requireSignin, authC.isAuthorized, userC.update)
+  .delete(authC.requireSignin, authC.isAuthorized, userC.remove);
 
-router.param("userId", userCtrl.userByID);
+router.param("userId", userC.userByID);
 
 export default router;

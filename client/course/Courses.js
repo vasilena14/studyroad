@@ -46,7 +46,7 @@ export default function Courses(props) {
             <Link to={"/course/" + course._id}>
               <img
                 className={classes.image}
-                src={"/api/courses/photo/" + course._id}
+                src={"/api/courses/cover/" + course._id}
                 alt={course.name}
               />
             </Link>

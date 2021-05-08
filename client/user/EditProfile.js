@@ -6,10 +6,10 @@ import {
   Button,
   TextField,
   Typography,
-  Icon,
   FormControlLabel,
   Switch,
 } from "@material-ui/core";
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import { makeStyles } from "@material-ui/core/styles";
 import auth from "./../auth/auth-helper";
 import { read, update } from "./api-user.js";
@@ -29,6 +29,8 @@ const useStyles = makeStyles((theme) => ({
   },
   error: {
     verticalAlign: "middle",
+    marginRight: "5px",
+    paddingBottom: "3px",
   },
   textField: {
     marginLeft: theme.spacing(1),
@@ -50,7 +52,7 @@ export default function EditProfile({ match }) {
     open: false,
     error: "",
     redirectToProfile: false,
-    educator: false,
+    tutor: false,
   });
   const jwt = auth.isAuthenticated();
 
@@ -72,7 +74,7 @@ export default function EditProfile({ match }) {
           ...values,
           name: data.name,
           email: data.email,
-          educator: data.educator,
+          tutor: data.tutor,
         });
       }
     });
@@ -81,12 +83,12 @@ export default function EditProfile({ match }) {
     };
   }, [match.params.userId]);
 
-  const clickSubmit = () => {
+  const handleSubmit = () => {
     const user = {
       name: values.name || undefined,
       email: values.email || undefined,
       password: values.password || undefined,
-      educator: values.educator,
+      tutor: values.tutor,
     };
     update(
       {
@@ -107,17 +109,18 @@ export default function EditProfile({ match }) {
     });
   };
 
-  const handleChange = (name) => (event) => {
+  const handleUpdate = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
   };
 
-  const handleCheck = (event, checked) => {
-    setValues({ ...values, educator: checked });
+  const handleToggle = (event, checked) => {
+    setValues({ ...values, tutor: checked });
   };
 
   if (values.redirectToProfile) {
     return <Redirect to={"/user/" + values.userId} />;
   }
+
   return (
     <Card className={classes.card}>
       <CardContent>
@@ -129,7 +132,7 @@ export default function EditProfile({ match }) {
           label="Name"
           className={classes.textField}
           value={values.name}
-          onChange={handleChange("name")}
+          onChange={handleUpdate("name")}
           margin="normal"
         />
         <br />
@@ -139,7 +142,7 @@ export default function EditProfile({ match }) {
           label="Email"
           className={classes.textField}
           value={values.email}
-          onChange={handleChange("email")}
+          onChange={handleUpdate("email")}
           margin="normal"
         />
         <br />
@@ -149,33 +152,20 @@ export default function EditProfile({ match }) {
           label="Password"
           className={classes.textField}
           value={values.password}
-          onChange={handleChange("password")}
+          onChange={handleUpdate("password")}
           margin="normal"
         />
         <br />
         <br />
-        <Typography variant="subtitle1" className={classes.subheading}>
-          I am an Educator
-        </Typography>
+        <Typography variant="subtitle1">I am a Tutor</Typography>
         <FormControlLabel
-          control={
-            <Switch
-              classes={{
-                checked: classes.checked,
-                bar: classes.bar,
-              }}
-              checked={values.educator}
-              onChange={handleCheck}
-            />
-          }
-          label={values.educator ? "Yes" : "No"}
+          control={<Switch checked={values.tutor} onChange={handleToggle} />}
+          label={values.tutor ? "Yes" : "No"}
         />
         <br />
         {values.error && (
           <Typography component="p" color="error">
-            <Icon color="error" className={classes.error}>
-              error
-            </Icon>
+            <ErrorOutlineIcon color="error" className={classes.error} />
             {values.error}
           </Typography>
         )}
@@ -184,7 +174,7 @@ export default function EditProfile({ match }) {
         <Button
           color="primary"
           variant="contained"
-          onClick={clickSubmit}
+          onClick={handleSubmit}
           className={classes.submit}
         >
           Submit

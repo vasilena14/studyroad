@@ -6,10 +6,13 @@ const create = async (req, res) => {
     course: req.course,
     student: req.auth,
   };
-  newEnrollment.lessonStatus = req.course.lessons.map((lesson) => {
+
+  newEnrollment.lessonState = req.course.lessons.map((lesson) => {
     return { lesson: lesson, complete: false };
   });
+
   const enrollment = new Enrollment(newEnrollment);
+
   try {
     let result = await enrollment.save();
     return res.status(200).json(result);
@@ -40,13 +43,13 @@ const findEnrollment = async (req, res, next) => {
   }
 };
 
-const enrollmentByID = async (req, res, next, id) => {
+const findEnrollmentByID = async (req, res, next, id) => {
   try {
     let enrollment = await Enrollment.findById(id)
       .populate({
         path: "course",
         populate: {
-          path: "instructor",
+          path: "tutor",
         },
       })
       .populate("student", "_id name");
@@ -75,13 +78,13 @@ const isStudent = (req, res, next) => {
 
 const complete = async (req, res) => {
   let updatedData = {};
-  updatedData["lessonStatus.$.complete"] = req.body.complete;
+  updatedData["lessonState.$.complete"] = req.body.complete;
   updatedData.updated = Date.now();
   if (req.body.courseCompleted)
     updatedData.completed = req.body.courseCompleted;
   try {
     let enrollment = await Enrollment.updateOne(
-      { "lessonStatus._id": req.body.lessonStatusId },
+      { "lessonState._id": req.body.lessonStateId },
       { $set: updatedData }
     );
     res.json(enrollment);
@@ -96,7 +99,7 @@ export default {
   create,
   read,
   findEnrollment,
-  enrollmentByID,
+  findEnrollmentByID,
   isStudent,
   complete,
 };

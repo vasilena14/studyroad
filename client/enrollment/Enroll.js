@@ -13,7 +13,7 @@ export default function Enroll(props) {
     redirect: false,
   });
 
-  const clickEnroll = () => {
+  const handleEnroll = () => {
     create(
       {
         courseId: props.courseId,
@@ -22,7 +22,6 @@ export default function Enroll(props) {
         t: jwt.token,
       }
     ).then((data) => {
-      console.log(data);
       if (data && data.error) {
         setValues({ ...values, error: data.error });
       } else {
@@ -36,7 +35,7 @@ export default function Enroll(props) {
   }
 
   return (
-    <Button variant="contained" color="secondary" onClick={clickEnroll}>
+    <Button variant="contained" color="secondary" onClick={handleEnroll}>
       Enroll
     </Button>
   );

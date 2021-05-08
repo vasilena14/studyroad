@@ -16,7 +16,8 @@ import { remove } from "./api-course.js";
 export default function DeleteCourse(props) {
   const [open, setOpen] = useState(false);
   const jwt = auth.isAuthenticated();
-  const clickButton = () => {
+
+  const handleClick = () => {
     setOpen(true);
   };
 
@@ -36,17 +37,17 @@ export default function DeleteCourse(props) {
     });
   };
 
-  const handleRequestClose = () => {
+  const handleClose = () => {
     setOpen(false);
   };
 
   return (
     <span>
-      <IconButton aria-label="Delete" onClick={clickButton} color="secondary">
+      <IconButton aria-label="Delete" onClick={handleClick} color="secondary">
         <DeleteIcon />
       </IconButton>
 
-      <Dialog open={open} onClose={handleRequestClose}>
+      <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{"Delete " + props.course.name}</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -54,7 +55,7 @@ export default function DeleteCourse(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleRequestClose} color="primary">
+          <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
           <Button

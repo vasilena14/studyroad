@@ -17,7 +17,7 @@ import {
   DialogContent,
   DialogActions,
 } from "@material-ui/core";
-import Edit from "@material-ui/icons/Edit";
+import EditIcon from "@material-ui/icons/Edit";
 import { makeStyles } from "@material-ui/core/styles";
 import { read, update } from "./api-course.js";
 import { Link, Redirect } from "react-router-dom";
@@ -75,11 +75,12 @@ const useStyles = makeStyles((theme) => ({
 export default function Course({ match }) {
   const classes = useStyles();
   const jwt = auth.isAuthenticated();
-  const [course, setCourse] = useState({ instructor: {} });
+  const [course, setCourse] = useState({ tutor: {} });
   const [values, setValues] = useState({
     redirect: false,
     error: "",
   });
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -97,7 +98,7 @@ export default function Course({ match }) {
     };
   }, [match.params.courseId]);
 
-  const addLesson = (course) => {
+  const addNewLesson = (course) => {
     setCourse(course);
   };
 
@@ -105,13 +106,13 @@ export default function Course({ match }) {
     setValues({ ...values, redirect: true });
   };
 
-  const clickPublish = () => {
+  const handlePublish = () => {
     if (course.lessons.length > 0) {
       setOpen(true);
     }
   };
 
-  const publish = () => {
+  const confirmPublish = () => {
     let courseData = new FormData();
     courseData.append("published", true);
     update(
@@ -137,12 +138,12 @@ export default function Course({ match }) {
   };
 
   if (values.redirect) {
-    return <Redirect to={"/teach/courses"} />;
+    return <Redirect to={"/tutor/courses"} />;
   }
 
   const imageUrl = course._id
-    ? `/api/courses/photo/${course._id}?${new Date().getTime()}`
-    : "/api/courses/defaultphoto";
+    ? `/api/courses/cover/${course._id}?${new Date().getTime()}`
+    : "/api/courses/defaultcover";
 
   return (
     <div className={classes.root}>
@@ -151,22 +152,19 @@ export default function Course({ match }) {
           title={course.name}
           subheader={
             <div>
-              <Link
-                to={"/user/" + course.instructor._id}
-                className={classes.sub}
-              >
-                By {course.instructor.name}
+              <Link to={"/user/" + course.tutor._id} className={classes.sub}>
+                By {course.tutor.name}
               </Link>
               <span className={classes.category}>{course.category}</span>
             </div>
           }
           action={
             <>
-              {jwt.user && jwt.user._id == course.instructor._id && (
+              {jwt.user && jwt.user._id == course.tutor._id && (
                 <span className={classes.action}>
-                  <Link to={"/teach/course/edit/" + course._id}>
+                  <Link to={"/tutor/course/edit/" + course._id}>
                     <IconButton aria-label="Edit" color="secondary">
-                      <Edit />
+                      <EditIcon />
                     </IconButton>
                   </Link>
 
@@ -175,7 +173,7 @@ export default function Course({ match }) {
                       <Button
                         color="secondary"
                         variant="outlined"
-                        onClick={clickPublish}
+                        onClick={handlePublish}
                       >
                         {course.lessons.length == 0
                           ? "Add at least 1 lesson to publish"
@@ -223,10 +221,13 @@ export default function Course({ match }) {
             }
             action={
               jwt.user &&
-              jwt.user._id == course.instructor._id &&
+              jwt.user._id == course.tutor._id &&
               !course.published && (
                 <span className={classes.action}>
-                  <NewLesson courseId={course._id} addLesson={addLesson} />
+                  <NewLesson
+                    courseId={course._id}
+                    addNewLesson={addNewLesson}
+                  />
                 </span>
               )
             }
@@ -258,7 +259,8 @@ export default function Course({ match }) {
         <DialogTitle id="form-dialog-title">Publish Course</DialogTitle>
         <DialogContent>
           <Typography variant="body1">
-            Publishing this course will make it live to students for enrollment.{" "}
+            Publishing this course will make it visible to students and they'll
+            be able to enroll.
           </Typography>
           <Typography variant="body1">
             Make sure all lessons are ready for publishing.
@@ -268,7 +270,11 @@ export default function Course({ match }) {
           <Button onClick={handleClose} color="primary" variant="contained">
             Cancel
           </Button>
-          <Button onClick={publish} color="secondary" variant="contained">
+          <Button
+            onClick={confirmPublish}
+            color="secondary"
+            variant="contained"
+          >
             Publish
           </Button>
         </DialogActions>

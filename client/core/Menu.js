@@ -7,16 +7,16 @@ import {
   Button,
 } from "@material-ui/core";
 import HomeIcon from "@material-ui/icons/Home";
-import Library from "@material-ui/icons/LocalLibrary";
+import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
 import auth from "./../auth/auth-helper";
 import { Link, withRouter } from "react-router-dom";
 
-const isActive = (history, path) => {
+const isSelected = (history, path) => {
   if (history.location.pathname == path) return { color: "#ff4081" };
   else return { color: "#ffffff" };
 };
 
-const isPartActive = (history, path) => {
+const isHighlighted = (history, path) => {
   if (history.location.pathname.includes(path))
     return { color: "#fffde7", backgroundColor: "#ff4081", marginRight: 10 };
   else
@@ -34,35 +34,35 @@ const Menu = withRouter(({ history }) => (
         Studyroad
       </Typography>
       <Link to="/">
-        <IconButton aria-label="Home" style={isActive(history, "/")}>
+        <IconButton aria-label="Home" style={isSelected(history, "/")}>
           <HomeIcon />
         </IconButton>
       </Link>
       <Link to="/users">
-        <Button style={isActive(history, "/users")}>Users</Button>
+        <Button style={isSelected(history, "/users")}>Users</Button>
       </Link>
       {!auth.isAuthenticated() && (
         <span>
           <Link to="/signup">
-            <Button style={isActive(history, "/signup")}>Sign up</Button>
+            <Button style={isSelected(history, "/signup")}>Sign up</Button>
           </Link>
           <Link to="/signin">
-            <Button style={isActive(history, "/signin")}>Sign In</Button>
+            <Button style={isSelected(history, "/signin")}>Sign In</Button>
           </Link>
         </span>
       )}
       {auth.isAuthenticated() && (
         <span>
-          {auth.isAuthenticated().user.educator && (
-            <Link to="/teach/courses">
-              <Button style={isPartActive(history, "/teach/")}>
-                <Library /> Teach
+          {auth.isAuthenticated().user.tutor && (
+            <Link to="/tutor/courses">
+              <Button style={isHighlighted(history, "/tutor/")}>
+                <LocalLibraryIcon /> Tutor Portal
               </Button>
             </Link>
           )}
           <Link to={"/user/" + auth.isAuthenticated().user._id}>
             <Button
-              style={isActive(
+              style={isSelected(
                 history,
                 "/user/" + auth.isAuthenticated().user._id
               )}

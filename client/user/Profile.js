@@ -12,8 +12,7 @@ import {
   ListItemSecondaryAction,
   IconButton,
 } from "@material-ui/core";
-import Person from "@material-ui/icons/Person";
-import Edit from "@material-ui/icons/Edit";
+import EditIcon from "@material-ui/icons/Edit";
 import DeleteUser from "./DeleteUser";
 import auth from "./../auth/auth-helper";
 import { read } from "./api-user.js";
@@ -29,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
   title: {
     marginTop: theme.spacing(3),
     color: theme.palette.protectedTitle,
+  },
+  avatar: {
+    color: theme.palette.primary.contrastText,
+    backgroundColor: theme.palette.primary.light,
   },
 }));
 
@@ -72,22 +75,21 @@ export default function Profile({ match }) {
       <List dense>
         <ListItem>
           <ListItemAvatar>
-            <Avatar>
-              <Person />
+            <Avatar className={classes.avatar}>
+              {user.name && user.name[0]}
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary={user.name} secondary={user.email} />{" "}
-          {auth.isAuthenticated().user &&
-            auth.isAuthenticated().user._id == user._id && (
-              <ListItemSecondaryAction>
-                <Link to={"/user/edit/" + user._id}>
-                  <IconButton aria-label="Edit" color="primary">
-                    <Edit />
-                  </IconButton>
-                </Link>
-                <DeleteUser userId={user._id} />
-              </ListItemSecondaryAction>
-            )}
+          <ListItemText primary={user.name} secondary={user.email} />
+          {jwt.user && jwt.user._id == user._id && (
+            <ListItemSecondaryAction>
+              <Link to={"/user/edit/" + user._id}>
+                <IconButton aria-label="Edit" color="primary">
+                  <EditIcon />
+                </IconButton>
+              </Link>
+              <DeleteUser userId={user._id} />
+            </ListItemSecondaryAction>
+          )}
         </ListItem>
         <Divider />
         <ListItem>

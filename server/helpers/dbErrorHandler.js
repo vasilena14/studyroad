@@ -1,6 +1,6 @@
 "use strict";
 
-const getUniqueErrorMessage = (err) => {
+const getCustomErrorMessage = (err) => {
   let output;
 
   try {
@@ -13,7 +13,7 @@ const getUniqueErrorMessage = (err) => {
       fieldName.slice(1) +
       " already exists";
   } catch (ex) {
-    output = "Unique field already exists";
+    output = "Field already exists";
   }
   return output;
 };
@@ -25,7 +25,7 @@ const getErrorMessage = (err) => {
     switch (err.code) {
       case 11000:
       case 11001:
-        message = getUniqueErrorMessage(err);
+        message = getCustomErrorMessage(err);
         break;
       default:
         message = "Something went wrong";

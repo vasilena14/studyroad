@@ -1,31 +1,23 @@
 import express from "express";
-import enrollmentCtrl from "../controllers/enrollmentController";
-import courseCtrl from "../controllers/courseController";
-import authCtrl from "../controllers/authController";
+import enrollmentC from "../controllers/enrollmentController";
+import courseC from "../controllers/courseController";
+import authC from "../controllers/authController";
 
 const router = express.Router();
 
 router
   .route("/api/enrollment/new/:courseId")
-  .get(
-    authCtrl.requireSignin,
-    enrollmentCtrl.findEnrollment,
-    enrollmentCtrl.create
-  );
+  .get(authC.requireSignin, enrollmentC.findEnrollment, enrollmentC.create);
 
 router
   .route("/api/enrollment/:enrollmentId")
-  .get(authCtrl.requireSignin, enrollmentCtrl.isStudent, enrollmentCtrl.read);
+  .get(authC.requireSignin, enrollmentC.isStudent, enrollmentC.read);
 
 router
   .route("/api/enrollment/complete/:enrollmentId")
-  .put(
-    authCtrl.requireSignin,
-    enrollmentCtrl.isStudent,
-    enrollmentCtrl.complete
-  );
+  .put(authC.requireSignin, enrollmentC.isStudent, enrollmentC.complete);
 
-router.param("courseId", courseCtrl.courseByID);
-router.param("enrollmentId", enrollmentCtrl.enrollmentByID);
+router.param("courseId", courseC.findCourseByID);
+router.param("enrollmentId", enrollmentC.findEnrollmentByID);
 
 export default router;

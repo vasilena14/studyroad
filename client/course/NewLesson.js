@@ -8,7 +8,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "@material-ui/core";
-import Add from "@material-ui/icons/AddBox";
+import AddBoxIcon from "@material-ui/icons/AddBox";
 import { makeStyles } from "@material-ui/core/styles";
 import { newLesson } from "./api-course";
 import auth from "./../auth/auth-helper";
@@ -33,7 +33,7 @@ export default function NewLesson(props) {
     setValues({ ...values, [name]: event.target.value });
   };
 
-  const clickSubmit = () => {
+  const handleSubmit = () => {
     const lesson = {
       title: values.title || undefined,
       content: values.content || undefined,
@@ -51,7 +51,7 @@ export default function NewLesson(props) {
       if (data && data.error) {
         setValues({ ...values, error: data.error });
       } else {
-        props.addLesson(data);
+        props.addNewLesson(data);
         setValues({ ...values, title: "", content: "", resource_url: "" });
         setOpen(false);
       }
@@ -74,7 +74,7 @@ export default function NewLesson(props) {
         variant="contained"
         onClick={handleClickOpen}
       >
-        <Add /> &nbsp; New Lesson
+        <AddBoxIcon /> &nbsp; New Lesson
       </Button>
       <Dialog
         open={open}
@@ -119,7 +119,11 @@ export default function NewLesson(props) {
             <Button onClick={handleClose} color="primary" variant="contained">
               Cancel
             </Button>
-            <Button onClick={clickSubmit} color="secondary" variant="contained">
+            <Button
+              onClick={handleSubmit}
+              color="secondary"
+              variant="contained"
+            >
               Add
             </Button>
           </DialogActions>
@@ -131,5 +135,5 @@ export default function NewLesson(props) {
 
 NewLesson.propTypes = {
   courseId: PropTypes.string.isRequired,
-  addLesson: PropTypes.func.isRequired,
+  addNewLesson: PropTypes.func.isRequired,
 };

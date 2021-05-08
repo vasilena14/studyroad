@@ -25,14 +25,14 @@ const MainRouter = () => {
         <PrivateRoute path="/user/edit/:userId" component={EditProfile} />
         <Route path="/user/:userId" component={Profile} />
         <Route path="/course/:courseId" component={Course} />
-        <PrivateRoute path="/teach/courses" component={MyCourses} />
+        <PrivateRoute path="/tutor/courses" component={MyCourses} />
 
-        <PrivateRoute path="/teach/course/new" component={NewCourse} />
+        <PrivateRoute path="/tutor/course/new" component={NewCourse} />
         <PrivateRoute
-          path="/teach/course/edit/:courseId"
+          path="/tutor/course/edit/:courseId"
           component={EditCourse}
         />
-        <PrivateRoute path="/teach/course/:courseId" component={Course} />
+        <PrivateRoute path="/tutor/course/:courseId" component={Course} />
       </Switch>
     </div>
   );

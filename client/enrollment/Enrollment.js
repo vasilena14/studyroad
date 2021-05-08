@@ -20,7 +20,9 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { read } from "./api-enrollment.js";
 import auth from "./../auth/auth-helper";
-import { CheckCircle, Info, RadioButtonUnchecked } from "@material-ui/icons";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import InfoIcon from "@material-ui/icons/Info";
+import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 
 const useStyles = makeStyles((theme) => ({
   root: theme.mixins.gutters({
@@ -68,8 +70,8 @@ export default function Enrollment({ match }) {
   const classes = useStyles();
   const jwt = auth.isAuthenticated();
   const [enrollment, setEnrollment] = useState({
-    course: { instructor: [] },
-    lessonStatus: [],
+    course: { tutor: [] },
+    lessonState: [],
   });
   const [values, setValues] = useState({
     error: "",
@@ -89,6 +91,7 @@ export default function Enrollment({ match }) {
       if (data.error) {
         setValues({ ...values, error: data.error });
       } else {
+        totalCompleted(data.lessonState);
         setEnrollment(data);
       }
     });
@@ -102,25 +105,25 @@ export default function Enrollment({ match }) {
   };
 
   const totalCompleted = (lessons) => {
-    let count = lessons.reduce((total, lessonStatus) => {
-      return total + (lessonStatus.complete ? 1 : 0);
+    let count = lessons.reduce((total, lessonState) => {
+      return total + (lessonState.complete ? 1 : 0);
     }, 0);
     setTotalComplete(count);
     return count;
   };
 
   const markComplete = () => {
-    if (!enrollment.lessonStatus[values.drawer].complete) {
-      const lessonStatus = enrollment.lessonStatus;
-      lessonStatus[values.drawer].complete = true;
+    if (!enrollment.lessonState[values.drawer].complete) {
+      const lessonState = enrollment.lessonState;
+      lessonState[values.drawer].complete = true;
 
-      let count = totalCompleted(lessonStatus);
+      let count = totalCompleted(lessonState);
 
       let updatedData = {};
-      updatedData.lessonStatusId = lessonStatus[values.drawer]._id;
+      updatedData.lessonStateId = lessonState[values.drawer]._id;
       updatedData.complete = true;
 
-      if (count == lessonStatus.length) {
+      if (count == lessonState.length) {
         updatedData.courseCompleted = Date.now();
       }
 
@@ -136,15 +139,15 @@ export default function Enrollment({ match }) {
         if (data && data.error) {
           setValues({ ...values, error: data.error });
         } else {
-          setEnrollment({ ...enrollment, lessonStatus: lessonStatus });
+          setEnrollment({ ...enrollment, lessonState: lessonState });
         }
       });
     }
   };
 
   const imageUrl = enrollment.course._id
-    ? `/api/courses/photo/${enrollment.course._id}?${new Date().getTime()}`
-    : "/api/courses/defaultphoto";
+    ? `/api/courses/cover/${enrollment.course._id}?${new Date().getTime()}`
+    : "/api/courses/defaultcover";
 
   return (
     <div className={classes.root}>
@@ -165,7 +168,7 @@ export default function Enrollment({ match }) {
             }
           >
             <ListItemIcon>
-              <Info />
+              <InfoIcon />
             </ListItemIcon>
             <ListItemText primary={"Course Overview"} />
           </ListItem>
@@ -175,7 +178,7 @@ export default function Enrollment({ match }) {
           <ListSubheader component="div" className={classes.subhead}>
             Lessons
           </ListSubheader>
-          {enrollment.lessonStatus.map((lesson, index) => (
+          {enrollment.lessonState.map((lesson, index) => (
             <ListItem
               button
               key={index}
@@ -192,7 +195,7 @@ export default function Enrollment({ match }) {
               <ListItemText primary={enrollment.course.lessons[index].title} />
               <ListItemSecondaryAction>
                 {lesson.complete ? (
-                  <CheckCircle className={classes.check} />
+                  <CheckCircleIcon className={classes.check} />
                 ) : (
                   <RadioButtonUncheckedIcon />
                 )}
@@ -200,7 +203,21 @@ export default function Enrollment({ match }) {
             </ListItem>
           ))}
         </List>
+
         <Divider />
+
+        <List>
+          <ListItem>
+            <ListItemText
+              primary={
+                <div className={classes.progress}>
+                  <span>{totalComplete}</span> out of{" "}
+                  <span>{enrollment.lessonState.length}</span> completed
+                </div>
+              }
+            />
+          </ListItem>
+        </List>
       </Drawer>
 
       {values.drawer != -1 && (
@@ -215,13 +232,13 @@ export default function Enrollment({ match }) {
                 <Button
                   onClick={markComplete}
                   variant={
-                    enrollment.lessonStatus[values.drawer].complete
+                    enrollment.lessonState[values.drawer].complete
                       ? "contained"
                       : "outlined"
                   }
                   color="secondary"
                 >
-                  {enrollment.lessonStatus[values.drawer].complete
+                  {enrollment.lessonState[values.drawer].complete
                     ? "Completed"
                     : "Mark as complete"}
                 </Button>

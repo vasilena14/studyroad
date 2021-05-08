@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardContent, CardMedia, Typography } from "@material-ui/core";
 import testImage from "./../assets/images/testImage.jpg";
-import { listPublished } from "./../course/api-course";
+import { getAllPublishedCourses } from "./../course/api-course";
 import Courses from "./../course/Courses";
 
 const useStyles = makeStyles((theme) => ({
   card: {
-    maxWidth: 600,
+    maxWidth: 900,
     margin: "auto",
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5),
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
       color: "#3f4771",
     },
   },
-  noTitle: {
+  content: {
     color: "lightgrey",
     marginBottom: 12,
     marginLeft: 8,
@@ -46,7 +46,7 @@ export default function Home() {
     const abortController = new AbortController();
     const signal = abortController.signal;
 
-    listPublished(signal).then((data) => {
+    getAllPublishedCourses(signal).then((data) => {
       if (data.error) {
         console.log(data.error);
       } else {
@@ -83,8 +83,8 @@ export default function Home() {
         {courses.length != 0 && courses.length != enrolled.length ? (
           <Courses courses={courses} />
         ) : (
-          <Typography variant="body1" className={classes.noTitle}>
-            No new courses.
+          <Typography variant="body1" className={classes.content}>
+            There aren't any new courses.
           </Typography>
         )}
       </Card>

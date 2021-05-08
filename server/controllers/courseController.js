@@ -3,18 +3,24 @@ import extend from "lodash/extend";
 import formidable from "formidable";
 import fs from "fs";
 import errorHandler from "./../helpers/dbErrorHandler";
+import defaultImage from "./../../client/assets/images/defaultCourseImage.png";
 
 const create = (req, res) => {
   let form = new formidable.IncomingForm();
+
   form.keepExtensions = true;
+
   form.parse(req, async (err, fields, files) => {
     if (err) {
       return res.status(400).json({
         error: "Image could not be uploaded",
       });
     }
+
     let course = new Course(fields);
-    course.instructor = req.profile;
+
+    course.tutor = req.profile;
+
     if (files.image) {
       course.image.data = fs.readFileSync(files.image.path);
       course.image.contentType = files.image.type;
@@ -35,6 +41,22 @@ const read = (req, res) => {
   return res.json(req.course);
 };
 
+const findCourseByID = async (req, res, next, id) => {
+  try {
+    let course = await Course.findById(id).populate("tutor", "_id name");
+    if (!course)
+      return res.status("400").json({
+        error: "Course not found",
+      });
+    req.course = course;
+    next();
+  } catch (err) {
+    return res.status("400").json({
+      error: "Could not fetch course",
+    });
+  }
+};
+
 const newLesson = async (req, res) => {
   try {
     let lesson = req.body.lesson;
@@ -43,7 +65,7 @@ const newLesson = async (req, res) => {
       { $push: { lessons: lesson }, updated: Date.now() },
       { new: true }
     )
-      .populate("instructor", "_id name")
+      .populate("tutor", "_id name")
       .exec();
     res.json(result);
   } catch (err) {
@@ -59,7 +81,7 @@ const update = async (req, res) => {
   form.parse(req, async (err, fields, files) => {
     if (err) {
       return res.status(400).json({
-        error: "Photo could not be uploaded",
+        error: "Cover photo could not be uploaded",
       });
     }
     let course = req.course;
@@ -95,10 +117,10 @@ const remove = async (req, res) => {
   }
 };
 
-const isInstructor = (req, res, next) => {
-  const isInstructor =
-    req.course && req.auth && req.course.instructor._id == req.auth._id;
-  if (!isInstructor) {
+const isTutor = (req, res, next) => {
+  const isTutor =
+    req.course && req.auth && req.course.tutor._id == req.auth._id;
+  if (!isTutor) {
     return res.status("403").json({
       error: "User is not authorized",
     });
@@ -106,34 +128,18 @@ const isInstructor = (req, res, next) => {
   next();
 };
 
-const listByInstructor = (req, res) => {
-  Course.find({ instructor: req.profile._id }, (err, courses) => {
+const getAllByTutor = (req, res) => {
+  Course.find({ tutor: req.profile._id }, (err, courses) => {
     if (err) {
       return res.status(400).json({
         error: errorHandler.getErrorMessage(err),
       });
     }
     res.json(courses);
-  }).populate("instructor", "_id name");
+  }).populate("tutor", "_id name");
 };
 
-const courseByID = async (req, res, next, id) => {
-  try {
-    let course = await Course.findById(id).populate("instructor", "_id name");
-    if (!course)
-      return res.status("400").json({
-        error: "Course not found",
-      });
-    req.course = course;
-    next();
-  } catch (err) {
-    return res.status("400").json({
-      error: "Could not fetch course",
-    });
-  }
-};
-
-const listPublished = (req, res) => {
+const getAllPublishedCourses = (req, res) => {
   Course.find({ published: true }, (err, courses) => {
     if (err) {
       return res.status(400).json({
@@ -141,7 +147,19 @@ const listPublished = (req, res) => {
       });
     }
     res.json(courses);
-  }).populate("instructor", "_id name");
+  }).populate("tutor", "_id name");
+};
+
+const cover = (req, res, next) => {
+  if (req.course.image.data) {
+    res.set("Content-Type", req.course.image.contentType);
+    return res.send(req.course.image.data);
+  }
+  next();
+};
+
+const defaultCover = (req, res) => {
+  return res.sendFile(process.cwd() + defaultImage);
 };
 
 export default {
@@ -149,9 +167,11 @@ export default {
   read,
   update,
   remove,
-  listByInstructor,
-  courseByID,
-  isInstructor,
+  getAllByTutor,
+  findCourseByID,
+  isTutor,
   newLesson,
-  listPublished,
+  getAllPublishedCourses,
+  cover,
+  defaultCover,
 };

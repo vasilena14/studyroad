@@ -1,37 +1,34 @@
 import express from "express";
-import courseCtrl from "../controllers/courseController";
-import userCtrl from "../controllers/userController";
-import authCtrl from "../controllers/authController";
+import courseC from "../controllers/courseController";
+import userC from "../controllers/userController";
+import authC from "../controllers/authController";
 
 const router = express.Router();
 
 router
   .route("/api/courses/by/:userId")
-  .post(
-    authCtrl.requireSignin,
-    authCtrl.hasAuthorization,
-    userCtrl.isEducator,
-    courseCtrl.create
-  )
-  .get(
-    authCtrl.requireSignin,
-    authCtrl.hasAuthorization,
-    courseCtrl.listByInstructor
-  );
+  .post(authC.requireSignin, authC.isAuthorized, userC.isTutor, courseC.create)
+  .get(authC.requireSignin, authC.isAuthorized, courseC.getAllByTutor);
+
+router
+  .route("/api/courses/cover/:courseId")
+  .get(courseC.cover, courseC.defaultCover);
+
+router.route("/api/courses/defaultcover").get(courseC.defaultCover);
 
 router
   .route("/api/courses/:courseId/lesson/new")
-  .put(authCtrl.requireSignin, courseCtrl.isInstructor, courseCtrl.newLesson);
+  .put(authC.requireSignin, courseC.isTutor, courseC.newLesson);
 
 router
   .route("/api/courses/:courseId")
-  .get(courseCtrl.read)
-  .put(authCtrl.requireSignin, courseCtrl.isInstructor, courseCtrl.update)
-  .delete(authCtrl.requireSignin, courseCtrl.isInstructor, courseCtrl.remove);
+  .get(courseC.read)
+  .put(authC.requireSignin, courseC.isTutor, courseC.update)
+  .delete(authC.requireSignin, courseC.isTutor, courseC.remove);
 
-router.route("/api/courses/published").get(courseCtrl.listPublished);
+router.route("/api/courses/published").get(courseC.getAllPublishedCourses);
 
-router.param("courseId", courseCtrl.courseByID);
-router.param("userId", userCtrl.userByID);
+router.param("courseId", courseC.findCourseByID);
+router.param("userId", userC.userByID);
 
 export default router;

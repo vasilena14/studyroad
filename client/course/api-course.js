@@ -82,7 +82,7 @@ const newLesson = async (params, credentials, lesson) => {
   }
 };
 
-const listByInstructor = async (params, credentials, signal) => {
+const getAllByTutor = async (params, credentials, signal) => {
   try {
     let response = await fetch("/api/courses/by/" + params.userId, {
       method: "GET",
@@ -98,7 +98,7 @@ const listByInstructor = async (params, credentials, signal) => {
   }
 };
 
-const listPublished = async (signal) => {
+const getAllPublishedCourses = async (signal) => {
   try {
     let response = await fetch("/api/courses/published", {
       method: "GET",
@@ -119,7 +119,7 @@ export {
   read,
   update,
   remove,
-  listByInstructor,
+  getAllByTutor,
   newLesson,
-  listPublished,
+  getAllPublishedCourses,
 };

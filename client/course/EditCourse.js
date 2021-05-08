@@ -5,17 +5,22 @@ import {
   CardMedia,
   Button,
   TextField,
+  List,
   ListItem,
   ListItemText,
   ListItemAvatar,
   ListItemSecondaryAction,
   Avatar,
   IconButton,
+  Typography,
+  Divider,
 } from "@material-ui/core";
-import { AddPhotoAlternate, ArrowUpward, Delete } from "@material-ui/icons";
+import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import DeleteIcon from "@material-ui/icons/Delete";
 import { makeStyles } from "@material-ui/core/styles";
 import { read, update } from "./api-course.js";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import auth from "./../auth/auth-helper";
 
 const useStyles = makeStyles((theme) => ({
@@ -59,11 +64,18 @@ const useStyles = makeStyles((theme) => ({
   filename: {
     marginLeft: "10px",
   },
-  upArrow: {
+  arrowUp: {
     border: "2px solid #f57c00",
     marginLeft: 3,
     marginTop: 10,
     padding: 4,
+  },
+  subheading: {
+    margin: "10px",
+    color: theme.palette.openTitle,
+  },
+  list: {
+    backgroundColor: "#f3f3f3",
   },
 }));
 
@@ -75,7 +87,7 @@ export default function EditCourse({ match }) {
     description: "",
     image: "",
     category: "",
-    instructor: {},
+    tutor: {},
     lessons: [],
   });
   const [values, setValues] = useState({
@@ -100,12 +112,12 @@ export default function EditCourse({ match }) {
     };
   }, [match.params.courseId]);
 
-  const handleChange = (name) => (event) => {
+  const handleUpdate = (name) => (event) => {
     const value = name === "image" ? event.target.files[0] : event.target.value;
     setCourse({ ...course, [name]: value });
   };
 
-  const handleLessonChange = (name, index) => (event) => {
+  const handleLessonUpdate = (name, index) => (event) => {
     const lessons = course.lessons;
     lessons[index][name] = event.target.value;
     setCourse({ ...course, lessons: lessons });
@@ -125,7 +137,7 @@ export default function EditCourse({ match }) {
     setCourse({ ...course, lessons: lessons });
   };
 
-  const clickSubmit = () => {
+  const handleSubmit = () => {
     let courseData = new FormData();
     course.name && courseData.append("name", course.name);
     course.description && courseData.append("description", course.description);
@@ -150,9 +162,13 @@ export default function EditCourse({ match }) {
     });
   };
 
+  if (values.redirect) {
+    return <Redirect to={"/tutor/course/" + course._id} />;
+  }
+
   const imageUrl = course._id
-    ? `/api/courses/photo/${course._id}?${new Date().getTime()}`
-    : "/api/courses/defaultphoto";
+    ? `/api/courses/cover/${course._id}?${new Date().getTime()}`
+    : "/api/courses/defaultcover";
 
   return (
     <div className={classes.root}>
@@ -165,16 +181,13 @@ export default function EditCourse({ match }) {
               type="text"
               fullWidth
               value={course.name}
-              onChange={handleChange("name")}
+              onChange={handleUpdate("name")}
             />
           }
           subheader={
             <div>
-              <Link
-                to={"/user/" + course.instructor._id}
-                className={classes.sub}
-              >
-                By {course.instructor.name}
+              <Link to={"/user/" + course.tutor._id} className={classes.sub}>
+                By {course.tutor.name}
               </Link>
               {
                 <TextField
@@ -183,19 +196,19 @@ export default function EditCourse({ match }) {
                   type="text"
                   fullWidth
                   value={course.category}
-                  onChange={handleChange("category")}
+                  onChange={handleUpdate("category")}
                 />
               }
             </div>
           }
           action={
             jwt.user &&
-            jwt.user._id == course.instructor._id && (
+            jwt.user._id == course.tutor._id && (
               <span className={classes.action}>
                 <Button
                   variant="contained"
                   color="secondary"
-                  onClick={clickSubmit}
+                  onClick={handleSubmit}
                 >
                   Save
                 </Button>
@@ -218,21 +231,21 @@ export default function EditCourse({ match }) {
               type="text"
               className={classes.textfield}
               value={course.description}
-              onChange={handleChange("description")}
+              onChange={handleUpdate("description")}
             />
             <br />
             <br />
             <input
               accept="image/*"
-              onChange={handleChange("image")}
+              onChange={handleUpdate("image")}
               className={classes.input}
               id="icon-button-file"
               type="file"
             />
             <label htmlFor="icon-button-file">
               <Button variant="outlined" color="secondary" component="span">
-                Change Photo
-                <AddPhotoAlternate />
+                Change Cover Photo
+                <AddPhotoAlternateIcon />
               </Button>
             </label>{" "}
             <span className={classes.filename}>
@@ -241,78 +254,101 @@ export default function EditCourse({ match }) {
             <br />
           </div>
         </div>
-        {course.lessons &&
-          course.lessons.map((lesson, index) => {
-            return (
-              <span key={index}>
-                <ListItem className={classes.list}>
-                  <ListItemAvatar>
-                    <>
-                      <Avatar>{index + 1}</Avatar>
-                      {index != 0 && (
-                        <IconButton
-                          aria-label="up"
-                          color="primary"
-                          onClick={moveUp(index)}
-                          className={classes.upArrow}
-                        >
-                          <ArrowUpward />
-                        </IconButton>
-                      )}
-                    </>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={
-                      <>
-                        <TextField
-                          margin="dense"
-                          label="Title"
-                          type="text"
-                          fullWidth
-                          value={lesson.title}
-                          onChange={handleLessonChange("title", index)}
-                        />
-                        <br />
-                        <TextField
-                          margin="dense"
-                          multiline
-                          rows="5"
-                          label="Content"
-                          type="text"
-                          fullWidth
-                          value={lesson.content}
-                          onChange={handleLessonChange("content", index)}
-                        />
-                        <br />
-                        <TextField
-                          margin="dense"
-                          label="Resource link"
-                          type="text"
-                          fullWidth
-                          value={lesson.resource_url}
-                          onChange={handleLessonChange("resource_url", index)}
-                        />
-                        <br />
-                      </>
-                    }
-                  />
+        <div>
+          <CardHeader
+            title={
+              <Typography variant="h6" className={classes.subheading}>
+                Lessons - Edit and Rearrange
+              </Typography>
+            }
+            subheader={
+              <Typography variant="body1" className={classes.subheading}>
+                {course.lessons && course.lessons.length} lessons
+              </Typography>
+            }
+          />
+          <List>
+            {course.lessons &&
+              course.lessons.map((lesson, index) => {
+                return (
+                  <span key={index}>
+                    <ListItem className={classes.list}>
+                      <ListItemAvatar>
+                        <>
+                          <Avatar>{index + 1}</Avatar>
+                          {index != 0 && (
+                            <IconButton
+                              aria-label="up"
+                              color="primary"
+                              onClick={moveUp(index)}
+                              className={classes.arrowUp}
+                            >
+                              <ArrowUpwardIcon />
+                            </IconButton>
+                          )}
+                        </>
+                      </ListItemAvatar>
+                      <ListItemText
+                        primary={
+                          <>
+                            <TextField
+                              margin="dense"
+                              label="Title"
+                              type="text"
+                              fullWidth
+                              value={lesson.title}
+                              onChange={handleLessonUpdate("title", index)}
+                            />
+                            <br />
+                            <TextField
+                              margin="dense"
+                              multiline
+                              rows="5"
+                              label="Content"
+                              type="text"
+                              fullWidth
+                              value={lesson.content}
+                              onChange={handleLessonUpdate("content", index)}
+                            />
+                            <br />
+                            <TextField
+                              margin="dense"
+                              label="Resource link"
+                              type="text"
+                              fullWidth
+                              value={lesson.resource_url}
+                              onChange={handleLessonUpdate(
+                                "resource_url",
+                                index
+                              )}
+                            />
+                            <br />
+                          </>
+                        }
+                      />
 
-                  {!course.published && (
-                    <ListItemSecondaryAction>
-                      <IconButton
-                        edge="end"
-                        aria-label="up"
-                        color="primary"
-                        onClick={deleteLesson(index)}
-                      >
-                        <Delete />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                  )}
-                </ListItem>
-              </span>
-            );
-          })}
+                      {!course.published && (
+                        <ListItemSecondaryAction>
+                          <IconButton
+                            edge="end"
+                            aria-label="up"
+                            color="primary"
+                            onClick={deleteLesson(index)}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </ListItemSecondaryAction>
+                      )}
+                    </ListItem>
+                    <Divider
+                      style={{ backgroundColor: "rgb(106, 106, 106)" }}
+                      component="li"
+                    />
+                  </span>
+                );
+              })}
+          </List>
+        </div>
       </Card>
     </div>
   );

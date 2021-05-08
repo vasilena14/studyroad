@@ -14,7 +14,7 @@ const create = async (user) => {
   }
 };
 
-const list = async (signal) => {
+const getAll = async (signal) => {
   try {
     let response = await fetch("/api/users/", {
       method: "GET",
@@ -76,4 +76,4 @@ const remove = async (params, credentials) => {
   }
 };
 
-export { create, list, read, update, remove };
+export { create, getAll, read, update, remove };

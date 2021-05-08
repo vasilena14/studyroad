@@ -33,12 +33,12 @@ const userByID = async (req, res, next, id) => {
 };
 
 const read = (req, res) => {
-  req.profile.hashed_password = undefined;
+  req.profile.hashedPassword = undefined;
   req.profile.salt = undefined;
   return res.json(req.profile);
 };
 
-const list = async (req, res) => {
+const getAll = async (req, res) => {
   try {
     let users = await User.find().select("name email updated created");
     res.json(users);
@@ -55,7 +55,7 @@ const update = async (req, res) => {
     user = extend(user, req.body);
     user.updated = Date.now();
     await user.save();
-    user.hashed_password = undefined;
+    user.hashedPassword = undefined;
     user.salt = undefined;
     res.json(user);
   } catch (err) {
@@ -69,7 +69,7 @@ const remove = async (req, res) => {
   try {
     let user = req.profile;
     let deletedUser = await user.remove();
-    deletedUser.hashed_password = undefined;
+    deletedUser.hashedPassword = undefined;
     deletedUser.salt = undefined;
     res.json(deletedUser);
   } catch (err) {
@@ -79,14 +79,14 @@ const remove = async (req, res) => {
   }
 };
 
-const isEducator = (req, res, next) => {
-  const isEducator = req.profile && req.profile.educator;
-  if (!isEducator) {
+const isTutor = (req, res, next) => {
+  const isTutor = req.profile && req.profile.tutor;
+  if (!isTutor) {
     return res.status("403").json({
-      error: "User is not an educator",
+      error: "User is not a tutor",
     });
   }
   next();
 };
 
-export default { create, userByID, read, list, remove, update, isEducator };
+export default { create, userByID, read, getAll, remove, update, isTutor };

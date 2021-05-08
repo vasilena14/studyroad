@@ -17,12 +17,13 @@ import { Redirect } from "react-router-dom";
 export default function DeleteUser(props) {
   const [open, setOpen] = useState(false);
   const [redirect, setRedirect] = useState(false);
-
   const jwt = auth.isAuthenticated();
-  const clickButton = () => {
+
+  const handleClick = () => {
     setOpen(true);
   };
-  const deleteAccount = () => {
+
+  const removeAccount = () => {
     remove(
       {
         userId: props.userId,
@@ -37,30 +38,32 @@ export default function DeleteUser(props) {
       }
     });
   };
-  const handleRequestClose = () => {
+
+  const handleClose = () => {
     setOpen(false);
   };
 
   if (redirect) {
     return <Redirect to="/" />;
   }
+
   return (
     <span>
-      <IconButton aria-label="Delete" onClick={clickButton} color="secondary">
+      <IconButton aria-label="Delete" onClick={handleClick} color="secondary">
         <DeleteIcon />
       </IconButton>
 
-      <Dialog open={open} onClose={handleRequestClose}>
+      <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{"Delete Account"}</DialogTitle>
         <DialogContent>
           <DialogContentText>Confirm to delete your account.</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleRequestClose} color="primary">
+          <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
           <Button
-            onClick={deleteAccount}
+            onClick={removeAccount}
             color="secondary"
             autoFocus="autoFocus"
           >

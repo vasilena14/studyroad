@@ -11,10 +11,10 @@ import {
   IconButton,
   Typography,
 } from "@material-ui/core";
-import ArrowForward from "@material-ui/icons/ArrowForward";
-import Person from "@material-ui/icons/Person";
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import PersonIcon from "@material-ui/icons/Person";
 import { Link } from "react-router-dom";
-import { list } from "./api-user.js";
+import { getAll } from "./api-user.js";
 
 const useStyles = makeStyles((theme) => ({
   root: theme.mixins.gutters({
@@ -35,7 +35,7 @@ export default function Users() {
     const abortController = new AbortController();
     const signal = abortController.signal;
 
-    list(signal).then((data) => {
+    getAll(signal).then((data) => {
       if (data && data.error) {
         console.log(data.error);
       } else {
@@ -60,13 +60,13 @@ export default function Users() {
               <ListItem button>
                 <ListItemAvatar>
                   <Avatar>
-                    <Person />
+                    <PersonIcon />
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText primary={item.name} />
                 <ListItemSecondaryAction>
                   <IconButton>
-                    <ArrowForward />
+                    <ArrowForwardIcon />
                   </IconButton>
                 </ListItemSecondaryAction>
               </ListItem>

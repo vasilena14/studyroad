@@ -10,10 +10,10 @@ import {
   Paper,
   Typography,
   Button,
-  Icon,
 } from "@material-ui/core";
+import AddBoxIcon from "@material-ui/icons/AddBox";
 import auth from "./../auth/auth-helper";
-import { listByInstructor } from "./api-course.js";
+import { getAllByTutor } from "./api-course.js";
 import { Link, Redirect } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -55,7 +55,8 @@ export default function MyCourses() {
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
-    listByInstructor(
+
+    getAllByTutor(
       {
         userId: jwt.user._id,
       },
@@ -68,6 +69,7 @@ export default function MyCourses() {
         setCourses(data);
       }
     });
+
     return function cleanup() {
       abortController.abort();
     };
@@ -76,15 +78,16 @@ export default function MyCourses() {
   if (redirectToSignin) {
     return <Redirect to="/signin" />;
   }
+
   return (
     <div>
       <Paper className={classes.root} elevation={4}>
         <Typography type="title" className={classes.title}>
           Your Courses
           <span className={classes.addButton}>
-            <Link to="/teach/course/new">
+            <Link to="/tutor/course/new">
               <Button color="primary" variant="contained">
-                <Icon className={classes.leftIcon}>add_box</Icon> New Course
+                <AddBoxIcon className={classes.leftIcon} /> New Course
               </Button>
             </Link>
           </span>
@@ -92,12 +95,12 @@ export default function MyCourses() {
         <List dense>
           {courses.map((course, i) => {
             return (
-              <Link to={"/teach/course/" + course._id} key={i}>
+              <Link to={"/tutor/course/" + course._id} key={i}>
                 <ListItem button>
                   <ListItemAvatar>
                     <Avatar
                       src={
-                        "/api/courses/photo/" +
+                        "/api/courses/cover/" +
                         course._id +
                         "?" +
                         new Date().getTime()

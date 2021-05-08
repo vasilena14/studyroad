@@ -6,9 +6,9 @@ import {
   Button,
   TextField,
   Typography,
-  Icon,
 } from "@material-ui/core";
-import FileUpload from "@material-ui/icons/AddPhotoAlternate";
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
+import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import auth from "./../auth/auth-helper";
 import { makeStyles } from "@material-ui/core/styles";
 import { create } from "./api-course.js";
@@ -24,6 +24,8 @@ const useStyles = makeStyles((theme) => ({
   },
   error: {
     verticalAlign: "middle",
+    marginRight: "5px",
+    paddingBottom: "3px",
   },
   title: {
     marginTop: theme.spacing(2),
@@ -62,7 +64,8 @@ export default function NewCourse() {
     const value = name === "image" ? event.target.files[0] : event.target.value;
     setValues({ ...values, [name]: value });
   };
-  const clickSubmit = () => {
+
+  const handleSubmit = () => {
     let courseData = new FormData();
     values.name && courseData.append("name", values.name);
     values.description && courseData.append("description", values.description);
@@ -86,7 +89,7 @@ export default function NewCourse() {
   };
 
   if (values.redirect) {
-    return <Redirect to={"/teach/courses"} />;
+    return <Redirect to={"/tutor/courses"} />;
   }
 
   return (
@@ -106,8 +109,8 @@ export default function NewCourse() {
           />
           <label htmlFor="icon-button-file">
             <Button variant="contained" color="secondary" component="span">
-              Upload Photo
-              <FileUpload />
+              Upload Cover Photo
+              <AddPhotoAlternateIcon />
             </Button>
           </label>{" "}
           <span className={classes.filename}>
@@ -145,9 +148,7 @@ export default function NewCourse() {
           <br />
           {values.error && (
             <Typography component="p" color="error">
-              <Icon color="error" className={classes.error}>
-                error
-              </Icon>
+              <ErrorOutlineIcon color="error" className={classes.error} />
               {values.error}
             </Typography>
           )}
@@ -156,12 +157,12 @@ export default function NewCourse() {
           <Button
             color="primary"
             variant="contained"
-            onClick={clickSubmit}
+            onClick={handleSubmit}
             className={classes.submit}
           >
             Submit
           </Button>
-          <Link to="/teach/courses" className={classes.submit}>
+          <Link to="/tutor/courses" className={classes.submit}>
             <Button variant="contained">Cancel</Button>
           </Link>
         </CardActions>

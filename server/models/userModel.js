@@ -10,11 +10,11 @@ const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     trim: true,
-    unique: "Email already exists",
+    custom: "Email already exists",
     match: [/.+\@.+\..+/, "Please write a valid email address"],
     required: "Email is required",
   },
-  hashed_password: {
+  hashedPassword: {
     type: String,
     required: "Password is required",
   },
@@ -24,7 +24,7 @@ const UserSchema = new mongoose.Schema({
     default: Date.now,
   },
   updated: Date,
-  educator: {
+  tutor: {
     type: Boolean,
     default: false,
   },
@@ -33,14 +33,14 @@ const UserSchema = new mongoose.Schema({
 UserSchema.virtual("password")
   .set(function (password) {
     this._password = password;
-    this.salt = this.makeSalt();
-    this.hashed_password = this.encryptPassword(password);
+    this.salt = this.getSalt();
+    this.hashedPassword = this.encryptPassword(password);
   })
   .get(function () {
     return this._password;
   });
 
-UserSchema.path("hashed_password").validate(function (v) {
+UserSchema.path("hashedPassword").validate(function (v) {
   if (this._password && this._password.length < 6) {
     this.invalidate("password", "Password must be at least 6 characters.");
   }
@@ -51,7 +51,7 @@ UserSchema.path("hashed_password").validate(function (v) {
 
 UserSchema.methods = {
   authenticate: function (plainText) {
-    return this.encryptPassword(plainText) === this.hashed_password;
+    return this.encryptPassword(plainText) === this.hashedPassword;
   },
   encryptPassword: function (password) {
     if (!password) return "";
@@ -64,7 +64,7 @@ UserSchema.methods = {
       return "";
     }
   },
-  makeSalt: function () {
+  getSalt: function () {
     return Math.round(new Date().valueOf() * Math.random()) + "";
   },
 };

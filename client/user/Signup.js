@@ -6,13 +6,13 @@ import {
   Button,
   TextField,
   Typography,
-  Icon,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
 } from "@material-ui/core";
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import { makeStyles } from "@material-ui/core/styles";
 import { create } from "./api-user.js";
 import { Link } from "react-router-dom";
@@ -27,6 +27,8 @@ const useStyles = makeStyles((theme) => ({
   },
   error: {
     verticalAlign: "middle",
+    marginRight: "5px",
+    paddingBottom: "3px",
   },
   title: {
     marginTop: theme.spacing(2),
@@ -57,7 +59,7 @@ export default function Signup() {
     setValues({ ...values, [name]: event.target.value });
   };
 
-  const clickSubmit = () => {
+  const handleSubmit = () => {
     const user = {
       name: values.name || undefined,
       email: values.email || undefined,
@@ -107,12 +109,10 @@ export default function Signup() {
             onChange={handleChange("password")}
             margin="normal"
           />
-          <br />{" "}
+          <br />
           {values.error && (
             <Typography component="p" color="error">
-              <Icon color="error" className={classes.error}>
-                error
-              </Icon>
+              <ErrorOutlineIcon color="error" className={classes.error} />
               {values.error}
             </Typography>
           )}
@@ -121,7 +121,7 @@ export default function Signup() {
           <Button
             color="primary"
             variant="contained"
-            onClick={clickSubmit}
+            onClick={handleSubmit}
             className={classes.submit}
           >
             Submit
@@ -132,7 +132,7 @@ export default function Signup() {
         <DialogTitle>New Account</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            New account successfully created.
+            New account was successfully created.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

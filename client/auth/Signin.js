@@ -6,8 +6,8 @@ import {
   Button,
   TextField,
   Typography,
-  Icon,
 } from "@material-ui/core";
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import { makeStyles } from "@material-ui/core/styles";
 import auth from "./../auth/auth-helper";
 import { Redirect } from "react-router-dom";
@@ -23,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
   },
   error: {
     verticalAlign: "middle",
+    marginRight: "5px",
+    paddingBottom: "3px",
   },
   title: {
     marginTop: theme.spacing(2),
@@ -48,7 +50,7 @@ export default function Signin(props) {
     redirectToReferrer: false,
   });
 
-  const clickSubmit = () => {
+  const handleSubmit = () => {
     const user = {
       email: values.email || undefined,
       password: values.password || undefined,
@@ -74,6 +76,7 @@ export default function Signin(props) {
       pathname: "/",
     },
   };
+
   const { redirectToReferrer } = values;
   if (redirectToReferrer) {
     return <Redirect to={from} />;
@@ -104,12 +107,10 @@ export default function Signin(props) {
           onChange={handleChange("password")}
           margin="normal"
         />
-        <br />{" "}
+        <br />
         {values.error && (
           <Typography component="p" color="error">
-            <Icon color="error" className={classes.error}>
-              error
-            </Icon>
+            <ErrorOutlineIcon color="error" className={classes.error} />
             {values.error}
           </Typography>
         )}
@@ -118,7 +119,7 @@ export default function Signin(props) {
         <Button
           color="primary"
           variant="contained"
-          onClick={clickSubmit}
+          onClick={handleSubmit}
           className={classes.submit}
         >
           Submit
