@@ -18,7 +18,7 @@ import {
   CardContent,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { read } from "./api-enrollment.js";
+import { read, complete } from "./api-enrollment.js";
 import auth from "./../auth/auth-helper";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import InfoIcon from "@material-ui/icons/Info";
