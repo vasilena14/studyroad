@@ -67,4 +67,20 @@ const getAllEnrolled = async (credentials, signal) => {
   }
 };
 
-export { create, read, complete, getAllEnrolled };
+const enrollmentState = async (params, credentials, signal) => {
+  try {
+    let response = await fetch("/api/enrollment/stats/" + params.courseId, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + credentials.t,
+      },
+      signal: signal,
+    });
+    return await response.json();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export { create, read, complete, getAllEnrolled, enrollmentState };

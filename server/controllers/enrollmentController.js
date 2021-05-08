@@ -109,6 +109,23 @@ const getAllEnrolled = async (req, res) => {
   }
 };
 
+const enrollmentState = async (req, res) => {
+  try {
+    let stats = {};
+    stats.totalEnrolled = await Enrollment.find({
+      course: req.course._id,
+    }).countDocuments();
+    stats.totalCompleted = await Enrollment.find({ course: req.course._id })
+      .exists("completed", true)
+      .countDocuments();
+    res.json(stats);
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err),
+    });
+  }
+};
+
 export default {
   create,
   read,
@@ -117,4 +134,5 @@ export default {
   isStudent,
   complete,
   getAllEnrolled,
+  enrollmentState,
 };

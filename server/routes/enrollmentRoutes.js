@@ -21,6 +21,10 @@ router
   .route("/api/enrollment/complete/:enrollmentId")
   .put(authC.requireSignin, enrollmentC.isStudent, enrollmentC.complete);
 
+router
+  .route("/api/enrollment/stats/:courseId")
+  .get(enrollmentC.enrollmentState);
+
 router.param("courseId", courseC.findCourseByID);
 router.param("enrollmentId", enrollmentC.findEnrollmentByID);
 
