@@ -36,12 +36,7 @@ const create = (req, res) => {
   });
 };
 
-const read = (req, res) => {
-  req.course.image = undefined;
-  return res.json(req.course);
-};
-
-const findCourseByID = async (req, res, next, id) => {
+const getCourseByID = async (req, res, next, id) => {
   try {
     let course = await Course.findById(id).populate("tutor", "_id name");
     if (!course)
@@ -55,6 +50,11 @@ const findCourseByID = async (req, res, next, id) => {
       error: "Could not fetch course",
     });
   }
+};
+
+const read = (req, res) => {
+  req.course.image = undefined;
+  return res.json(req.course);
 };
 
 const newLesson = async (req, res) => {
@@ -168,7 +168,7 @@ export default {
   update,
   remove,
   getAllByTutor,
-  findCourseByID,
+  getCourseByID,
   isTutor,
   newLesson,
   getAllPublishedCourses,

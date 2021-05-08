@@ -28,7 +28,7 @@ router
 
 router.route("/api/courses/published").get(courseC.getAllPublishedCourses);
 
-router.param("courseId", courseC.findCourseByID);
+router.param("courseId", courseC.getCourseByID);
 router.param("userId", userC.userByID);
 
 export default router;

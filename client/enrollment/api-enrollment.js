@@ -69,7 +69,7 @@ const getAllEnrolled = async (credentials, signal) => {
 
 const enrollmentState = async (params, credentials, signal) => {
   try {
-    let response = await fetch("/api/enrollment/stats/" + params.courseId, {
+    let response = await fetch("/api/enrollment/state/" + params.courseId, {
       method: "GET",
       headers: {
         Accept: "application/json",

@@ -61,11 +61,11 @@ export default function Home() {
     const abortController = new AbortController();
     const signal = abortController.signal;
 
-    getAllPublishedCourses(signal).then((data) => {
+    getAllEnrolled({ t: jwt.token }, signal).then((data) => {
       if (data.error) {
         console.log(data.error);
       } else {
-        setCourses(data);
+        setEnrolled(data);
       }
     });
     return function cleanup() {
@@ -77,11 +77,11 @@ export default function Home() {
     const abortController = new AbortController();
     const signal = abortController.signal;
 
-    getAllEnrolled({ t: jwt.token }, signal).then((data) => {
+    getAllPublishedCourses(signal).then((data) => {
       if (data.error) {
         console.log(data.error);
       } else {
-        setEnrolled(data);
+        setCourses(data);
       }
     });
     return function cleanup() {

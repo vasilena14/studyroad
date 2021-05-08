@@ -9,8 +9,8 @@ import {
   List,
   ListItem,
   ListItemAvatar,
-  Avatar,
   ListItemText,
+  Avatar,
   Button,
   Dialog,
   DialogTitle,
@@ -18,12 +18,16 @@ import {
   DialogActions,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
+import BeenhereIcon from "@material-ui/icons/Beenhere";
+import PeopleIcon from "@material-ui/icons/People";
 import { makeStyles } from "@material-ui/core/styles";
 import { read, update } from "./api-course.js";
+import { enrollmentState } from "./../enrollment/api-enrollment";
 import { Link, Redirect } from "react-router-dom";
 import auth from "./../auth/auth-helper";
 import NewLesson from "./NewLesson";
 import DeleteCourse from "./DeleteCourse";
+import Enroll from "./../enrollment/Enroll";
 
 const useStyles = makeStyles((theme) => ({
   root: theme.mixins.gutters({
@@ -70,6 +74,19 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "flex-end",
   },
+  state: {
+    margin: "7px 10px 0 10px",
+    alignItems: "center",
+    color: "#8c8c8c",
+    display: "inline-flex",
+    "& svg": {
+      marginRight: 10,
+      color: "#8c8c8c",
+    },
+  },
+  enroll: {
+    float: "right",
+  },
 }));
 
 export default function Course({ match }) {
@@ -81,6 +98,7 @@ export default function Course({ match }) {
     error: "",
   });
   const [open, setOpen] = useState(false);
+  const [state, setState] = useState({});
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -98,11 +116,31 @@ export default function Course({ match }) {
     };
   }, [match.params.courseId]);
 
+  useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
+    enrollmentState(
+      { courseId: match.params.courseId },
+      { t: jwt.token },
+      signal
+    ).then((data) => {
+      if (data.error) {
+        setValues({ ...values, error: data.error });
+      } else {
+        setState(data);
+      }
+    });
+    return function cleanup() {
+      abortController.abort();
+    };
+  }, [match.params.courseId]);
+
   const addNewLesson = (course) => {
     setCourse(course);
   };
 
-  const removeCourse = (course) => {
+  const removeCourse = () => {
     setValues({ ...values, redirect: true });
   };
 
@@ -188,6 +226,17 @@ export default function Course({ match }) {
                   )}
                 </span>
               )}
+
+              {course.published && (
+                <div>
+                  <span className={classes.state}>
+                    <PeopleIcon /> {state.totalEnrolled} enrolled
+                  </span>
+                  <span className={classes.state}>
+                    <BeenhereIcon /> {state.totalCompleted} completed
+                  </span>
+                </div>
+              )}
             </>
           }
         />
@@ -203,6 +252,12 @@ export default function Course({ match }) {
               {course.description}
               <br />
             </Typography>
+
+            {course.published && (
+              <div className={classes.enroll}>
+                <Enroll courseId={course._id} />
+              </div>
+            )}
           </div>
         </div>
 

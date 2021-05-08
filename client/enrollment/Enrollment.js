@@ -3,6 +3,7 @@ import {
   Card,
   CardHeader,
   CardActions,
+  CardMedia,
   Typography,
   Button,
   List,
@@ -10,9 +11,9 @@ import {
   ListItemAvatar,
   ListItemSecondaryAction,
   ListSubheader,
-  Avatar,
   ListItemIcon,
   ListItemText,
+  Avatar,
   Divider,
   Drawer,
   CardContent,
@@ -61,8 +62,42 @@ const useStyles = makeStyles((theme) => ({
   check: {
     color: "#38cc38",
   },
-  subhead: {
+  subheader: {
     fontSize: "1.2em",
+  },
+  flex: {
+    display: "flex",
+    marginBottom: 20,
+  },
+  subheading: {
+    margin: "10px",
+    color: theme.palette.openTitle,
+  },
+  details: {
+    margin: "16px",
+  },
+  sub: {
+    display: "block",
+    margin: "3px 0px 5px 0px",
+    fontSize: "0.9em",
+  },
+  media: {
+    height: 180,
+    display: "inline-block",
+    width: "100%",
+    marginLeft: "16px",
+  },
+  category: {
+    color: "#5c5c5c",
+    fontSize: "0.9em",
+    padding: "3px 5px",
+    backgroundColor: "#dbdbdb",
+    borderRadius: "0.2em",
+    marginTop: 5,
+  },
+  action: {
+    margin: "8px 24px",
+    display: "inline-block",
   },
 }));
 
@@ -175,7 +210,7 @@ export default function Enrollment({ match }) {
         </List>
         <Divider />
         <List className={classes.unselected}>
-          <ListSubheader component="div" className={classes.subhead}>
+          <ListSubheader component="div" className={classes.subheader}>
             Lessons
           </ListSubheader>
           {enrollment.lessonState.map((lesson, index) => (
@@ -219,6 +254,88 @@ export default function Enrollment({ match }) {
           </ListItem>
         </List>
       </Drawer>
+
+      {values.drawer == -1 && (
+        <Card className={classes.card}>
+          <CardHeader
+            title={enrollment.course.name}
+            subheader={
+              <div>
+                <Link
+                  to={"/user/" + enrollment.course.tutor._id}
+                  className={classes.sub}
+                >
+                  By {enrollment.course.tutor.name}
+                </Link>
+                <span className={classes.category}>
+                  {enrollment.course.category}
+                </span>
+              </div>
+            }
+            action={
+              totalComplete == enrollment.lessonState.length && (
+                <span className={classes.action}>
+                  <Button variant="contained" color="secondary">
+                    <CheckCircle /> &nbsp; Completed
+                  </Button>
+                </span>
+              )
+            }
+          />
+          <div className={classes.flex}>
+            <CardMedia
+              className={classes.media}
+              image={imageUrl}
+              title={enrollment.course.name}
+            />
+            <div className={classes.details}>
+              <Typography variant="body1" className={classes.subheading}>
+                {enrollment.course.description}
+                <br />
+              </Typography>
+            </div>
+          </div>
+          <Divider />
+          <div>
+            <CardHeader
+              title={
+                <Typography variant="h6" className={classes.subheading}>
+                  Lessons
+                </Typography>
+              }
+              subheader={
+                <Typography variant="body1" className={classes.subheading}>
+                  {enrollment.course.lessons &&
+                    enrollment.course.lessons.length}{" "}
+                  lessons
+                </Typography>
+              }
+              action={
+                jwt.user &&
+                jwt.user._id == enrollment.course.tutor._id && (
+                  <span className={classes.action}></span>
+                )
+              }
+            />
+            <List>
+              {enrollment.course.lessons &&
+                enrollment.course.lessons.map((lesson, i) => {
+                  return (
+                    <span key={i}>
+                      <ListItem>
+                        <ListItemAvatar>
+                          <Avatar>{i + 1}</Avatar>
+                        </ListItemAvatar>
+                        <ListItemText primary={lesson.title} />
+                      </ListItem>
+                      <Divider variant="inset" component="li" />
+                    </span>
+                  );
+                })}
+            </List>
+          </div>
+        </Card>
+      )}
 
       {values.drawer != -1 && (
         <>

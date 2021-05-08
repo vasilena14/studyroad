@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { GridList, GridListTile, GridListTileBar } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import auth from "./../auth/auth-helper";
+import Enroll from "./../enrollment/Enroll";
 
 const useStyles = makeStyles((theme) => ({
   gridList: {
@@ -37,6 +38,11 @@ const useStyles = makeStyles((theme) => ({
 export default function Courses(props) {
   const classes = useStyles();
   const jwt = auth.isAuthenticated();
+  const findCommon = (course) => {
+    return !props.common.find((enrolled) => {
+      return enrolled.course._id == course._id;
+    });
+  };
 
   return (
     <GridList cellHeight={220} className={classes.gridList} cols={2}>
@@ -63,7 +69,11 @@ export default function Courses(props) {
               subtitle={<span>{course.category}</span>}
               actionIcon={
                 <div className={classes.action}>
-                  <Link to="/signin">Sign in to Enroll</Link>
+                  {jwt ? (
+                    <Enroll courseId={course._id} />
+                  ) : (
+                    <Link to="/signin">Sign in to Enroll</Link>
+                  )}
                 </div>
               }
             />
