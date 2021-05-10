@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, Typography } from "@material-ui/core";
-import { getAllPublishedCourses } from "./../course/api-course";
+import { getAllPublished } from "./../course/api-course";
 import { getAllEnrolled } from "./../enrollment/api-enrollment";
 import auth from "./../auth/auth-helper";
 import Courses from "./../course/Courses";
@@ -77,7 +77,7 @@ export default function Home() {
     const abortController = new AbortController();
     const signal = abortController.signal;
 
-    getAllPublishedCourses(signal).then((data) => {
+    getAllPublished(signal).then((data) => {
       if (data.error) {
         console.log(data.error);
       } else {

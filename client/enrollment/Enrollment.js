@@ -24,6 +24,7 @@ import auth from "./../auth/auth-helper";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import InfoIcon from "@material-ui/icons/Info";
 import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: theme.mixins.gutters({
@@ -276,7 +277,7 @@ export default function Enrollment({ match }) {
               totalComplete == enrollment.lessonState.length && (
                 <span className={classes.action}>
                   <Button variant="contained" color="secondary">
-                    <CheckCircle /> &nbsp; Completed
+                    <CheckCircleIcon /> &nbsp; Completed
                   </Button>
                 </span>
               )

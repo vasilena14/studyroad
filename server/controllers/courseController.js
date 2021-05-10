@@ -57,24 +57,6 @@ const read = (req, res) => {
   return res.json(req.course);
 };
 
-const newLesson = async (req, res) => {
-  try {
-    let lesson = req.body.lesson;
-    let result = await Course.findByIdAndUpdate(
-      req.course._id,
-      { $push: { lessons: lesson }, updated: Date.now() },
-      { new: true }
-    )
-      .populate("tutor", "_id name")
-      .exec();
-    res.json(result);
-  } catch (err) {
-    return res.status(400).json({
-      error: errorHandler.getErrorMessage(err),
-    });
-  }
-};
-
 const update = async (req, res) => {
   let form = new formidable.IncomingForm();
   form.keepExtensions = true;
@@ -103,6 +85,24 @@ const update = async (req, res) => {
       });
     }
   });
+};
+
+const newLesson = async (req, res) => {
+  try {
+    let lesson = req.body.lesson;
+    let result = await Course.findByIdAndUpdate(
+      req.course._id,
+      { $push: { lessons: lesson }, updated: Date.now() },
+      { new: true }
+    )
+      .populate("tutor", "_id name")
+      .exec();
+    res.json(result);
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err),
+    });
+  }
 };
 
 const remove = async (req, res) => {
@@ -139,7 +139,7 @@ const getAllByTutor = (req, res) => {
   }).populate("tutor", "_id name");
 };
 
-const getAllPublishedCourses = (req, res) => {
+const getAllPublished = (req, res) => {
   Course.find({ published: true }, (err, courses) => {
     if (err) {
       return res.status(400).json({
@@ -164,14 +164,14 @@ const defaultCover = (req, res) => {
 
 export default {
   create,
-  read,
-  update,
-  remove,
-  getAllByTutor,
   getCourseByID,
+  read,
+  remove,
+  update,
   isTutor,
-  newLesson,
-  getAllPublishedCourses,
+  getAllByTutor,
   cover,
   defaultCover,
+  newLesson,
+  getAllPublished,
 };

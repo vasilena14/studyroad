@@ -98,7 +98,7 @@ const getAllByTutor = async (params, credentials, signal) => {
   }
 };
 
-const getAllPublishedCourses = async (signal) => {
+const getAllPublished = async (signal) => {
   try {
     let response = await fetch("/api/courses/published", {
       method: "GET",
@@ -121,5 +121,5 @@ export {
   remove,
   getAllByTutor,
   newLesson,
-  getAllPublishedCourses,
+  getAllPublished,
 };
