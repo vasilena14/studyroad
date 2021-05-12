@@ -9,6 +9,7 @@ const create = (req, res) => {
   let form = new formidable.IncomingForm();
 
   form.keepExtensions = true;
+  form.maxFileSize = 2 * 1024 * 1024;
 
   form.parse(req, async (err, fields, files) => {
     if (err) {

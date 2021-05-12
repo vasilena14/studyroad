@@ -22,16 +22,13 @@ const useStyles = makeStyles((theme) => ({
   gridList: {
     width: "100%",
     minHeight: 100,
-    padding: "12px 0 10px",
-  },
-  tile: {
-    textAlign: "center",
+    padding: "12px 10px 10px",
   },
   image: {
     width: "100%",
   },
   tileBar: {
-    backgroundColor: "rgba(0, 0, 0, 0.85)",
+    backgroundColor: "rgba(0, 0, 0, 0.65)",
     textAlign: "left",
   },
   tileTitle: {
@@ -54,7 +51,7 @@ export default function AllEnrollments(props) {
     <div>
       <GridList cellHeight={120} className={classes.gridList} cols={4}>
         {props.enrollments.map((course, i) => (
-          <GridListTile key={i} className={classes.tile}>
+          <GridListTile key={i}>
             <Link to={"/learn/" + course._id}>
               <img
                 className={classes.image}

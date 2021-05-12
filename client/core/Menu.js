@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  IconButton,
-  Button,
-} from "@material-ui/core";
-import HomeIcon from "@material-ui/icons/Home";
+import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
 import auth from "./../auth/auth-helper";
 import { Link, withRouter } from "react-router-dom";
@@ -22,8 +15,7 @@ const isHighlighted = (history, path) => {
     return { color: "#fffde7", backgroundColor: "#f4b318", marginRight: 10 };
   else
     return {
-      color: "#29516B",
-      backgroundColor: "#fffde7",
+      color: "#ffffff",
       marginRight: 10,
     };
 };
@@ -36,23 +28,10 @@ const Menu = withRouter(({ history }) => (
           Studyroad
         </Typography>
       </Link>
-
-      {/* <Link to="/">
-        <IconButton aria-label="Home" style={isSelected(history, "/")}>
-          <HomeIcon />
-        </IconButton>
-      </Link> */}
-      {/*<Link to="/users">
-        <Button style={isSelected(history, "/users")}>Users</Button>
-      </Link> */}
-
       <div style={{ position: "absolute", right: 0 }}>
-        {/* <span style={{ float: "right" }}> */}
-        <span>
-          <Link to="/">
-            <Button style={isSelected(history, "/")}>Home</Button>
-          </Link>
-        </span>
+        <Link to="/">
+          <Button style={isSelected(history, "/")}>Home</Button>
+        </Link>
         {!auth.isAuthenticated() && (
           <span>
             <Link to="/signup">
@@ -68,7 +47,8 @@ const Menu = withRouter(({ history }) => (
             {auth.isAuthenticated().user.tutor && (
               <Link to="/tutor/courses">
                 <Button style={isHighlighted(history, "/tutor/")}>
-                  <LocalLibraryIcon /> Tutor Portal
+                  <LocalLibraryIcon style={{ marginRight: "5px" }} /> Tutor
+                  Portal
                 </Button>
               </Link>
             )}
@@ -93,7 +73,6 @@ const Menu = withRouter(({ history }) => (
             </Button>
           </span>
         )}
-        {/* </span> */}
       </div>
     </Toolbar>
   </AppBar>

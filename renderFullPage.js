@@ -14,7 +14,7 @@ export default ({ html, css }) => {
         <style>
             a{
               text-decoration: none;
-              color: #061d95
+              color: #002940
             }
         </style>
       </head>

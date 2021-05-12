@@ -10,18 +10,19 @@ const useStyles = makeStyles((theme) => ({
   gridList: {
     width: "100%",
     minHeight: 200,
-    padding: "16px 0 0px",
+    padding: "16px 10px 10px",
   },
   tile: {
     textAlign: "center",
     border: "1px solid #cecece",
-    backgroundColor: "#04040c",
+    borderRadius: "4px",
+    padding: 0,
   },
   image: {
     width: "100%",
   },
   tileBar: {
-    backgroundColor: "rgba(0, 0, 0, 0.85)",
+    backgroundColor: "rgba(0, 0, 0, 0.65)",
     textAlign: "left",
   },
   tileTitle: {
@@ -49,11 +50,7 @@ export default function Courses(props) {
       {props.courses.map((course, i) => {
         return (
           findCommon(course) && (
-            <GridListTile
-              className={classes.tile}
-              key={i}
-              style={{ padding: 0 }}
-            >
+            <GridListTile className={classes.tile} key={i}>
               <Link to={"/course/" + course._id}>
                 <img
                   className={classes.image}
@@ -77,7 +74,9 @@ export default function Courses(props) {
                     {jwt ? (
                       <Enroll courseId={course._id} />
                     ) : (
-                      <Link to="/signin">Sign in to Enroll</Link>
+                      <Link to="/signin" style={{ color: "#f4b318" }}>
+                        Sign in to Enroll
+                      </Link>
                     )}
                   </div>
                 }

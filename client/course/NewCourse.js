@@ -112,11 +112,17 @@ export default function NewCourse() {
               Upload Cover Photo
               <AddPhotoAlternateIcon />
             </Button>
-          </label>{" "}
+          </label>
           <span className={classes.filename}>
             {values.image ? values.image.name : ""}
           </span>
-          <br />
+
+          <Typography
+            style={{ marginTop: "10px", fontSize: "13px" }}
+            color="error"
+          >
+            Max File Size: 2MB
+          </Typography>
           <TextField
             id="name"
             label="Name"

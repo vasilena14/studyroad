@@ -216,6 +216,7 @@ export default function EditCourse({ match }) {
             )
           }
         />
+
         <div className={classes.flex}>
           <CardMedia
             className={classes.media}
@@ -247,11 +248,16 @@ export default function EditCourse({ match }) {
                 Change Cover Photo
                 <AddPhotoAlternateIcon />
               </Button>
-            </label>{" "}
+            </label>
             <span className={classes.filename}>
               {course.image ? course.image.name : ""}
             </span>
-            <br />
+            <Typography
+              style={{ margin: "10px 0 0 4px", fontSize: "13px" }}
+              color="error"
+            >
+              Max File Size: 2MB
+            </Typography>
           </div>
         </div>
         <div>
