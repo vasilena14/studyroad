@@ -3,7 +3,11 @@ import { pink } from "@material-ui/core/colors";
 
 const theme = createMuiTheme({
   typography: {
-    useNextVariants: true,
+    fontFamily: `'Montserrat', sans-serif`,
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+    fontWeightBold: 600,
   },
   palette: {
     primary: {

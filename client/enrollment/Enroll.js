@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
+import { Button, Box, Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
 import { create } from "./api-enrollment";
 import auth from "./../auth/auth-helper";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 export default function Enroll(props) {
   const jwt = auth.isAuthenticated();
@@ -35,9 +35,19 @@ export default function Enroll(props) {
   }
 
   return (
-    <Button variant="contained" color="secondary" onClick={handleEnroll}>
-      Enroll
-    </Button>
+    <div>
+      {jwt ? (
+        <Button variant="contained" color="secondary" onClick={handleEnroll}>
+          Enroll
+        </Button>
+      ) : (
+        <Link to="/signin">
+          <Typography>
+            <Box fontWeight="fontWeightBold">Sign in to Enroll</Box>
+          </Typography>
+        </Link>
+      )}
+    </div>
   );
 }
 

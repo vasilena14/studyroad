@@ -5,7 +5,7 @@ import compress from "compression";
 import cors from "cors";
 import helmet from "helmet";
 import path from "path";
-import Template from "./../template";
+import renderFullPage from "./../renderFullPage";
 import userRoutes from "./routes/userRoutes";
 import authRoutes from "./routes/authRoutes";
 import courseRoutes from "./routes/courseRoutes";
@@ -44,7 +44,7 @@ app.use("/", enrollmentRoutes);
 app.get("*", (req, res) => {
   const sheets = new ServerStyleSheets();
   const context = {};
-  const markup = ReactDOMServer.renderToString(
+  const html = ReactDOMServer.renderToString(
     sheets.collect(
       <StaticRouter location={req.url} context={context}>
         <ThemeProvider theme={theme}>
@@ -53,13 +53,16 @@ app.get("*", (req, res) => {
       </StaticRouter>
     )
   );
+
   if (context.url) {
     return res.redirect(303, context.url);
   }
+
   const css = sheets.toString();
+
   res.status(200).send(
-    Template({
-      markup: markup,
+    renderFullPage({
+      html: html,
       css: css,
     })
   );

@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#04040c",
   },
   image: {
-    height: "100%",
+    width: "100%",
   },
   tileBar: {
     backgroundColor: "rgba(0, 0, 0, 0.85)",
@@ -48,36 +48,42 @@ export default function Courses(props) {
     <GridList cellHeight={220} className={classes.gridList} cols={2}>
       {props.courses.map((course, i) => {
         return (
-          <GridListTile className={classes.tile} key={i} style={{ padding: 0 }}>
-            <Link to={"/course/" + course._id}>
-              <img
-                className={classes.image}
-                src={"/api/courses/cover/" + course._id}
-                alt={course.name}
+          findCommon(course) && (
+            <GridListTile
+              className={classes.tile}
+              key={i}
+              style={{ padding: 0 }}
+            >
+              <Link to={"/course/" + course._id}>
+                <img
+                  className={classes.image}
+                  src={"/api/courses/cover/" + course._id}
+                  alt={course.name}
+                />
+              </Link>
+              <GridListTileBar
+                className={classes.tileBar}
+                title={
+                  <Link
+                    to={"/course/" + course._id}
+                    className={classes.tileTitle}
+                  >
+                    {course.name}
+                  </Link>
+                }
+                subtitle={<span>{course.category}</span>}
+                actionIcon={
+                  <div className={classes.action}>
+                    {jwt ? (
+                      <Enroll courseId={course._id} />
+                    ) : (
+                      <Link to="/signin">Sign in to Enroll</Link>
+                    )}
+                  </div>
+                }
               />
-            </Link>
-            <GridListTileBar
-              className={classes.tileBar}
-              title={
-                <Link
-                  to={"/course/" + course._id}
-                  className={classes.tileTitle}
-                >
-                  {course.name}
-                </Link>
-              }
-              subtitle={<span>{course.category}</span>}
-              actionIcon={
-                <div className={classes.action}>
-                  {jwt ? (
-                    <Enroll courseId={course._id} />
-                  ) : (
-                    <Link to="/signin">Sign in to Enroll</Link>
-                  )}
-                </div>
-              }
-            />
-          </GridListTile>
+            </GridListTile>
+          )
         );
       })}
     </GridList>

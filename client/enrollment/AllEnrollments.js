@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   image: {
-    height: "100%",
+    width: "100%",
   },
   tileBar: {
     backgroundColor: "rgba(0, 0, 0, 0.85)",

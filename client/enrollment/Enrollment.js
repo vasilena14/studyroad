@@ -47,18 +47,17 @@ const useStyles = makeStyles((theme) => ({
   },
   drawer: {
     width: 240,
-    flexShrink: 0,
   },
   drawerPaper: {
     width: 240,
-    backgroundColor: "#616161",
+    backgroundColor: "#3f4771",
   },
   toolbar: theme.mixins.toolbar,
   selectedDrawer: {
-    backgroundColor: "#e9e3df",
+    backgroundColor: "#dfe1e9",
   },
   unselected: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#fefeff",
   },
   check: {
     color: "#38cc38",
@@ -99,6 +98,18 @@ const useStyles = makeStyles((theme) => ({
   action: {
     margin: "8px 24px",
     display: "inline-block",
+  },
+  progress: {
+    textAlign: "center",
+    color: "#dfdfdf",
+    "& span": {
+      color: "#fffde7",
+      fontSize: "1.15em",
+    },
+  },
+
+  para: {
+    whiteSpace: "pre-wrap",
   },
 }));
 
@@ -367,13 +378,19 @@ export default function Enrollment({ match }) {
                 {enrollment.course.lessons[values.drawer].content}
               </Typography>
             </CardContent>
-            <CardActions>
-              <a href={enrollment.course.lessons[values.drawer].resource_url}>
-                <Button variant="contained" color="primary">
-                  Resource Link
-                </Button>
-              </a>
-            </CardActions>
+
+            {enrollment.course.lessons[values.drawer].resource_url && (
+              <CardActions>
+                <a
+                  href={enrollment.course.lessons[values.drawer].resource_url}
+                  target="_blank"
+                >
+                  <Button variant="contained" color="primary">
+                    Resource Link
+                  </Button>
+                </a>
+              </CardActions>
+            )}
           </Card>
         </>
       )}

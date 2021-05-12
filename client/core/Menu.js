@@ -12,8 +12,9 @@ import auth from "./../auth/auth-helper";
 import { Link, withRouter } from "react-router-dom";
 
 const isSelected = (history, path) => {
-  if (history.location.pathname == path) return { color: "#ff4081" };
-  else return { color: "#ffffff" };
+  if (history.location.pathname == path)
+    return { marginRight: 10, color: "#ff4081" };
+  else return { marginRight: 10, color: "#ffffff" };
 };
 
 const isHighlighted = (history, path) => {
@@ -30,56 +31,70 @@ const isHighlighted = (history, path) => {
 const Menu = withRouter(({ history }) => (
   <AppBar position="static">
     <Toolbar>
-      <Typography variant="h6" color="inherit">
-        Studyroad
-      </Typography>
       <Link to="/">
+        <Typography variant="h5" style={{ color: "#ffffff" }}>
+          Studyroad
+        </Typography>
+      </Link>
+
+      {/* <Link to="/">
         <IconButton aria-label="Home" style={isSelected(history, "/")}>
           <HomeIcon />
         </IconButton>
-      </Link>
-      <Link to="/users">
+      </Link> */}
+      {/*<Link to="/users">
         <Button style={isSelected(history, "/users")}>Users</Button>
-      </Link>
-      {!auth.isAuthenticated() && (
+      </Link> */}
+
+      <div style={{ position: "absolute", right: 0 }}>
+        {/* <span style={{ float: "right" }}> */}
         <span>
-          <Link to="/signup">
-            <Button style={isSelected(history, "/signup")}>Sign up</Button>
-          </Link>
-          <Link to="/signin">
-            <Button style={isSelected(history, "/signin")}>Sign In</Button>
+          <Link to="/">
+            <Button style={isSelected(history, "/")}>Home</Button>
           </Link>
         </span>
-      )}
-      {auth.isAuthenticated() && (
-        <span>
-          {auth.isAuthenticated().user.tutor && (
-            <Link to="/tutor/courses">
-              <Button style={isHighlighted(history, "/tutor/")}>
-                <LocalLibraryIcon /> Tutor Portal
+        {!auth.isAuthenticated() && (
+          <span>
+            <Link to="/signup">
+              <Button style={isSelected(history, "/signup")}>Sign up</Button>
+            </Link>
+            <Link to="/signin">
+              <Button style={isSelected(history, "/signin")}>Sign In</Button>
+            </Link>
+          </span>
+        )}
+        {auth.isAuthenticated() && (
+          <span>
+            {auth.isAuthenticated().user.tutor && (
+              <Link to="/tutor/courses">
+                <Button style={isHighlighted(history, "/tutor/")}>
+                  <LocalLibraryIcon /> Tutor Portal
+                </Button>
+              </Link>
+            )}
+            <Link to={"/user/" + auth.isAuthenticated().user._id}>
+              <Button
+                style={isSelected(
+                  history,
+                  "/user/" + auth.isAuthenticated().user._id
+                )}
+              >
+                My Profile
               </Button>
             </Link>
-          )}
-          <Link to={"/user/" + auth.isAuthenticated().user._id}>
             <Button
-              style={isSelected(
-                history,
-                "/user/" + auth.isAuthenticated().user._id
-              )}
+              color="inherit"
+              style={{ marginRight: 10 }}
+              onClick={() => {
+                auth.clearJWT(() => history.push("/"));
+              }}
             >
-              My Profile
+              Sign out
             </Button>
-          </Link>
-          <Button
-            color="inherit"
-            onClick={() => {
-              auth.clearJWT(() => history.push("/"));
-            }}
-          >
-            Sign out
-          </Button>
-        </span>
-      )}
+          </span>
+        )}
+        {/* </span> */}
+      </div>
     </Toolbar>
   </AppBar>
 ));
