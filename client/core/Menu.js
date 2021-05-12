@@ -13,16 +13,16 @@ import { Link, withRouter } from "react-router-dom";
 
 const isSelected = (history, path) => {
   if (history.location.pathname == path)
-    return { marginRight: 10, color: "#ff4081" };
+    return { marginRight: 10, color: "#f4b318" };
   else return { marginRight: 10, color: "#ffffff" };
 };
 
 const isHighlighted = (history, path) => {
   if (history.location.pathname.includes(path))
-    return { color: "#fffde7", backgroundColor: "#ff4081", marginRight: 10 };
+    return { color: "#fffde7", backgroundColor: "#f4b318", marginRight: 10 };
   else
     return {
-      color: "#3f4771",
+      color: "#29516B",
       backgroundColor: "#fffde7",
       marginRight: 10,
     };

@@ -28,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
       1
     )}px`,
     color: theme.palette.protectedTitle,
-    fontSize: "1.2em",
+    // fontWeight: 500,
+    // fontSize: "1.2em",
   },
   addButton: {
     float: "right",
@@ -82,7 +83,7 @@ export default function MyCourses() {
   return (
     <div>
       <Paper className={classes.root} elevation={4}>
-        <Typography type="title" className={classes.title}>
+        <Typography type="title" variant="h6" className={classes.title}>
           Your Courses
           <span className={classes.addButton}>
             <Link to="/tutor/course/new">
