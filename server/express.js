@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import compress from "compression";
 import cors from "cors";
 import helmet from "helmet";
+import favicon from "serve-favicon";
 import path from "path";
 import renderFullPage from "./../renderFullPage";
 import userRoutes from "./routes/userRoutes";
@@ -26,6 +27,8 @@ const app = express();
 
 //only for development mode - comment out for production
 devBundle.compile(app);
+
+app.use(favicon(path.join(CURRENT_WORKING_DIR, "public", "favicon.ico")));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -66,6 +69,11 @@ app.get("*", (req, res) => {
       css: css,
     })
   );
+});
+
+app.get("/favicon.ico", function (req, res) {
+  res.status(204);
+  res.end();
 });
 
 //Catches unauthorized errors

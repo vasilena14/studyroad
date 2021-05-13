@@ -16,7 +16,7 @@ import Enrollment from "./enrollment/Enrollment";
 
 const MainRouter = () => {
   return (
-    <div>
+    <>
       <Menu />
       <Switch>
         <Route exact path="/" component={Home} />
@@ -36,7 +36,7 @@ const MainRouter = () => {
         <PrivateRoute path="/tutor/course/:courseId" component={Course} />
         <PrivateRoute path="/learn/:enrollmentId" component={Enrollment} />
       </Switch>
-    </div>
+    </>
   );
 };
 

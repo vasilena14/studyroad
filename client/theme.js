@@ -1,5 +1,4 @@
 import { createMuiTheme } from "@material-ui/core/styles";
-import { amber } from "@material-ui/core/colors";
 
 const theme = createMuiTheme({
   typography: {
@@ -10,6 +9,10 @@ const theme = createMuiTheme({
     fontWeightBold: 600,
   },
   palette: {
+    // background: {
+    //   default: "#f20002",
+    //   paper: "#f44664",
+    // },
     primary: {
       light: "#577d99",
       main: "#29516b",

@@ -20,34 +20,11 @@ const useStyles = makeStyles((theme) => ({
     )}px`,
     color: theme.palette.openTitle,
   },
-  media: {
-    minHeight: 400,
-  },
-  credit: {
-    padding: 10,
-    textAlign: "right",
-    backgroundColor: "#ededed",
-    borderBottom: "1px solid #d0d0d0",
-    "& a": {
-      color: "#3f4771",
-    },
-  },
   content: {
     color: "lightgrey",
     marginBottom: 12,
     marginLeft: 8,
     padding: `0px ${theme.spacing(2.5)}px ${theme.spacing(2)}px`,
-  },
-  gridList: {
-    width: "100%",
-    minHeight: 200,
-    padding: "16px 0 10px",
-  },
-  tile: {
-    textAlign: "center",
-  },
-  image: {
-    height: "100%",
   },
 }));
 
@@ -90,7 +67,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
+    <>
       {jwt.user && (
         <Card className={`${classes.card}`}>
           <Typography variant="h5" component="h2" className={classes.title}>
@@ -118,6 +95,6 @@ export default function Home() {
           </Typography>
         )}
       </Card>
-    </div>
+    </>
   );
 }
