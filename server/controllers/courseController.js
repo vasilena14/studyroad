@@ -60,11 +60,14 @@ const read = (req, res) => {
 
 const update = async (req, res) => {
   let form = new formidable.IncomingForm();
+
   form.keepExtensions = true;
+  form.maxFileSize = 2 * 1024 * 1024;
+
   form.parse(req, async (err, fields, files) => {
     if (err) {
       return res.status(400).json({
-        error: "Cover photo could not be uploaded",
+        error: "Image could not be uploaded",
       });
     }
     let course = req.course;

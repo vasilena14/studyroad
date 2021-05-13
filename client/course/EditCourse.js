@@ -18,6 +18,7 @@ import {
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import DeleteIcon from "@material-ui/icons/Delete";
+import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import { makeStyles } from "@material-ui/core/styles";
 import { read, update } from "./api-course.js";
 import { Link, Redirect } from "react-router-dom";
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "0.9em",
   },
   media: {
-    height: 250,
+    height: 280,
     display: "inline-block",
     width: "50%",
     marginLeft: "16px",
@@ -61,14 +62,10 @@ const useStyles = makeStyles((theme) => ({
   input: {
     display: "none",
   },
-  filename: {
-    marginLeft: "10px",
-  },
   arrowUp: {
-    border: "2px solid #f57c00",
-    marginLeft: 3,
-    marginTop: 10,
-    padding: 4,
+    border: "2px solid #f4b318",
+    marginTop: 15,
+    padding: 5,
   },
   subheading: {
     margin: "10px",
@@ -76,6 +73,18 @@ const useStyles = makeStyles((theme) => ({
   },
   list: {
     backgroundColor: "#f3f3f3",
+  },
+  errorIcon: {
+    verticalAlign: "middle",
+    marginRight: "5px",
+    paddingBottom: "3px",
+  },
+  uploadButton: {
+    margin: "0 8px 8px 0",
+  },
+  maxSize: {
+    margin: "8px 0 8px 0",
+    fontSize: "13px",
   },
 }));
 
@@ -114,7 +123,8 @@ export default function EditCourse({ match }) {
 
   const handleUpdate = (name) => (event) => {
     const value = name === "image" ? event.target.files[0] : event.target.value;
-    setCourse({ ...course, [name]: value });
+    setCourse({ ...course, [name]: value }),
+      setValues({ ...values, [name]: value });
   };
 
   const handleLessonUpdate = (name, index) => (event) => {
@@ -153,11 +163,11 @@ export default function EditCourse({ match }) {
       },
       courseData
     ).then((data) => {
-      if (data && data.error) {
+      if (data.error) {
         console.log(data.error);
         setValues({ ...values, error: data.error });
       } else {
-        setValues({ ...values, redirect: true });
+        setValues({ ...values, error: "", redirect: true });
       }
     });
   };
@@ -244,20 +254,26 @@ export default function EditCourse({ match }) {
               type="file"
             />
             <label htmlFor="icon-button-file">
-              <Button variant="outlined" color="secondary" component="span">
+              <Button
+                variant="outlined"
+                color="secondary"
+                component="span"
+                className={classes.uploadButton}
+              >
                 Change Cover Photo
                 <AddPhotoAlternateIcon />
               </Button>
             </label>
-            <span className={classes.filename}>
-              {course.image ? course.image.name : ""}
-            </span>
-            <Typography
-              style={{ margin: "10px 0 0 4px", fontSize: "13px" }}
-              color="error"
-            >
+            <span>{course.image ? course.image.name : ""}</span>
+            <Typography className={classes.maxSize} color="error">
               Max File Size: 2MB
             </Typography>
+            {values.error && (
+              <Typography color="error">
+                <ErrorOutlineIcon color="error" className={classes.errorIcon} />
+                {values.error}
+              </Typography>
+            )}
           </div>
         </div>
         <div>
