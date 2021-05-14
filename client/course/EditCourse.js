@@ -14,6 +14,7 @@ import {
   IconButton,
   Typography,
   Divider,
+  MenuItem,
 } from "@material-ui/core";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
@@ -23,6 +24,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { read, update } from "./api-course.js";
 import { Link, Redirect } from "react-router-dom";
 import auth from "./../auth/auth-helper";
+import categories from "./categories.json";
 
 const useStyles = makeStyles((theme) => ({
   root: theme.mixins.gutters({
@@ -203,11 +205,17 @@ export default function EditCourse({ match }) {
                 <TextField
                   margin="dense"
                   label="Category"
-                  type="text"
-                  fullWidth
+                  select
                   value={course.category}
                   onChange={handleUpdate("category")}
-                />
+                  style={{ textAlign: "left" }}
+                >
+                  {categories.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
               }
             </div>
           }

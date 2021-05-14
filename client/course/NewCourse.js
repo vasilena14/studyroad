@@ -6,6 +6,7 @@ import {
   Button,
   TextField,
   Typography,
+  MenuItem,
 } from "@material-ui/core";
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
@@ -13,6 +14,7 @@ import auth from "./../auth/auth-helper";
 import { makeStyles } from "@material-ui/core/styles";
 import { create } from "./api-course.js";
 import { Link, Redirect } from "react-router-dom";
+import categories from "./categories.json";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -45,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
   },
   filename: {
     marginLeft: "10px",
+  },
+  inputLeft: {
+    textAlign: "left",
   },
 }));
 
@@ -146,11 +151,20 @@ export default function NewCourse() {
           <TextField
             id="category"
             label="Category"
+            select
             className={classes.textField}
             value={values.category}
             onChange={handleChange("category")}
             margin="normal"
-          />
+            style={{ textAlign: "left" }}
+          >
+            {categories.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+
           <br />
           {values.error && (
             <Typography component="p" color="error">

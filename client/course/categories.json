@@ -1,0 +1,30 @@
+[
+  {
+    "value": "Computer Science",
+    "label": "Computer Science"
+  },
+  {
+    "value": "Data Science",
+    "label": "Data Science"
+  },
+  {
+    "value": "Design and Arts",
+    "label": "Design and Arts"
+  },
+  {
+    "value": "Linguistics and Languages",
+    "label": "Linguistics and Languages"
+  },
+  {
+    "value": "Literature",
+    "label": "Literature"
+  },
+  {
+    "value": "Mathematics",
+    "label": "Mathematics"
+  },
+  {
+    "value": "Personal Development",
+    "label": "Personal Development"
+  }
+]

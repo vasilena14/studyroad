@@ -23,6 +23,7 @@ const theme = createMuiTheme({
     },
     openTitle: "#29516b",
     successful: "#6bbc45",
+    inProgress: "#42c6cc",
     protectedTitle: "#f4b318",
     type: "light",
   },

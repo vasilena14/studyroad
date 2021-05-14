@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "0 10px",
   },
   progress: {
-    color: "#b4f8b4",
+    color: theme.palette.inProgress,
   },
   finishedCourse: {
     color: theme.palette.successful,
@@ -65,7 +65,15 @@ export default function AllEnrollments(props) {
             className={classes.tileBar}
             title={
               <Link to={"/learn/" + course._id} className={classes.tileTitle}>
-                {course.course.name}
+                <p
+                  style={{
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {course.course.name}
+                </p>
               </Link>
             }
             actionIcon={
