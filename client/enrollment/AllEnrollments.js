@@ -12,20 +12,17 @@ const useStyles = makeStyles((theme) => ({
     )}px`,
     color: theme.palette.openTitle,
   },
-  media: {
-    minHeight: 400,
-  },
-  container: {
-    minWidth: "100%",
-    paddingBottom: "14px",
-  },
-  gridList: {
-    width: "100%",
-    minHeight: 100,
-    padding: "12px 10px 10px",
-  },
   image: {
     width: "100%",
+  },
+  rootTile: {
+    padding: 0,
+  },
+  tile: {
+    borderTop: "1px solid #cecece",
+    borderLeft: "1px solid #cecece",
+    borderRight: "1px solid #cecece",
+    borderRadius: "4px",
   },
   tileBar: {
     backgroundColor: "rgba(0, 0, 0, 0.65)",
@@ -43,42 +40,46 @@ const useStyles = makeStyles((theme) => ({
   progress: {
     color: "#b4f8b4",
   },
+  finishedCourse: {
+    color: theme.palette.successful,
+  },
 }));
 
 export default function AllEnrollments(props) {
   const classes = useStyles();
   return (
-    <div>
-      <GridList cellHeight={120} className={classes.gridList} cols={4}>
-        {props.enrollments.map((course, i) => (
-          <GridListTile key={i}>
-            <Link to={"/learn/" + course._id}>
-              <img
-                className={classes.image}
-                src={"/api/courses/cover/" + course.course._id}
-                alt={course.course.name}
-              />
-            </Link>
-            <GridListTileBar
-              className={classes.tileBar}
-              title={
-                <Link to={"/learn/" + course._id} className={classes.tileTitle}>
-                  {course.course.name}
-                </Link>
-              }
-              actionIcon={
-                <div className={classes.action}>
-                  {course.completed ? (
-                    <CheckCircleIcon color="secondary" />
-                  ) : (
-                    <DonutLargeIcon className={classes.progress} />
-                  )}
-                </div>
-              }
+    <GridList cellHeight={120} spacing={6} cols={4}>
+      {props.enrollments.map((course, i) => (
+        <GridListTile
+          classes={{ root: classes.rootTile, tile: classes.tile }}
+          key={i}
+        >
+          <Link to={"/learn/" + course._id}>
+            <img
+              className={classes.image}
+              src={"/api/courses/cover/" + course.course._id}
+              alt={course.course.name}
             />
-          </GridListTile>
-        ))}
-      </GridList>
-    </div>
+          </Link>
+          <GridListTileBar
+            className={classes.tileBar}
+            title={
+              <Link to={"/learn/" + course._id} className={classes.tileTitle}>
+                {course.course.name}
+              </Link>
+            }
+            actionIcon={
+              <div className={classes.action}>
+                {course.completed ? (
+                  <CheckCircleIcon className={classes.finishedCourse} />
+                ) : (
+                  <DonutLargeIcon className={classes.progress} />
+                )}
+              </div>
+            }
+          />
+        </GridListTile>
+      ))}
+    </GridList>
   );
 }

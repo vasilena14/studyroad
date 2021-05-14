@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, Typography } from "@material-ui/core";
+import { Card, Typography, Box } from "@material-ui/core";
 import { getAllPublished } from "./../course/api-course";
 import { getAllEnrolled } from "./../enrollment/api-enrollment";
 import auth from "./../auth/auth-helper";
@@ -13,11 +13,10 @@ const useStyles = makeStyles((theme) => ({
     margin: "auto",
     marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5),
+    padding: `${theme.spacing(3.5)}px `,
   },
   title: {
-    padding: `${theme.spacing(3)}px ${theme.spacing(2.5)}px ${theme.spacing(
-      2
-    )}px`,
+    padding: `${theme.spacing(1)}px 0 ${theme.spacing(2)}px`,
     color: theme.palette.openTitle,
   },
   content: {
@@ -69,7 +68,7 @@ export default function Home() {
   return (
     <>
       {jwt.user && (
-        <Card className={`${classes.card}`}>
+        <Card className={classes.card}>
           <Typography variant="h5" component="h2" className={classes.title}>
             Courses you are enrolled in
           </Typography>

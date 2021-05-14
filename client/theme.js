@@ -9,10 +9,6 @@ const theme = createMuiTheme({
     fontWeightBold: 600,
   },
   palette: {
-    // background: {
-    //   default: "#f20002",
-    //   paper: "#f44664",
-    // },
     primary: {
       light: "#577d99",
       main: "#29516b",
@@ -23,9 +19,10 @@ const theme = createMuiTheme({
       light: "#ffe554",
       main: "#f4b318",
       dark: "#bc8400",
-      contrastText: "#000",
+      contrastText: "#fff",
     },
     openTitle: "#29516b",
+    successful: "#6bbc45",
     protectedTitle: "#f4b318",
     type: "light",
   },

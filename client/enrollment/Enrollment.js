@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#fefeff",
   },
   check: {
-    color: "#38cc38",
+    color: theme.palette.successful,
   },
   subheader: {
     fontSize: "1.2em",

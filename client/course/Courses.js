@@ -7,15 +7,13 @@ import auth from "./../auth/auth-helper";
 import Enroll from "./../enrollment/Enroll";
 
 const useStyles = makeStyles((theme) => ({
-  gridList: {
-    width: "100%",
-    minHeight: 200,
-    padding: "16px 10px 10px",
-  },
   tile: {
-    textAlign: "center",
-    border: "1px solid #cecece",
+    borderTop: "1px solid #cecece",
+    borderLeft: "1px solid #cecece",
+    borderRight: "1px solid #cecece",
     borderRadius: "4px",
+  },
+  rootTile: {
     padding: 0,
   },
   image: {
@@ -46,11 +44,14 @@ export default function Courses(props) {
   };
 
   return (
-    <GridList cellHeight={220} className={classes.gridList} cols={2}>
+    <GridList cellHeight={220} spacing={15} cols={2}>
       {props.courses.map((course, i) => {
         return (
           findCommon(course) && (
-            <GridListTile className={classes.tile} key={i}>
+            <GridListTile
+              classes={{ root: classes.rootTile, tile: classes.tile }}
+              key={i}
+            >
               <Link to={"/course/" + course._id}>
                 <img
                   className={classes.image}
