@@ -185,7 +185,7 @@ export default function Course({ match }) {
 
   return (
     <div className={classes.root}>
-      <Card className={classes.card}>
+      <Card className={classes.card} elevation={4}>
         <CardHeader
           title={course.name}
           subheader={

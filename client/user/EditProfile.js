@@ -122,7 +122,7 @@ export default function EditProfile({ match }) {
   }
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} elevation={4}>
       <CardContent>
         <Typography variant="h6" className={classes.title}>
           Edit Profile

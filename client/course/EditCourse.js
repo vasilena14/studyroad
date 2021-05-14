@@ -184,7 +184,7 @@ export default function EditCourse({ match }) {
 
   return (
     <div className={classes.root}>
-      <Card className={classes.card}>
+      <Card className={classes.card} elevation={4}>
         <CardHeader
           title={
             <TextField

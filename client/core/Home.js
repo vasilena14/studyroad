@@ -68,7 +68,7 @@ export default function Home() {
   return (
     <>
       {jwt.user && (
-        <Card className={classes.card}>
+        <Card className={classes.card} elevation={4}>
           <Typography variant="h5" component="h2" className={classes.title}>
             Courses you are enrolled in
           </Typography>
@@ -82,7 +82,7 @@ export default function Home() {
         </Card>
       )}
 
-      <Card className={classes.card}>
+      <Card className={classes.card} elevation={4}>
         <Typography variant="h5" component="h2" className={classes.title}>
           All Courses
         </Typography>

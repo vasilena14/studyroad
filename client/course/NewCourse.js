@@ -99,7 +99,7 @@ export default function NewCourse() {
 
   return (
     <div>
-      <Card className={classes.card}>
+      <Card className={classes.card} elevation={4}>
         <CardContent>
           <Typography variant="h6" className={classes.title}>
             New Course

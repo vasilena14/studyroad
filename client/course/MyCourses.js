@@ -111,7 +111,7 @@ export default function MyCourses() {
                   </ListItemAvatar>
                   <ListItemText
                     primary={course.name}
-                    secondary={course.description}
+                    secondary={course.category}
                     className={classes.listText}
                   />
                 </ListItem>

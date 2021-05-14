@@ -14,7 +14,7 @@ export default ({ html, css }) => {
             }
         </style>
       </head>
-      <body style="margin:0; background-color:#f2f2f2;">
+      <body style="margin:0; background-color:#f2f2f2; padding-bottom: 40px">
       <div id="root" >${html}</div>
       <style id="jss-server-side">${css}</style>
       <script type="text/javascript" src="/dist/bundle.js"></script>

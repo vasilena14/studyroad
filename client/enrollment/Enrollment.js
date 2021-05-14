@@ -268,7 +268,7 @@ export default function Enrollment({ match }) {
       </Drawer>
 
       {values.drawer == -1 && (
-        <Card className={classes.card}>
+        <Card className={classes.card} elevation={4}>
           <CardHeader
             title={enrollment.course.name}
             subheader={
@@ -354,7 +354,7 @@ export default function Enrollment({ match }) {
           <Typography variant="h5" className={classes.heading}>
             {enrollment.course.name}
           </Typography>
-          <Card className={classes.card}>
+          <Card className={classes.card} elevation={4}>
             <CardHeader
               title={enrollment.course.lessons[values.drawer].title}
               action={
