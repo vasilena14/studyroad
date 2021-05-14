@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
 import auth from "./../auth/auth-helper";
 import { Link, withRouter } from "react-router-dom";
+import logo from "./../assets/logo/logo.png";
 
 const isSelected = (history, path) => {
   if (history.location.pathname == path)
@@ -24,9 +25,10 @@ const Menu = withRouter(({ history }) => (
   <AppBar position="static">
     <Toolbar>
       <Link to="/">
-        <Typography variant="h5" style={{ color: "#ffffff" }}>
+        {/* <Typography variant="h5" style={{ color: "#ffffff" }}>
           Studyroad
-        </Typography>
+        </Typography> */}
+        <img src={logo} alt={"logo"} style={{ maxWidth: "190px" }} />
       </Link>
       <div style={{ position: "absolute", right: 0 }}>
         <Link to="/">
