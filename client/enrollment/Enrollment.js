@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
   root: theme.mixins.gutters({
     maxWidth: 800,
     margin: "auto",
-    marginTop: theme.spacing(12),
-    marginLeft: 250,
+    marginLeft: 290,
+    marginRight: 30,
   }),
   heading: {
     marginBottom: theme.spacing(3),
@@ -45,20 +45,17 @@ const useStyles = makeStyles((theme) => ({
     border: "1px solid #bdbdbd",
     background: "none",
   },
-  drawer: {
-    width: 240,
-  },
   drawerPaper: {
-    backgroundColor: "#29516b",
-    // borderRight: "1px solid grey",
+    backgroundColor: "#ffffff",
     borderRight: 0,
+    maxWidth: 260,
   },
   toolbar: theme.mixins.toolbar,
   selectedDrawer: {
     backgroundColor: "#dfe1e9",
   },
   unselected: {
-    backgroundColor: "#fefeff",
+    backgroundColor: "#ffffff",
   },
   check: {
     color: theme.palette.successful,
@@ -67,8 +64,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1.2em",
   },
   flex: {
-    display: "flex",
-    marginBottom: 20,
+    textAlign: "center",
   },
   subheading: {
     margin: "10px",
@@ -76,6 +72,8 @@ const useStyles = makeStyles((theme) => ({
   },
   details: {
     margin: "16px",
+    maxWidth: "100%",
+    textAlign: "justify",
   },
   sub: {
     display: "block",
@@ -85,8 +83,7 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 180,
     display: "inline-block",
-    width: "100%",
-    marginLeft: "16px",
+    width: "95%",
   },
   category: {
     color: "#5c5c5c",
@@ -102,15 +99,17 @@ const useStyles = makeStyles((theme) => ({
   },
   progress: {
     textAlign: "center",
-    color: "#dfdfdf",
+    color: "#000000",
     "& span": {
-      color: "#fffde7",
+      fontWeight: 500,
+      color: "#29516b",
       fontSize: "1.15em",
     },
   },
 
   para: {
     whiteSpace: "pre-wrap",
+    textAlign: "justify",
   },
 }));
 
@@ -202,13 +201,15 @@ export default function Enrollment({ match }) {
       <Drawer
         variant="permanent"
         elevatin={8}
-        // style={{ zIndex: -1 }}
         classes={{
           paper: classes.drawerPaper,
         }}
       >
         <div className={classes.toolbar} />
-        <List>
+        <List
+          className={classes.unselected}
+          style={{ padding: 0, marginTop: "8px" }}
+        >
           <ListItem
             button
             onClick={selectDrawer(-1)}
@@ -223,7 +224,7 @@ export default function Enrollment({ match }) {
           </ListItem>
         </List>
         <Divider />
-        <List className={classes.unselected}>
+        <List className={classes.unselected} style={{ marginTop: "8px" }}>
           <ListSubheader component="div" className={classes.subheader}>
             Lessons
           </ListSubheader>

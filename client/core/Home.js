@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, Typography, Box } from "@material-ui/core";
+import { Card, Typography } from "@material-ui/core";
 import { getAllPublished } from "./../course/api-course";
 import { getAllEnrolled } from "./../enrollment/api-enrollment";
 import auth from "./../auth/auth-helper";

@@ -38,8 +38,20 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(12),
   }),
   flex: {
-    display: "flex",
-    marginBottom: 20,
+    textAlign: "center",
+  },
+  details: {
+    margin: "16px",
+    maxWidth: "100%",
+    textAlign: "justify",
+    // display: "flex",
+    // justifyContent: "space-between",
+    // alignItems: "center",
+  },
+  media: {
+    height: 180,
+    display: "inline-block",
+    width: "95%",
   },
   card: {
     padding: "24px 40px 40px",
@@ -48,19 +60,10 @@ const useStyles = makeStyles((theme) => ({
     margin: "10px",
     color: theme.palette.openTitle,
   },
-  details: {
-    margin: "16px",
-  },
   sub: {
     display: "block",
     margin: "3px 0px 5px 0px",
     fontSize: "0.9em",
-  },
-  media: {
-    height: 190,
-    display: "inline-block",
-    width: "100%",
-    marginLeft: "16px",
   },
   category: {
     color: "#5c5c5c",
@@ -86,7 +89,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   enroll: {
-    float: "right",
+    // float: "right",
+    textAlign: "right",
   },
 }));
 
@@ -223,9 +227,12 @@ export default function Course({ match }) {
                       <DeleteCourse course={course} onRemove={removeCourse} />
                     </>
                   ) : (
-                    <Button color="primary" variant="outlined">
-                      Published
-                    </Button>
+                    <>
+                      <Button color="primary" variant="outlined">
+                        Published
+                      </Button>
+                      {/* <DeleteCourse course={course} onRemove={removeCourse} /> */}
+                    </>
                   )}
                 </span>
               )}
@@ -279,8 +286,8 @@ export default function Course({ match }) {
             }
             action={
               jwt.user &&
-              jwt.user._id == course.tutor._id && (
-                // !course.published &&
+              jwt.user._id == course.tutor._id &&
+              !course.published && (
                 <span className={classes.action}>
                   <NewLesson
                     courseId={course._id}
