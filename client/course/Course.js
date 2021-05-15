@@ -16,6 +16,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  Tooltip,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import BeenhereIcon from "@material-ui/icons/Beenhere";
@@ -200,11 +201,13 @@ export default function Course({ match }) {
             <>
               {jwt.user && jwt.user._id == course.tutor._id && (
                 <span className={classes.action}>
-                  <Link to={"/tutor/course/edit/" + course._id}>
-                    <IconButton aria-label="Edit" color="secondary">
-                      <EditIcon />
-                    </IconButton>
-                  </Link>
+                  <Tooltip title="Edit course" aria-label="Edit">
+                    <Link to={"/tutor/course/edit/" + course._id}>
+                      <IconButton aria-label="Edit" color="secondary">
+                        <EditIcon />
+                      </IconButton>
+                    </Link>
+                  </Tooltip>
 
                   {!course.published ? (
                     <>
@@ -276,8 +279,8 @@ export default function Course({ match }) {
             }
             action={
               jwt.user &&
-              jwt.user._id == course.tutor._id &&
-              !course.published && (
+              jwt.user._id == course.tutor._id && (
+                // !course.published &&
                 <span className={classes.action}>
                   <NewLesson
                     courseId={course._id}

@@ -8,10 +8,12 @@ import Courses from "./../course/Courses";
 import AllEnrollments from "../enrollment/AllEnrollments";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    marginTop: theme.spacing(12),
+  },
   card: {
     maxWidth: 900,
     margin: "auto",
-    marginTop: theme.spacing(5),
     marginBottom: theme.spacing(5),
     padding: `${theme.spacing(3.5)}px `,
   },

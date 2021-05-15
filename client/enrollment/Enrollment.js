@@ -49,8 +49,9 @@ const useStyles = makeStyles((theme) => ({
     width: 240,
   },
   drawerPaper: {
-    width: 240,
-    backgroundColor: "#3f4771",
+    backgroundColor: "#29516b",
+    // borderRight: "1px solid grey",
+    borderRight: 0,
   },
   toolbar: theme.mixins.toolbar,
   selectedDrawer: {
@@ -199,8 +200,9 @@ export default function Enrollment({ match }) {
   return (
     <div className={classes.root}>
       <Drawer
-        className={classes.drawer}
         variant="permanent"
+        elevatin={8}
+        // style={{ zIndex: -1 }}
         classes={{
           paper: classes.drawerPaper,
         }}

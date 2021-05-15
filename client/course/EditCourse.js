@@ -15,6 +15,7 @@ import {
   Typography,
   Divider,
   MenuItem,
+  Tooltip,
 } from "@material-ui/core";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
@@ -307,14 +308,16 @@ export default function EditCourse({ match }) {
                         <>
                           <Avatar>{index + 1}</Avatar>
                           {index != 0 && (
-                            <IconButton
-                              aria-label="up"
-                              color="primary"
-                              onClick={moveUp(index)}
-                              className={classes.arrowUp}
-                            >
-                              <ArrowUpwardIcon />
-                            </IconButton>
+                            <Tooltip title="Move up" aria-label="up">
+                              <IconButton
+                                aria-label="up"
+                                color="primary"
+                                onClick={moveUp(index)}
+                                className={classes.arrowUp}
+                              >
+                                <ArrowUpwardIcon />
+                              </IconButton>
+                            </Tooltip>
                           )}
                         </>
                       </ListItemAvatar>
@@ -357,18 +360,20 @@ export default function EditCourse({ match }) {
                         }
                       />
 
-                      {!course.published && (
-                        <ListItemSecondaryAction>
+                      {/* {!course.published && ( */}
+                      <ListItemSecondaryAction>
+                        <Tooltip title="Delete lesson" aria-label="delete">
                           <IconButton
                             edge="end"
-                            aria-label="up"
+                            aria-label="delete"
                             color="primary"
                             onClick={deleteLesson(index)}
                           >
                             <DeleteIcon />
                           </IconButton>
-                        </ListItemSecondaryAction>
-                      )}
+                        </Tooltip>
+                      </ListItemSecondaryAction>
+                      {/* )} */}
                     </ListItem>
                     <Divider
                       style={{ backgroundColor: "rgb(106, 106, 106)" }}

@@ -13,10 +13,20 @@ import NewCourse from "./course/NewCourse";
 import MyCourses from "./course/MyCourses";
 import EditCourse from "./course/EditCourse";
 import Enrollment from "./enrollment/Enrollment";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    marginTop: theme.spacing(12),
+    marginBottom: theme.spacing(10),
+  },
+}));
 
 const MainRouter = () => {
+  const classes = useStyles();
+
   return (
-    <>
+    <div className={classes.root}>
       <Menu />
       <Switch>
         <Route exact path="/" component={Home} />
@@ -36,7 +46,7 @@ const MainRouter = () => {
         <PrivateRoute path="/tutor/course/:courseId" component={Course} />
         <PrivateRoute path="/learn/:enrollmentId" component={Enrollment} />
       </Switch>
-    </>
+    </div>
   );
 };
 

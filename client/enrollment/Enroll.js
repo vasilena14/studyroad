@@ -42,9 +42,9 @@ export default function Enroll(props) {
         </Button>
       ) : (
         <Link to="/signin">
-          <Typography>
-            <Box fontWeight="fontWeightBold">Sign in to Enroll</Box>
-          </Typography>
+          <Button variant="text" color="secondary" size="small">
+            Sign in to Enroll
+          </Button>
         </Link>
       )}
     </div>

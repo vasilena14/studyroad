@@ -8,6 +8,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Tooltip,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import auth from "./../auth/auth-helper";
@@ -49,9 +50,11 @@ export default function DeleteUser(props) {
 
   return (
     <span>
-      <IconButton aria-label="Delete" onClick={handleClick} color="secondary">
-        <DeleteIcon />
-      </IconButton>
+      <Tooltip title="Delete profile" aria-label="Delete">
+        <IconButton aria-label="Delete" onClick={handleClick} color="secondary">
+          <DeleteIcon />
+        </IconButton>
+      </Tooltip>
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{"Delete Account"}</DialogTitle>

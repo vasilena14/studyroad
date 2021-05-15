@@ -20,16 +20,14 @@ const useStyles = makeStyles((theme) => ({
   root: theme.mixins.gutters({
     maxWidth: 600,
     margin: "auto",
-    padding: theme.spacing(3),
-    marginTop: theme.spacing(12),
+    marginBottom: theme.spacing(5),
+    padding: `${theme.spacing(3.5)}px `,
   }),
   title: {
-    margin: `${theme.spacing(3)}px 0 ${theme.spacing(3)}px ${theme.spacing(
+    margin: `${theme.spacing(2)}px 0 ${theme.spacing(3)}px ${theme.spacing(
       1
     )}px`,
     color: theme.palette.protectedTitle,
-    // fontWeight: 500,
-    // fontSize: "1.2em",
   },
   addButton: {
     float: "right",

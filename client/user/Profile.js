@@ -11,6 +11,7 @@ import {
   Divider,
   ListItemSecondaryAction,
   IconButton,
+  Tooltip,
 } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteUser from "./DeleteUser";
@@ -26,7 +27,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(5),
   }),
   title: {
-    marginTop: theme.spacing(3),
+    margin: `${theme.spacing(2)}px 0 ${theme.spacing(3)}px ${theme.spacing(
+      1
+    )}px`,
     color: theme.palette.protectedTitle,
   },
   avatar: {
@@ -83,9 +86,11 @@ export default function Profile({ match }) {
           {jwt.user && jwt.user._id == user._id && (
             <ListItemSecondaryAction>
               <Link to={"/user/edit/" + user._id}>
-                <IconButton aria-label="Edit" color="primary">
-                  <EditIcon />
-                </IconButton>
+                <Tooltip title="Edit profile" aria-label="Edit">
+                  <IconButton aria-label="Edit" color="primary">
+                    <EditIcon />
+                  </IconButton>
+                </Tooltip>
               </Link>
               <DeleteUser userId={user._id} />
             </ListItemSecondaryAction>
