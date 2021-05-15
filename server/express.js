@@ -20,13 +20,13 @@ import { ServerStyleSheets, ThemeProvider } from "@material-ui/styles";
 import theme from "./../client/theme";
 
 //only for development mode - comment out for production
-import devBundle from "./devBundle";
+// import devBundle from "./devBundle";
 
 const CURRENT_WORKING_DIR = process.cwd();
 const app = express();
 
 //only for development mode - comment out for production
-devBundle.compile(app);
+// devBundle.compile(app);
 
 app.use(favicon(path.join(CURRENT_WORKING_DIR, "public", "favicon.ico")));
 
@@ -74,6 +74,10 @@ app.get("*", (req, res) => {
 app.get("/favicon.ico", function (req, res) {
   res.status(204);
   res.end();
+});
+
+app.get("/", (req, res) => {
+  res.send("Hello from Express!");
 });
 
 //Catches unauthorized errors
