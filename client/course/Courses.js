@@ -69,7 +69,9 @@ export default function Courses(props) {
                     {course.name}
                   </Link>
                 }
-                subtitle={<span>{course.category}</span>}
+                subtitle={
+                  <span style={{ lineHeight: "1.5" }}>{course.category}</span>
+                }
                 actionIcon={
                   <div className={classes.action}>
                     {jwt ? (
