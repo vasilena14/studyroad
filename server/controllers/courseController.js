@@ -9,7 +9,7 @@ const create = (req, res) => {
   let form = new formidable.IncomingForm();
 
   form.keepExtensions = true;
-  form.maxFileSize = 2 * 1024 * 1024;
+  form.maxFileSize = 0.2 * 1024 * 1024;
 
   form.parse(req, async (err, fields, files) => {
     if (err) {
@@ -62,7 +62,7 @@ const update = async (req, res) => {
   let form = new formidable.IncomingForm();
 
   form.keepExtensions = true;
-  form.maxFileSize = 2 * 1024 * 1024;
+  form.maxFileSize = 0.2 * 1024 * 1024;
 
   form.parse(req, async (err, fields, files) => {
     if (err) {
@@ -112,6 +112,7 @@ const newLesson = async (req, res) => {
 const remove = async (req, res) => {
   try {
     let course = req.course;
+    course.published = false;
     let deleteCourse = await course.remove();
     res.json(deleteCourse);
   } catch (err) {

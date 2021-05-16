@@ -275,7 +275,7 @@ export default function EditCourse({ match }) {
             </label>
             <span>{course.image ? course.image.name : ""}</span>
             <Typography className={classes.maxSize} color="error">
-              Max File Size: 2MB
+              Max File Size: 204.8 KB
             </Typography>
             {values.error && (
               <Typography color="error">

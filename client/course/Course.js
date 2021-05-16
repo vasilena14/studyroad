@@ -231,7 +231,7 @@ export default function Course({ match }) {
                       <Button color="primary" variant="outlined">
                         Published
                       </Button>
-                      {/* <DeleteCourse course={course} onRemove={removeCourse} /> */}
+                      <DeleteCourse course={course} onRemove={removeCourse} />
                     </>
                   )}
                 </span>

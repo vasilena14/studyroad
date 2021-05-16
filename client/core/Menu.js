@@ -80,7 +80,10 @@ function Menu({ history }) {
                 color="inherit"
                 style={{ marginRight: 10 }}
                 onClick={() => {
-                  auth.clearJWT(() => history.push("/"));
+                  auth.clearJWT(
+                    () => history.push("/"),
+                    window.location.reload(true)
+                  );
                 }}
               >
                 Sign out

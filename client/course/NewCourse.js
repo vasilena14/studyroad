@@ -126,7 +126,7 @@ export default function NewCourse() {
             style={{ marginTop: "10px", fontSize: "13px" }}
             color="error"
           >
-            Max File Size: 2MB
+            Max File Size: 204.8 KB
           </Typography>
           <TextField
             id="name"
