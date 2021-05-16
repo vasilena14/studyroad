@@ -231,7 +231,7 @@ export default function Course({ match }) {
                       <Button color="primary" variant="outlined">
                         Published
                       </Button>
-                      <DeleteCourse course={course} onRemove={removeCourse} />
+                      {/* <DeleteCourse course={course} onRemove={removeCourse} /> */}
                     </>
                   )}
                 </span>
@@ -324,11 +324,13 @@ export default function Course({ match }) {
         <DialogTitle id="form-dialog-title">Publish Course</DialogTitle>
         <DialogContent>
           <Typography variant="body1">
-            Publishing this course will make it visible to students and they'll
-            be able to enroll.
+            Publishing this course will make it visible to students for
+            enrollment. Make sure all lessons are ready.
           </Typography>
+          <br />
           <Typography variant="body1">
-            Make sure all lessons are ready for publishing.
+            Once published you won't be able to add new lessons or delete the
+            course. But you will be able to edit the existing components.
           </Typography>
         </DialogContent>
         <DialogActions>

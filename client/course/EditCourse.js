@@ -360,20 +360,20 @@ export default function EditCourse({ match }) {
                         }
                       />
 
-                      {/* {!course.published && ( */}
-                      <ListItemSecondaryAction>
-                        <Tooltip title="Delete lesson" aria-label="delete">
-                          <IconButton
-                            edge="end"
-                            aria-label="delete"
-                            color="primary"
-                            onClick={deleteLesson(index)}
-                          >
-                            <DeleteIcon />
-                          </IconButton>
-                        </Tooltip>
-                      </ListItemSecondaryAction>
-                      {/* )} */}
+                      {!course.published && (
+                        <ListItemSecondaryAction>
+                          <Tooltip title="Delete lesson" aria-label="delete">
+                            <IconButton
+                              edge="end"
+                              aria-label="delete"
+                              color="primary"
+                              onClick={deleteLesson(index)}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </Tooltip>
+                        </ListItemSecondaryAction>
+                      )}
                     </ListItem>
                     <Divider
                       style={{ backgroundColor: "rgb(106, 106, 106)" }}
