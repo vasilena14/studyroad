@@ -23,10 +23,10 @@ import theme from "./../client/theme";
 // import devBundle from "./devBundle";
 
 const CURRENT_WORKING_DIR = process.cwd();
-// const app = express();
+const app = express();
 
 //only for development mode - comment out for production
-devBundle.compile(app);
+// devBundle.compile(app);
 
 app.use(favicon(path.join(CURRENT_WORKING_DIR, "public", "favicon.ico")));
 
