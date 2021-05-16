@@ -5,13 +5,10 @@ const getCustomErrorMessage = (err) => {
 
   try {
     let fieldName = err.message.substring(
-      err.message.lastIndexOf(".$") + 2,
-      err.message.lastIndexOf("_1")
+      err.message.lastIndexOf("{") + 1,
+      err.message.lastIndexOf("}")
     );
-    output =
-      fieldName.charAt(0).toUpperCase() +
-      fieldName.slice(1) +
-      " already exists";
+    output = fieldName + " already exists";
   } catch (ex) {
     output = "Field already exists";
   }

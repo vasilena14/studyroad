@@ -10,7 +10,8 @@ const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     trim: true,
-    custom: "Email already exists",
+    unique: true,
+    // custom: "Email already exists",
     match: [/.+\@.+\..+/, "Please write a valid email address"],
     required: "Email is required",
   },
