@@ -2,7 +2,7 @@
   "name": "studyroad",
   "version": "1.0.0",
   "description": "Platform for Online Courses based on the MERN stack",
-  "main": "index.js",
+  "main": "./dist/server.generated.js",
   "repository": "https://github.com/vasilena14/studyroad.git",
   "author": "Vassilena Vassileva",
   "license": "MIT",
