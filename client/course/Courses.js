@@ -65,6 +65,11 @@ export default function Courses(props) {
                   <Link
                     to={"/course/" + course._id}
                     className={classes.tileTitle}
+                    style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
                   >
                     {course.name}
                   </Link>
