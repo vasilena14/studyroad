@@ -35,7 +35,7 @@ const update = async (params, credentials, course) => {
     let response = await fetch("/api/courses/" + params.courseId, {
       method: "PUT",
       headers: {
-        Accept: "application/json",
+        Accept: "application/json, text/html",
         Authorization: "Bearer " + credentials.t,
       },
       body: course,

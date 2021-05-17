@@ -162,7 +162,7 @@ const getAllPublished = (req, res) => {
 
 const cover = (req, res, next) => {
   if (req.course.image.data) {
-    res.set("Content-Type", "application/json");
+    res.set("Content-Type", req.course.image.contentType);
     return res.send(req.course.image.data);
   }
   next();
