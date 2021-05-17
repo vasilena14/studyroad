@@ -26,6 +26,7 @@ const create = (req, res) => {
       course.image.data = fs.readFileSync(files.image.path);
       course.image.contentType = files.image.type;
     }
+
     try {
       let result = await course.save();
       res.json(result);
@@ -70,16 +71,21 @@ const update = async (req, res) => {
         error: "Image could not be uploaded",
       });
     }
+
     let course = req.course;
     course = extend(course, fields);
+
     if (fields.lessons) {
       course.lessons = JSON.parse(fields.lessons);
     }
+
     course.updated = Date.now();
+
     if (files.image) {
       course.image.data = fs.readFileSync(files.image.path);
       course.image.contentType = files.image.type;
     }
+
     try {
       await course.save();
       res.json(course);
@@ -156,7 +162,7 @@ const getAllPublished = (req, res) => {
 
 const cover = (req, res, next) => {
   if (req.course.image.data) {
-    res.set("Content-Type", req.course.image.contentType);
+    res.set("Content-Type", "application/json");
     return res.send(req.course.image.data);
   }
   next();

@@ -124,13 +124,13 @@ export default function EditCourse({ match }) {
     };
   }, [match.params.courseId]);
 
-  const handleUpdate = (name) => (event) => {
+  const handleChange = (name) => (event) => {
     const value = name === "image" ? event.target.files[0] : event.target.value;
     setCourse({ ...course, [name]: value }),
       setValues({ ...values, [name]: value });
   };
 
-  const handleLessonUpdate = (name, index) => (event) => {
+  const handleLessonChange = (name, index) => (event) => {
     const lessons = course.lessons;
     lessons[index][name] = event.target.value;
     setCourse({ ...course, lessons: lessons });
@@ -194,7 +194,7 @@ export default function EditCourse({ match }) {
               type="text"
               fullWidth
               value={course.name}
-              onChange={handleUpdate("name")}
+              onChange={handleChange("name")}
             />
           }
           subheader={
@@ -208,7 +208,7 @@ export default function EditCourse({ match }) {
                   label="Category"
                   select
                   value={course.category}
-                  onChange={handleUpdate("category")}
+                  onChange={handleChange("category")}
                   style={{ textAlign: "left" }}
                 >
                   {categories.map((option) => (
@@ -251,13 +251,13 @@ export default function EditCourse({ match }) {
               type="text"
               className={classes.textfield}
               value={course.description}
-              onChange={handleUpdate("description")}
+              onChange={handleChange("description")}
             />
             <br />
             <br />
             <input
               accept="image/*"
-              onChange={handleUpdate("image")}
+              onChange={handleChange("image")}
               className={classes.input}
               id="icon-button-file"
               type="file"
@@ -330,7 +330,7 @@ export default function EditCourse({ match }) {
                               type="text"
                               fullWidth
                               value={lesson.title}
-                              onChange={handleLessonUpdate("title", index)}
+                              onChange={handleLessonChange("title", index)}
                             />
                             <br />
                             <TextField
@@ -341,7 +341,7 @@ export default function EditCourse({ match }) {
                               type="text"
                               fullWidth
                               value={lesson.content}
-                              onChange={handleLessonUpdate("content", index)}
+                              onChange={handleLessonChange("content", index)}
                             />
                             <br />
                             <TextField
@@ -350,7 +350,7 @@ export default function EditCourse({ match }) {
                               type="text"
                               fullWidth
                               value={lesson.resource_url}
-                              onChange={handleLessonUpdate(
+                              onChange={handleLessonChange(
                                 "resource_url",
                                 index
                               )}
