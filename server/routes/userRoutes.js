@@ -9,8 +9,8 @@ router.route("/api/users").get(userC.getAll).post(userC.create);
 router
   .route("/api/users/:userId")
   .get(authC.requireSignin, userC.read)
-  .put(authC.requireSignin, authC.isAuthorized, userC.update)
-  .delete(authC.requireSignin, authC.isAuthorized, userC.remove);
+  .put(authC.requireSignin, authC.isAuthorized, userC.update);
+// .delete(authC.requireSignin, authC.isAuthorized, userC.remove);
 
 router.param("userId", userC.userByID);
 

@@ -92,7 +92,7 @@ export default function Profile({ match }) {
                   </IconButton>
                 </Tooltip>
               </Link>
-              <DeleteUser userId={user._id} />
+              {/* <DeleteUser userId={user._id} /> */}
             </ListItemSecondaryAction>
           )}
         </ListItem>
