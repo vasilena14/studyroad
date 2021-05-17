@@ -101,11 +101,10 @@ export default function EditCourse({ match }) {
     category: "",
     tutor: {},
     lessons: [],
-  });
-  const [values, setValues] = useState({
     redirect: false,
     error: "",
   });
+  const [values, setValues] = useState({});
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -113,7 +112,7 @@ export default function EditCourse({ match }) {
 
     read({ courseId: match.params.courseId }, signal).then((data) => {
       if (data.error) {
-        setValues({ ...values, error: data.error });
+        setCourse({ ...course, error: data.error });
       } else {
         data.image = "";
         setCourse(data);
@@ -126,8 +125,7 @@ export default function EditCourse({ match }) {
 
   const handleChange = (name) => (event) => {
     const value = name === "image" ? event.target.files[0] : event.target.value;
-    setCourse({ ...course, [name]: value }),
-      setValues({ ...values, [name]: value });
+    setCourse({ ...course, [name]: value });
   };
 
   const handleLessonChange = (name, index) => (event) => {
@@ -168,14 +166,14 @@ export default function EditCourse({ match }) {
     ).then((data) => {
       if (data.error) {
         console.log(data.error);
-        setValues({ ...values, error: data.error });
+        setCourse({ ...course, error: data.error });
       } else {
-        setValues({ ...values, error: "", redirect: true });
+        setCourse({ ...course, error: "", redirect: true });
       }
     });
   };
 
-  if (values.redirect) {
+  if (course.redirect) {
     return <Redirect to={"/tutor/course/" + course._id} />;
   }
 
@@ -277,10 +275,10 @@ export default function EditCourse({ match }) {
             <Typography className={classes.maxSize} color="error">
               Max File Size: 204.8 KB
             </Typography>
-            {values.error && (
+            {course.error && (
               <Typography color="error">
                 <ErrorOutlineIcon color="error" className={classes.errorIcon} />
-                {values.error}
+                {course.error}
               </Typography>
             )}
           </div>
