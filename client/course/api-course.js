@@ -4,7 +4,6 @@ const create = async (params, credentials, course) => {
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json",
         Authorization: "Bearer " + credentials.t,
       },
       body: course,
@@ -37,7 +36,6 @@ const update = async (params, credentials, course) => {
       method: "PUT",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json",
         Authorization: "Bearer " + credentials.t,
       },
       body: course,
