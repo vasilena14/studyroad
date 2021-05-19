@@ -25,6 +25,14 @@ const UserSchema = new mongoose.Schema({
     default: Date.now,
   },
   updated: Date,
+  admin: {
+    type: Boolean,
+    default: false,
+  },
+  requested: {
+    type: Boolean,
+    default: false,
+  },
   tutor: {
     type: Boolean,
     default: false,

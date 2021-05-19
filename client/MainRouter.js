@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./core/Home";
 import Users from "./user/Users";
+import RequestedUsers from "./user/RequestedUsers";
 import Signup from "./user/Signup";
 import Signin from "./auth/Signin";
 import EditProfile from "./user/EditProfile";
@@ -13,6 +14,7 @@ import NewCourse from "./course/NewCourse";
 import MyCourses from "./course/MyCourses";
 import EditCourse from "./course/EditCourse";
 import Enrollment from "./enrollment/Enrollment";
+import EditRequestedUser from "./user/EditRequestedUser";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -30,10 +32,15 @@ const MainRouter = () => {
       <Menu />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/users" component={Users} />
+        {/* <PrivateRoute path="/users" component={Users} /> */}
+        <PrivateRoute path="/users/requested" component={RequestedUsers} />
         <Route path="/signup" component={Signup} />
         <Route path="/signin" component={Signin} />
         <PrivateRoute path="/user/edit/:userId" component={EditProfile} />
+        <PrivateRoute
+          path="/users/requested/:userId"
+          component={EditRequestedUser}
+        />
         <Route path="/user/:userId" component={Profile} />
         <Route path="/course/:courseId" component={Course} />
         <PrivateRoute path="/tutor/courses" component={MyCourses} />

@@ -58,6 +58,9 @@ function Menu({ history }) {
           )}
           {auth.isAuthenticated() && (
             <span>
+              {auth.isAuthenticated().user.admin && (
+                <Link to="/users/requested">Tutor Requests</Link>
+              )}
               {auth.isAuthenticated().user.tutor && (
                 <Link to="/tutor/courses">
                   <Button style={isHighlighted(history, "/tutor/")}>

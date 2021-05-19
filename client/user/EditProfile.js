@@ -52,7 +52,7 @@ export default function EditProfile({ match }) {
     open: false,
     error: "",
     redirectToProfile: false,
-    tutor: false,
+    // tutor: false,
   });
   const jwt = auth.isAuthenticated();
 
@@ -74,7 +74,7 @@ export default function EditProfile({ match }) {
           ...values,
           name: data.name,
           email: data.email,
-          tutor: data.tutor,
+          // tutor: data.tutor,
         });
       }
     });
@@ -88,7 +88,7 @@ export default function EditProfile({ match }) {
       name: values.name || undefined,
       email: values.email || undefined,
       password: values.password || undefined,
-      tutor: values.tutor,
+      // tutor: values.tutor,
     };
     update(
       {
@@ -113,9 +113,9 @@ export default function EditProfile({ match }) {
     setValues({ ...values, [name]: event.target.value });
   };
 
-  const handleToggle = (event, checked) => {
-    setValues({ ...values, tutor: checked });
-  };
+  // const handleToggle = (event, checked) => {
+  //   setValues({ ...values, tutor: checked });
+  // };
 
   if (values.redirectToProfile) {
     return <Redirect to={"/user/" + values.userId} />;
@@ -156,13 +156,13 @@ export default function EditProfile({ match }) {
           margin="normal"
         />
         <br />
-        <br />
+        {/* <br />
         <Typography variant="subtitle1">I am a Tutor</Typography>
         <FormControlLabel
           control={<Switch checked={values.tutor} onChange={handleToggle} />}
           label={values.tutor ? "Yes" : "No"}
         />
-        <br />
+        <br /> */}
         {values.error && (
           <Typography component="p" color="error">
             <ErrorOutlineIcon color="error" className={classes.error} />

@@ -49,6 +49,19 @@ const getAll = async (req, res) => {
   }
 };
 
+const getAllRequested = async (req, res) => {
+  try {
+    let requestedUsers = await User.find({ requested: true }).select(
+      "name email requested tutor"
+    );
+    res.json(requestedUsers);
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err),
+    });
+  }
+};
+
 const update = async (req, res) => {
   try {
     let user = req.profile;
@@ -58,6 +71,38 @@ const update = async (req, res) => {
     user.hashedPassword = undefined;
     user.salt = undefined;
     res.json(user);
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err),
+    });
+  }
+};
+
+// const makeTutor = async (req, res) => {
+//   try {
+//     let user = req.profile;
+//     user = extend(user, req.body);
+//     user.updated = Date.now();
+//     await user.save();
+//     res.json(user);
+//   } catch (err) {
+//     return res.status(400).json({
+//       error: errorHandler.getErrorMessage(err),
+//     });
+//   }
+// };
+
+const makeTutor = async (req, res) => {
+  let updatedData = {};
+  updatedData["tutor"] = req.body.tutor;
+  updatedData.updated = Date.now();
+
+  try {
+    let userTutor = await User.updateOne(
+      { "user._id": req.body.userId },
+      { $set: updatedData }
+    );
+    res.json(userTutor);
   } catch (err) {
     return res.status(400).json({
       error: errorHandler.getErrorMessage(err),
@@ -79,6 +124,26 @@ const remove = async (req, res) => {
   }
 };
 
+const isAdmin = (req, res, next) => {
+  const isAdmin = req.profile && req.profile.admin;
+  if (!isAdmin) {
+    return res.status("403").json({
+      error: "User is not an admin",
+    });
+  }
+  next();
+};
+
+const hasRequested = (req, res, next) => {
+  const hasRequested = req.profile && req.profile.requested;
+  if (!hasRequested) {
+    return res.status("403").json({
+      error: "User hasn't requested to be a tutor",
+    });
+  }
+  next();
+};
+
 const isTutor = (req, res, next) => {
   const isTutor = req.profile && req.profile.tutor;
   if (!isTutor) {
@@ -89,4 +154,16 @@ const isTutor = (req, res, next) => {
   next();
 };
 
-export default { create, userByID, read, getAll, remove, update, isTutor };
+export default {
+  create,
+  userByID,
+  read,
+  getAll,
+  remove,
+  update,
+  isAdmin,
+  hasRequested,
+  isTutor,
+  getAllRequested,
+  makeTutor,
+};

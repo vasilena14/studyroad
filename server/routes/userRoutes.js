@@ -5,6 +5,18 @@ import authC from "../controllers/authController";
 const router = express.Router();
 
 router.route("/api/users").get(userC.getAll).post(userC.create);
+router.route("/api/users/requested").get(userC.getAllRequested);
+
+// router.route("/api/users/requested/:userId").put(
+//   // userC.isAdmin,
+//   userC.makeTutor
+// );
+
+router.route("/api/users/requested/:userId").put(
+  authC.requireSignin,
+  // userC.isAdmin,
+  userC.makeTutor
+);
 
 router
   .route("/api/users/:userId")
