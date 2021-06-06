@@ -188,7 +188,8 @@ export default function EditCourse({ match }) {
           title={
             <TextField
               margin="dense"
-              label="Title"
+              label="Заглавие"
+              // label="Title"
               type="text"
               fullWidth
               value={course.name}
@@ -198,12 +199,14 @@ export default function EditCourse({ match }) {
           subheader={
             <div>
               <Link to={"/user/" + course.tutor._id} className={classes.sub}>
-                By {course.tutor.name}
+                {/* By */}
+                От {course.tutor.name}
               </Link>
               {
                 <TextField
                   margin="dense"
-                  label="Category"
+                  label="Категория"
+                  // label="Category"
                   select
                   value={course.category}
                   onChange={handleChange("category")}
@@ -227,7 +230,8 @@ export default function EditCourse({ match }) {
                   color="secondary"
                   onClick={handleSubmit}
                 >
-                  Save
+                  Запази
+                  {/* Save */}
                 </Button>
               </span>
             )
@@ -245,7 +249,8 @@ export default function EditCourse({ match }) {
               margin="dense"
               multiline
               rows="5"
-              label="Description"
+              label="Описание"
+              // label="Description"
               type="text"
               className={classes.textfield}
               value={course.description}
@@ -267,13 +272,15 @@ export default function EditCourse({ match }) {
                 component="span"
                 className={classes.uploadButton}
               >
-                Change Cover Photo
+                {/* Change Cover Photo */}
+                Качи нова снимка
                 <AddPhotoAlternateIcon />
               </Button>
             </label>
             <span>{course.image ? course.image.name : ""}</span>
             <Typography className={classes.maxSize} color="error">
-              Max File Size: 204.8 KB
+              Максимален размер на файл: 204.8 KB
+              {/* Max File Size: 204.8 KB */}
             </Typography>
             {course.error && (
               <Typography color="error">
@@ -287,12 +294,17 @@ export default function EditCourse({ match }) {
           <CardHeader
             title={
               <Typography variant="h6" className={classes.subheading}>
-                Lessons - Edit and Rearrange
+                {/* Lessons - Edit and Rearrange */}
+                Уроци - Редактирай и Размести
               </Typography>
             }
             subheader={
               <Typography variant="body1" className={classes.subheading}>
-                {course.lessons && course.lessons.length} lessons
+                {course.lessons && course.lessons.length}
+                {course.lessons && course.lessons.length == 1
+                  ? " урок"
+                  : " урока"}
+                {/* lessons */}
               </Typography>
             }
           />
@@ -306,7 +318,11 @@ export default function EditCourse({ match }) {
                         <>
                           <Avatar>{index + 1}</Avatar>
                           {index != 0 && (
-                            <Tooltip title="Move up" aria-label="up">
+                            <Tooltip
+                              // title="Move up"
+                              title="Премести нагоре"
+                              aria-label="up"
+                            >
                               <IconButton
                                 aria-label="up"
                                 color="primary"
@@ -324,7 +340,8 @@ export default function EditCourse({ match }) {
                           <>
                             <TextField
                               margin="dense"
-                              label="Title"
+                              label="Заглавие"
+                              // label="Title"
                               type="text"
                               fullWidth
                               value={lesson.title}
@@ -335,7 +352,8 @@ export default function EditCourse({ match }) {
                               margin="dense"
                               multiline
                               rows="5"
-                              label="Content"
+                              label="Съдържание"
+                              // label="Content"
                               type="text"
                               fullWidth
                               value={lesson.content}
@@ -344,7 +362,8 @@ export default function EditCourse({ match }) {
                             <br />
                             <TextField
                               margin="dense"
-                              label="Resource link"
+                              label="Линк с ресурси"
+                              // label="Resource link"
                               type="text"
                               fullWidth
                               value={lesson.resource_url}
@@ -360,7 +379,11 @@ export default function EditCourse({ match }) {
 
                       {!course.published && (
                         <ListItemSecondaryAction>
-                          <Tooltip title="Delete lesson" aria-label="delete">
+                          <Tooltip
+                            title="Изтрий урок"
+                            // title="Delete lesson"
+                            aria-label="delete"
+                          >
                             <IconButton
                               edge="end"
                               aria-label="delete"

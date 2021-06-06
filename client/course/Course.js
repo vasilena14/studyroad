@@ -196,7 +196,7 @@ export default function Course({ match }) {
           subheader={
             <div>
               <Link to={"/user/" + course.tutor._id} className={classes.sub}>
-                By {course.tutor.name}
+                От {course.tutor.name}
               </Link>
               <span className={classes.category}>{course.category}</span>
             </div>
@@ -205,7 +205,11 @@ export default function Course({ match }) {
             <>
               {jwt.user && jwt.user._id == course.tutor._id && (
                 <span className={classes.action}>
-                  <Tooltip title="Edit course" aria-label="Edit">
+                  <Tooltip
+                    title="Редактирай курс"
+                    // title="Edit course"
+                    aria-label="Edit"
+                  >
                     <Link to={"/tutor/course/edit/" + course._id}>
                       <IconButton aria-label="Edit" color="secondary">
                         <EditIcon />
@@ -221,15 +225,18 @@ export default function Course({ match }) {
                         onClick={handlePublish}
                       >
                         {course.lessons.length == 0
-                          ? "Add at least 1 lesson to publish"
-                          : "Publish"}
+                          ? // ? "Add at least 1 lesson to publish"
+                            // : "Publish"}
+                            "Добави поне един урок, за да публикуваш"
+                          : "Публикувай"}
                       </Button>
                       <DeleteCourse course={course} onRemove={removeCourse} />
                     </>
                   ) : (
                     <>
                       <Button color="primary" variant="outlined">
-                        Published
+                        {/* Published */}
+                        Публикуван
                       </Button>
                       {/* <DeleteCourse course={course} onRemove={removeCourse} /> */}
                     </>
@@ -240,10 +247,14 @@ export default function Course({ match }) {
               {course.published && (
                 <div>
                   <span className={classes.state}>
-                    <PeopleIcon /> {state.totalEnrolled} enrolled
+                    <PeopleIcon /> {state.totalEnrolled}
+                    {/* enrolled */}
+                    записан(и)
                   </span>
                   <span className={classes.state}>
-                    <BeenhereIcon /> {state.totalCompleted} completed
+                    <BeenhereIcon /> {state.totalCompleted}
+                    {/* completed */}
+                    завършил(и)
                   </span>
                 </div>
               )}
@@ -276,12 +287,17 @@ export default function Course({ match }) {
           <CardHeader
             title={
               <Typography variant="h6" className={classes.subheading}>
-                Lessons
+                {/* Lessons */}
+                Уроци
               </Typography>
             }
             subheader={
               <Typography variant="body1" className={classes.subheading}>
-                {course.lessons && course.lessons.length} lessons
+                {course.lessons && course.lessons.length}
+                {course.lessons && course.lessons.length == 1
+                  ? " урок"
+                  : " урока"}
+                {/* lessons */}
               </Typography>
             }
             action={
@@ -321,28 +337,42 @@ export default function Course({ match }) {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Publish Course</DialogTitle>
+        <DialogTitle id="form-dialog-title">
+          {/* Publish Course */}
+          Публикувай курс
+        </DialogTitle>
         <DialogContent>
           <Typography variant="body1">
+            Публикуването на този курс ще го направи видим за потребителите и те
+            ще могат да се записват. Уверете се, че всички уроци са готови.
+          </Typography>
+          {/* <Typography variant="body1">
             Publishing this course will make it visible to students for
             enrollment. Make sure all lessons are ready.
-          </Typography>
+          </Typography> */}
           <br />
           <Typography variant="body1">
+            Веднъж публикуван, няма да може да добавяте нови уроци или да
+            изтривате курса. Но ще може да редактирате съществуващите вече
+            елементи.
+          </Typography>
+          {/* <Typography variant="body1">
             Once published you won't be able to add new lessons or delete the
             course. But you will be able to edit the existing components.
-          </Typography>
+          </Typography> */}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary" variant="contained">
-            Cancel
+            {/* Cancel */}
+            Затвори
           </Button>
           <Button
             onClick={confirmPublish}
             color="secondary"
             variant="contained"
           >
-            Publish
+            {/* Publish */}
+            Публикувай
           </Button>
         </DialogActions>
       </Dialog>

@@ -72,13 +72,15 @@ export default function Home() {
       {jwt.user && (
         <Card className={classes.card} elevation={4}>
           <Typography variant="h5" component="h2" className={classes.title}>
-            Courses you are enrolled in
+            {/* Courses you are enrolled in */}
+            Записани курсове
           </Typography>
           {enrolled.length != 0 ? (
             <AllEnrollments enrollments={enrolled} />
           ) : (
             <Typography variant="body1" className={classes.content}>
-              No courses yet.
+              {/* No courses yet. */}
+              Все още няма курсове.
             </Typography>
           )}
         </Card>
@@ -86,13 +88,15 @@ export default function Home() {
 
       <Card className={classes.card} elevation={4}>
         <Typography variant="h5" component="h2" className={classes.title}>
-          All Courses
+          {/* All Courses */}
+          Всички курсове
         </Typography>
         {courses.length != 0 && courses.length != enrolled.length ? (
           <Courses courses={courses} common={enrolled} />
         ) : (
           <Typography variant="body1" className={classes.content}>
-            There aren't any new courses.
+            {/* There aren't any new courses. */}
+            Все още няма курсове.
           </Typography>
         )}
       </Card>

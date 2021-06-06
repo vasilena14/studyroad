@@ -7,7 +7,8 @@ const create = async (req, res) => {
   try {
     await user.save();
     return res.status(200).json({
-      message: "Signed up successfully!",
+      message: "Успешен вход!",
+      // message: "Signed up successfully!",
     });
   } catch (err) {
     return res.status(400).json({
@@ -21,13 +22,15 @@ const userByID = async (req, res, next, id) => {
     let user = await User.findById(id);
     if (!user)
       return res.status("400").json({
-        error: "User not found",
+        error: "Потребителят не е намерен",
+        // error: "User not found",
       });
     req.profile = user;
     next();
   } catch (err) {
     return res.status("400").json({
-      error: "Failed to fetch user",
+      error: "Потребителят не може да бъде зареден",
+      // error: "Failed to fetch user",
     });
   }
 };
@@ -83,7 +86,8 @@ const isTutor = (req, res, next) => {
   const isTutor = req.profile && req.profile.tutor;
   if (!isTutor) {
     return res.status("403").json({
-      error: "User is not a tutor",
+      error: "Потребителят не е преподавател",
+      // error: "User is not a tutor",
     });
   }
   next();

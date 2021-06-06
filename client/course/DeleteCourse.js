@@ -44,29 +44,36 @@ export default function DeleteCourse(props) {
 
   return (
     <span>
-      <Tooltip title="Delete course" aria-label="Delete">
+      <Tooltip
+        title="Изтрий курс"
+        // title="Delete course"
+        aria-label="Delete"
+      >
         <IconButton aria-label="Delete" onClick={handleClick} color="secondary">
           <DeleteIcon />
         </IconButton>
       </Tooltip>
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{"Delete " + props.course.name}</DialogTitle>
+        <DialogTitle>{"Изтриване на " + props.course.name}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this course?
+            {/* Are you sure you want to delete this course? */}
+            Сигурни ли сте, че искате да изтриете курса?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Cancel
+            {/* Cancel */}
+            Затвори
           </Button>
           <Button
             onClick={deleteCourse}
             color="secondary"
             autoFocus="autoFocus"
           >
-            Confirm
+            {/* Confirm */}
+            Изтрий
           </Button>
         </DialogActions>
       </Dialog>

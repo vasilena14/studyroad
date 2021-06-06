@@ -125,11 +125,13 @@ export default function EditProfile({ match }) {
     <Card className={classes.card} elevation={4}>
       <CardContent>
         <Typography variant="h6" className={classes.title}>
-          Edit Profile
+          Редактирай Профил
+          {/* Edit Profile */}
         </Typography>
         <TextField
           id="name"
-          label="Name"
+          label="Име"
+          // label="Name"
           className={classes.textField}
           value={values.name}
           onChange={handleUpdate("name")}
@@ -139,7 +141,8 @@ export default function EditProfile({ match }) {
         <TextField
           id="email"
           type="email"
-          label="Email"
+          label="Имейл"
+          // label="Email"
           className={classes.textField}
           value={values.email}
           onChange={handleUpdate("email")}
@@ -149,7 +152,8 @@ export default function EditProfile({ match }) {
         <TextField
           id="password"
           type="password"
-          label="Password"
+          label="Парола"
+          // label="Password"
           className={classes.textField}
           value={values.password}
           onChange={handleUpdate("password")}
@@ -157,9 +161,13 @@ export default function EditProfile({ match }) {
         />
         <br />
         <br />
-        <Typography variant="subtitle1">I am a Tutor</Typography>
+        <Typography variant="subtitle1">
+          Аз съм преподавател
+          {/* I am a Tutor */}
+        </Typography>
         <FormControlLabel
           control={<Switch checked={values.tutor} onChange={handleToggle} />}
+          label={values.tutor ? "Да" : "Не"}
           label={values.tutor ? "Yes" : "No"}
         />
         <br />
@@ -177,7 +185,8 @@ export default function EditProfile({ match }) {
           onClick={handleSubmit}
           className={classes.submit}
         >
-          Submit
+          Запиши
+          {/* Submit */}
         </Button>
       </CardActions>
     </Card>

@@ -38,12 +38,14 @@ export default function Enroll(props) {
     <div>
       {jwt ? (
         <Button variant="contained" color="secondary" onClick={handleEnroll}>
-          Enroll
+          {/* Enroll */}
+          Запиши се
         </Button>
       ) : (
         <Link to="/signin">
           <Button variant="text" color="secondary" size="small">
-            Sign in to Enroll
+            Влез, за да се запишеш
+            {/* Sign in to Enroll */}
           </Button>
         </Link>
       )}

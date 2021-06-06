@@ -10,7 +10,8 @@ const CourseSchema = new mongoose.Schema({
   name: {
     type: String,
     trim: true,
-    required: "Name is required",
+    required: "Въведете заглавие",
+    // required: "Name is required",
   },
   description: {
     type: String,
@@ -23,7 +24,8 @@ const CourseSchema = new mongoose.Schema({
   category: {
     type: String,
     trim: true,
-    required: "Category is required",
+    required: "Изберете категория",
+    // required: "Category is required",
   },
   published: {
     type: Boolean,

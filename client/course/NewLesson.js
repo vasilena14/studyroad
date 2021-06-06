@@ -74,7 +74,8 @@ export default function NewLesson(props) {
         variant="contained"
         onClick={handleClickOpen}
       >
-        <AddBoxIcon /> &nbsp; New Lesson
+        <AddBoxIcon /> &nbsp; Нов Урок
+        {/* New Lesson */}
       </Button>
       <Dialog
         open={open}
@@ -82,11 +83,15 @@ export default function NewLesson(props) {
         aria-labelledby="form-dialog-title"
       >
         <div className={classes.form}>
-          <DialogTitle id="form-dialog-title">Add New Lesson</DialogTitle>
+          <DialogTitle id="form-dialog-title">
+            Добави нов урок
+            {/* Add New Lesson */}
+          </DialogTitle>
           <DialogContent>
             <TextField
               margin="dense"
-              label="Title"
+              label="Заглавие"
+              // label="Title"
               type="text"
               fullWidth
               value={values.title}
@@ -95,7 +100,8 @@ export default function NewLesson(props) {
             <br />
             <TextField
               margin="dense"
-              label="Content"
+              label="Съдържание"
+              // label="Content"
               type="text"
               multiline
               rows="5"
@@ -106,7 +112,8 @@ export default function NewLesson(props) {
             <br />
             <TextField
               margin="dense"
-              label="Resource link"
+              label="Линк с ресурси"
+              // label="Resource link"
               type="text"
               fullWidth
               value={values.resource_url}
@@ -117,14 +124,16 @@ export default function NewLesson(props) {
 
           <DialogActions>
             <Button onClick={handleClose} color="primary" variant="contained">
-              Cancel
+              Затвори
+              {/* Cancel */}
             </Button>
             <Button
               onClick={handleSubmit}
               color="secondary"
               variant="contained"
             >
-              Add
+              Добави
+              {/* Add */}
             </Button>
           </DialogActions>
         </div>

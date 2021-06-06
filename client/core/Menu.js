@@ -44,15 +44,24 @@ function Menu({ history }) {
         </Link>
         <div style={{ position: "absolute", right: 0 }}>
           <Link to="/">
-            <Button style={isSelected(history, "/")}>Home</Button>
+            <Button style={isSelected(history, "/")}>
+              {/* Home */}
+              Начало
+            </Button>
           </Link>
           {!auth.isAuthenticated() && (
             <span>
               <Link to="/signup">
-                <Button style={isSelected(history, "/signup")}>Sign up</Button>
+                <Button style={isSelected(history, "/signup")}>
+                  {/* Sign up */}
+                  Регистрация
+                </Button>
               </Link>
               <Link to="/signin">
-                <Button style={isSelected(history, "/signin")}>Sign In</Button>
+                <Button style={isSelected(history, "/signin")}>
+                  {/* Sign In */}
+                  Вход
+                </Button>
               </Link>
             </span>
           )}
@@ -61,8 +70,9 @@ function Menu({ history }) {
               {auth.isAuthenticated().user.tutor && (
                 <Link to="/tutor/courses">
                   <Button style={isHighlighted(history, "/tutor/")}>
-                    <LocalLibraryIcon style={{ marginRight: "5px" }} /> Tutor
-                    Portal
+                    <LocalLibraryIcon style={{ marginRight: "5px" }} />
+                    {/* Tutor Portal */}
+                    Преподавател
                   </Button>
                 </Link>
               )}
@@ -73,7 +83,8 @@ function Menu({ history }) {
                     "/user/" + auth.isAuthenticated().user._id
                   )}
                 >
-                  My Profile
+                  {/* My Profile */}
+                  Моят Профил
                 </Button>
               </Link>
               <Button
@@ -86,7 +97,8 @@ function Menu({ history }) {
                   );
                 }}
               >
-                Sign out
+                {/* Sign out */}
+                Изход
               </Button>
             </span>
           )}

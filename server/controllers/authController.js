@@ -11,13 +11,15 @@ const signin = async (req, res) => {
 
     if (!user)
       return res.status("401").json({
-        error: "User not found",
+        error: "Потребителят не е намерен",
+        // error: "User not found",
       });
 
     if (!user.authenticate(req.body.password)) {
       return res
         .status("401")
-        .send({ error: "Email and password don't match." });
+        .send({ error: "Имейлът и паролата не съвпадат" });
+      // .send({ error: "Email and password don't match." });
     }
 
     const token = jwt.sign(
@@ -42,7 +44,8 @@ const signin = async (req, res) => {
     });
   } catch (err) {
     return res.status("401").json({
-      error: "Sign in failed",
+      error: "Грешка при вход",
+      // error: "Sign in failed",
     });
   }
 };
@@ -50,7 +53,8 @@ const signin = async (req, res) => {
 const signout = (req, res) => {
   res.clearCookie("t");
   return res.status("200").json({
-    message: "signed out",
+    message: "Успешен изход",
+    // message: "signed out",
   });
 };
 
@@ -63,7 +67,8 @@ const isAuthorized = (req, res, next) => {
   const authorized = req.profile && req.auth && req.profile._id == req.auth._id;
   if (!authorized) {
     return res.status("403").json({
-      error: "User is not authorized",
+      error: "Потребителят не е упълномощен",
+      // error: "User is not authorized",
     });
   }
   next();

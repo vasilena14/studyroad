@@ -1,30 +1,30 @@
 [
   {
-    "value": "Computer Science",
-    "label": "Computer Science"
+    "value": "Компютърни науки",
+    "label": "Компютърни науки"
   },
   {
-    "value": "Data Science",
-    "label": "Data Science"
+    "value": "Програмиране",
+    "label": "Програмиране"
   },
   {
-    "value": "Design and Arts",
-    "label": "Design and Arts"
+    "value": "Дизайн и Изкуство",
+    "label": "Дизайн и Изкуство"
   },
   {
-    "value": "Linguistics and Languages",
-    "label": "Linguistics and Languages"
+    "value": "Лингвистика",
+    "label": "Лингвистика"
   },
   {
-    "value": "Literature",
-    "label": "Literature"
+    "value": "Литература",
+    "label": "Литература"
   },
   {
-    "value": "Mathematics",
-    "label": "Mathematics"
+    "value": "Математика",
+    "label": "Математика"
   },
   {
-    "value": "Personal Development",
-    "label": "Personal Development"
+    "value": "Личностно развитие",
+    "label": "Личностно развитие"
   }
 ]

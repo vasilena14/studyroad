@@ -16,6 +16,8 @@ import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import { makeStyles } from "@material-ui/core/styles";
 import { create } from "./api-user.js";
 import { Link } from "react-router-dom";
+import auth from "./../auth/auth-helper";
+import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -55,6 +57,10 @@ export default function Signup() {
     error: "",
   });
 
+  // if (auth.isAuthenticated) {
+  //   <Redirect to="/" />;
+  // }
+
   const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
   };
@@ -79,11 +85,13 @@ export default function Signup() {
       <Card className={classes.card} elevation={4}>
         <CardContent>
           <Typography variant="h6" className={classes.title}>
-            Sign Up
+            Регистрация
+            {/* Sign Up */}
           </Typography>
           <TextField
             id="name"
-            label="Name"
+            label="Име"
+            // label="Name"
             className={classes.textField}
             value={values.name}
             onChange={handleChange("name")}
@@ -93,7 +101,8 @@ export default function Signup() {
           <TextField
             id="email"
             type="email"
-            label="Email"
+            label="Имейл"
+            // label="Email"
             className={classes.textField}
             value={values.email}
             onChange={handleChange("email")}
@@ -103,7 +112,8 @@ export default function Signup() {
           <TextField
             id="password"
             type="password"
-            label="Password"
+            label="Парола"
+            // label="Password"
             className={classes.textField}
             value={values.password}
             onChange={handleChange("password")}
@@ -124,21 +134,27 @@ export default function Signup() {
             onClick={handleSubmit}
             className={classes.submit}
           >
-            Submit
+            Регистрирай се
+            {/* Submit */}
           </Button>
         </CardActions>
       </Card>
       <Dialog open={values.open} disableBackdropClick={true}>
-        <DialogTitle>New Account</DialogTitle>
+        <DialogTitle>
+          Нов Акаунт
+          {/* New Account */}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            New account was successfully created.
+            Новият акаунт беше успешно създаден.
+            {/* New account was successfully created. */}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Link to="/signin">
             <Button color="primary" autoFocus="autoFocus" variant="contained">
-              Sign In
+              Вход
+              {/* Sign In */}
             </Button>
           </Link>
         </DialogActions>

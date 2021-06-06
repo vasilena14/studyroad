@@ -14,7 +14,8 @@ const create = (req, res) => {
   form.parse(req, async (err, fields, files) => {
     if (err) {
       return res.status(400).json({
-        error: "Image could not be uploaded",
+        error: "Снимката не може да бъде качена",
+        // error: "Image could not be uploaded",
       });
     }
 
@@ -43,13 +44,15 @@ const getCourseByID = async (req, res, next, id) => {
     let course = await Course.findById(id).populate("tutor", "_id name");
     if (!course)
       return res.status("400").json({
-        error: "Course not found",
+        error: "Курсът не е намерен",
+        // error: "Course not found",
       });
     req.course = course;
     next();
   } catch (err) {
     return res.status("400").json({
-      error: "Could not fetch course",
+      error: "Курсът не може да бъде зареден",
+      // error: "Could not fetch course",
     });
   }
 };
@@ -68,7 +71,8 @@ const update = async (req, res) => {
   form.parse(req, async (err, fields, files) => {
     if (err) {
       return res.status(400).json({
-        error: "Image could not be uploaded",
+        error: "Снимката не може да бъде качена",
+        // error: "Image could not be uploaded",
       });
     }
 
@@ -132,7 +136,8 @@ const isTutor = (req, res, next) => {
     req.course && req.auth && req.course.tutor._id == req.auth._id;
   if (!isTutor) {
     return res.status("403").json({
-      error: "User is not authorized",
+      error: "Потребителят не е упълномощен",
+      // error: "User is not authorized",
     });
   }
   next();

@@ -102,7 +102,8 @@ export default function NewCourse() {
       <Card className={classes.card} elevation={4}>
         <CardContent>
           <Typography variant="h6" className={classes.title}>
-            New Course
+            Нов Курс
+            {/* New Course */}
           </Typography>
           <br />
           <input
@@ -114,7 +115,8 @@ export default function NewCourse() {
           />
           <label htmlFor="icon-button-file">
             <Button variant="contained" color="secondary" component="span">
-              Upload Cover Photo
+              Качи снимка
+              {/* Upload Cover Photo */}
               <AddPhotoAlternateIcon />
             </Button>
           </label>
@@ -126,11 +128,13 @@ export default function NewCourse() {
             style={{ marginTop: "10px", fontSize: "13px" }}
             color="error"
           >
-            Max File Size: 204.8 KB
+            Максимален размер на файла: 204.8 KB
+            {/* Max File Size: 204.8 KB */}
           </Typography>
           <TextField
             id="name"
-            label="Name"
+            label="Заглавие"
+            // label="Name"
             className={classes.textField}
             value={values.name}
             onChange={handleChange("name")}
@@ -139,7 +143,8 @@ export default function NewCourse() {
           <br />
           <TextField
             id="multiline-flexible"
-            label="Description"
+            label="Описание"
+            // label="Description"
             multiline
             rows="2"
             value={values.description}
@@ -150,7 +155,8 @@ export default function NewCourse() {
           <br />
           <TextField
             id="category"
-            label="Category"
+            label="Категория"
+            // label="Category"
             select
             className={classes.textField}
             value={values.category}
@@ -180,10 +186,14 @@ export default function NewCourse() {
             onClick={handleSubmit}
             className={classes.submit}
           >
-            Submit
+            Запиши
+            {/* Submit */}
           </Button>
           <Link to="/tutor/courses" className={classes.submit}>
-            <Button variant="contained">Cancel</Button>
+            <Button variant="contained">
+              Затвори
+              {/* Cancel */}
+            </Button>
           </Link>
         </CardActions>
       </Card>

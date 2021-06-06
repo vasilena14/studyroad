@@ -220,7 +220,10 @@ export default function Enrollment({ match }) {
             <ListItemIcon>
               <InfoIcon />
             </ListItemIcon>
-            <ListItemText primary={"Course Overview"} />
+            <ListItemText
+              primary={"За Курса"}
+              // primary={"Course Overview"}
+            />
           </ListItem>
         </List>
         <Divider />
@@ -261,8 +264,8 @@ export default function Enrollment({ match }) {
             <ListItemText
               primary={
                 <div className={classes.progress}>
-                  <span>{totalComplete}</span> out of{" "}
-                  <span>{enrollment.lessonState.length}</span> completed
+                  <span>{totalComplete}</span> от{" "}
+                  <span>{enrollment.lessonState.length}</span> са завършени
                 </div>
               }
             />
@@ -280,7 +283,7 @@ export default function Enrollment({ match }) {
                   to={"/user/" + enrollment.course.tutor._id}
                   className={classes.sub}
                 >
-                  By {enrollment.course.tutor.name}
+                  От {enrollment.course.tutor.name}
                 </Link>
                 <span className={classes.category}>
                   {enrollment.course.category}
@@ -291,7 +294,8 @@ export default function Enrollment({ match }) {
               totalComplete == enrollment.lessonState.length && (
                 <span className={classes.action}>
                   <Button variant="contained" color="secondary">
-                    <CheckCircleIcon /> &nbsp; Completed
+                    <CheckCircleIcon /> &nbsp; Завършени
+                    {/* <CheckCircleIcon /> &nbsp; Completed */}
                   </Button>
                 </span>
               )
@@ -315,14 +319,16 @@ export default function Enrollment({ match }) {
             <CardHeader
               title={
                 <Typography variant="h6" className={classes.subheading}>
-                  Lessons
+                  Уроци
+                  {/* Lessons */}
                 </Typography>
               }
               subheader={
                 <Typography variant="body1" className={classes.subheading}>
                   {enrollment.course.lessons &&
                     enrollment.course.lessons.length}{" "}
-                  lessons
+                  урока
+                  {/* lessons */}
                 </Typography>
               }
               action={
@@ -371,8 +377,10 @@ export default function Enrollment({ match }) {
                   color="secondary"
                 >
                   {enrollment.lessonState[values.drawer].complete
-                    ? "Completed"
-                    : "Mark as complete"}
+                    ? "Завършен"
+                    : "Маркирай като завършен"}
+                  {/* ? "Completed"
+                    : "Mark as complete"} */}
                 </Button>
               }
             />
@@ -389,7 +397,8 @@ export default function Enrollment({ match }) {
                   target="_blank"
                 >
                   <Button variant="contained" color="primary">
-                    Resource Link
+                    Линк с ресурси
+                    {/* Resource Link */}
                   </Button>
                 </a>
               </CardActions>

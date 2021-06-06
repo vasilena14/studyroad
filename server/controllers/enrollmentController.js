@@ -35,13 +35,15 @@ const findEnrollmentByID = async (req, res, next, id) => {
       .populate("student", "_id name");
     if (!enrollment)
       return res.status("400").json({
-        error: "Enrollment not found",
+        error: "Не е намерен такъв студент, записан в този курс",
+        // error: "Enrollment not found",
       });
     req.enrollment = enrollment;
     next();
   } catch (err) {
     return res.status("400").json({
-      error: "Could not fetch enrollment",
+      error: "Не може да бъде зареден записаният курс за този студен",
+      // error: "Could not fetch enrollment",
     });
   }
 };

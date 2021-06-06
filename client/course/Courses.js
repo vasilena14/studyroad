@@ -83,7 +83,8 @@ export default function Courses(props) {
                       <Enroll courseId={course._id} />
                     ) : (
                       <Link to="/signin" style={{ color: "#f4b318" }}>
-                        Sign in to Enroll
+                        {/* Sign in to Enroll */}
+                        Влез, за да се запишеш
                       </Link>
                     )}
                   </div>

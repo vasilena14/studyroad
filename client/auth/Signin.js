@@ -50,6 +50,10 @@ export default function Signin(props) {
     redirectToReferrer: false,
   });
 
+  // if (auth.isAuthenticated) {
+  //   <Redirect to="/" />;
+  // }
+
   const handleSubmit = () => {
     const user = {
       email: values.email || undefined,
@@ -86,12 +90,14 @@ export default function Signin(props) {
     <Card className={classes.card} elevation={4}>
       <CardContent>
         <Typography variant="h6" className={classes.title}>
-          Sign In
+          {/* Sign In */}
+          Вход
         </Typography>
         <TextField
           id="email"
           type="email"
-          label="Email"
+          // label="Email"
+          label="Имейл"
           className={classes.textField}
           value={values.email}
           onChange={handleChange("email")}
@@ -101,7 +107,8 @@ export default function Signin(props) {
         <TextField
           id="password"
           type="password"
-          label="Password"
+          // label="Password"
+          label="Парола"
           className={classes.textField}
           value={values.password}
           onChange={handleChange("password")}
@@ -122,7 +129,8 @@ export default function Signin(props) {
           onClick={handleSubmit}
           className={classes.submit}
         >
-          Submit
+          {/* Submit */}
+          Вход
         </Button>
       </CardActions>
     </Card>

@@ -73,7 +73,8 @@ export default function Profile({ match }) {
   return (
     <Paper className={classes.root} elevation={4}>
       <Typography variant="h6" className={classes.title}>
-        Profile
+        Профил
+        {/* Profile */}
       </Typography>
       <List dense>
         <ListItem>
@@ -86,7 +87,11 @@ export default function Profile({ match }) {
           {jwt.user && jwt.user._id == user._id && (
             <ListItemSecondaryAction>
               <Link to={"/user/edit/" + user._id}>
-                <Tooltip title="Edit profile" aria-label="Edit">
+                <Tooltip
+                  title="Редактирай профил"
+                  // title="Edit profile"
+                  aria-label="Edit"
+                >
                   <IconButton aria-label="Edit" color="primary">
                     <EditIcon />
                   </IconButton>
@@ -99,7 +104,7 @@ export default function Profile({ match }) {
         <Divider />
         <ListItem>
           <ListItemText
-            primary={"Joined: " + new Date(user.created).toDateString()}
+            primary={"Присъединил се: " + new Date(user.created).toDateString()}
           />
         </ListItem>
       </List>

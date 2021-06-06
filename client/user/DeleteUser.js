@@ -50,27 +50,39 @@ export default function DeleteUser(props) {
 
   return (
     <span>
-      <Tooltip title="Delete profile" aria-label="Delete">
+      <Tooltip
+        title="Изтрий акаунт"
+        // title="Delete profile"
+        aria-label="Delete"
+      >
         <IconButton aria-label="Delete" onClick={handleClick} color="secondary">
           <DeleteIcon />
         </IconButton>
       </Tooltip>
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{"Delete Account"}</DialogTitle>
+        <DialogTitle>
+          {"Изтрий акаунт"}
+          {/* {"Delete Account"} */}
+        </DialogTitle>
         <DialogContent>
-          <DialogContentText>Confirm to delete your account.</DialogContentText>
+          <DialogContentText>
+            Моля потвърдете, за да изтриете този акаунт.
+            {/* Confirm to delete your account. */}
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Cancel
+            Затвори
+            {/* Cancel */}
           </Button>
           <Button
             onClick={removeAccount}
             color="secondary"
             autoFocus="autoFocus"
           >
-            Confirm
+            Потвърди
+            {/* Confirm */}
           </Button>
         </DialogActions>
       </Dialog>
