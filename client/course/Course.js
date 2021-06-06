@@ -249,12 +249,12 @@ export default function Course({ match }) {
                   <span className={classes.state}>
                     <PeopleIcon /> {state.totalEnrolled}
                     {/* enrolled */}
-                    записан(и)
+                    {state.totalEnrolled == 1 ? " записан" : " записани"}
                   </span>
                   <span className={classes.state}>
                     <BeenhereIcon /> {state.totalCompleted}
                     {/* completed */}
-                    завършил(и)
+                    {state.totalCompleted == 1 ? " завършил" : " завършили"}
                   </span>
                 </div>
               )}

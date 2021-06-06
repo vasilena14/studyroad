@@ -44,7 +44,9 @@ export default function Enroll(props) {
       ) : (
         <Link to="/signin">
           <Button variant="text" color="secondary" size="small">
-            Влез, за да се запишеш
+            Регистрирай се,
+            <br />
+            за да се запишеш
             {/* Sign in to Enroll */}
           </Button>
         </Link>

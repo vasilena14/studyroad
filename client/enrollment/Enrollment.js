@@ -229,7 +229,7 @@ export default function Enrollment({ match }) {
         <Divider />
         <List className={classes.unselected} style={{ marginTop: "8px" }}>
           <ListSubheader component="div" className={classes.subheader}>
-            Lessons
+            Уроци
           </ListSubheader>
           {enrollment.lessonState.map((lesson, index) => (
             <ListItem
@@ -265,7 +265,7 @@ export default function Enrollment({ match }) {
               primary={
                 <div className={classes.progress}>
                   <span>{totalComplete}</span> от{" "}
-                  <span>{enrollment.lessonState.length}</span> са завършени
+                  <span>{enrollment.lessonState.length}</span> завършени
                 </div>
               }
             />
@@ -294,7 +294,7 @@ export default function Enrollment({ match }) {
               totalComplete == enrollment.lessonState.length && (
                 <span className={classes.action}>
                   <Button variant="contained" color="secondary">
-                    <CheckCircleIcon /> &nbsp; Завършени
+                    <CheckCircleIcon /> &nbsp; Завършен
                     {/* <CheckCircleIcon /> &nbsp; Completed */}
                   </Button>
                 </span>
@@ -326,8 +326,11 @@ export default function Enrollment({ match }) {
               subheader={
                 <Typography variant="body1" className={classes.subheading}>
                   {enrollment.course.lessons &&
-                    enrollment.course.lessons.length}{" "}
-                  урока
+                    enrollment.course.lessons.length}
+                  {enrollment.course.lessons &&
+                  enrollment.course.lessons.length == 1
+                    ? " урок"
+                    : " урока"}
                   {/* lessons */}
                 </Typography>
               }
