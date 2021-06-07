@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardActions,
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Signup() {
+export default function Signup(props) {
   const classes = useStyles();
   const [values, setValues] = useState({
     name: "",
@@ -56,10 +56,11 @@ export default function Signup() {
     open: false,
     error: "",
   });
+  const jwt = auth.isAuthenticated();
 
-  // if (auth.isAuthenticated) {
-  //   <Redirect to="/" />;
-  // }
+  useEffect(() => {
+    jwt && props.history.push("/");
+  }, []);
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardActions,
@@ -49,10 +49,11 @@ export default function Signin(props) {
     error: "",
     redirectToReferrer: false,
   });
+  const jwt = auth.isAuthenticated();
 
-  // if (auth.isAuthenticated) {
-  //   <Redirect to="/" />;
-  // }
+  useEffect(() => {
+    jwt && props.history.push("/user/" + auth.isAuthenticated().user._id);
+  }, []);
 
   const handleSubmit = () => {
     const user = {

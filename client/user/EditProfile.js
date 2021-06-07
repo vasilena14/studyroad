@@ -161,16 +161,15 @@ export default function EditProfile({ match }) {
         />
         <br />
         <br />
-        <Typography variant="subtitle1">
+        {/* <Typography variant="subtitle1">
           Аз съм преподавател
-          {/* I am a Tutor */}
         </Typography>
         <FormControlLabel
           control={<Switch checked={values.tutor} onChange={handleToggle} />}
           label={values.tutor ? "Да" : "Не"}
           label={values.tutor ? "Yes" : "No"}
         />
-        <br />
+        <br /> */}
         {values.error && (
           <Typography component="p" color="error">
             <ErrorOutlineIcon color="error" className={classes.error} />

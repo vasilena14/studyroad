@@ -82,7 +82,7 @@ export default function MyCourses() {
     <div>
       <Paper className={classes.root} elevation={4}>
         <Typography type="title" variant="h6" className={classes.title}>
-          Твоите Курсове
+          Моите Курсове
           {/* Your Courses */}
           <span className={classes.addButton}>
             <Link to="/tutor/course/new">

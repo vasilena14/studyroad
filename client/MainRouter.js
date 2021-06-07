@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import Home from "./core/Home";
 import Users from "./user/Users";
 import Signup from "./user/Signup";
@@ -13,6 +13,7 @@ import NewCourse from "./course/NewCourse";
 import MyCourses from "./course/MyCourses";
 import EditCourse from "./course/EditCourse";
 import Enrollment from "./enrollment/Enrollment";
+import More from "./core/More";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -45,6 +46,8 @@ const MainRouter = () => {
         />
         <PrivateRoute path="/tutor/course/:courseId" component={Course} />
         <PrivateRoute path="/learn/:enrollmentId" component={Enrollment} />
+        <Route path="/more" component={More} />
+        <Redirect from="*" to="/" />
       </Switch>
     </div>
   );

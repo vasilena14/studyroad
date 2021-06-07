@@ -1,6 +1,7 @@
 import React from "react";
 import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
+import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 import auth from "./../auth/auth-helper";
 import { Link, withRouter } from "react-router-dom";
 import logo from "./../assets/logo/logo.png";
@@ -19,7 +20,7 @@ const isSelected = (history, path) => {
 };
 
 const isHighlighted = (history, path) => {
-  if (history.location.pathname.includes(path))
+  if (history.location.pathname == path)
     return { color: "#fffde7", backgroundColor: "#f4b318", marginRight: 10 };
   else
     return {
@@ -65,11 +66,12 @@ function Menu({ history }) {
               </Link>
             </span>
           )}
+
           {auth.isAuthenticated() && (
             <span>
               {auth.isAuthenticated().user.tutor && (
                 <Link to="/tutor/courses">
-                  <Button style={isHighlighted(history, "/tutor/")}>
+                  <Button style={isHighlighted(history, "/tutor/courses")}>
                     <LocalLibraryIcon style={{ marginRight: "5px" }} />
                     {/* Tutor Portal */}
                     Преподавател
@@ -93,7 +95,7 @@ function Menu({ history }) {
                 onClick={() => {
                   auth.clearJWT(
                     () => history.push("/"),
-                    window.location.reload(true)
+                    window.location.reload()
                   );
                 }}
               >
@@ -102,6 +104,14 @@ function Menu({ history }) {
               </Button>
             </span>
           )}
+
+          <span style={{ verticalAlign: "middle" }}>
+            <Link to="/more">
+              <Button style={isSelected(history, "/more")}>
+                <HelpOutlineIcon />
+              </Button>
+            </Link>
+          </span>
         </div>
       </Toolbar>
     </AppBar>
