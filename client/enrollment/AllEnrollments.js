@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.openTitle,
   },
   image: {
-    width: "100%",
+    height: "100%",
   },
   rootTile: {
     padding: 0,

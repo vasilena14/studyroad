@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
   },
   image: {
-    width: "100%",
+    height: "100%",
   },
   tileBar: {
     backgroundColor: "rgba(0, 0, 0, 0.65)",
