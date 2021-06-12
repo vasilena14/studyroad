@@ -18,7 +18,7 @@ export default ({ html, css }) => {
         <div id="root" >${html}</div>
         <style id="jss-server-side">${css}</style>
         <script type="text/javascript" src="/dist/bundle.js"></script>
-        <div style="color: #3f5d71; font-family: 'Montserrat'; font-size: 12px; text-align: center; width: 100%; margin-top: auto;">Copyright &copy <script>document.write(new Date().getFullYear())</script> Vassilena Vassileva</div>
+        <div style="color: #3f5d71; font-family: 'Montserrat'; font-size: 12px; text-align: center; width: 100%; margin-top: auto; padding-bottom: 5px;">Copyright &copy <script>document.write(new Date().getFullYear())</script> Vassilena Vassileva</div>
       </body> 
     </html>`;
 };
