@@ -248,7 +248,7 @@ export default function EditCourse({ match }) {
             <TextField
               margin="dense"
               multiline
-              rows="5"
+              rows="10"
               label="Описание"
               // label="Description"
               type="text"
@@ -351,7 +351,7 @@ export default function EditCourse({ match }) {
                             <TextField
                               margin="dense"
                               multiline
-                              rows="5"
+                              rows="10"
                               label="Съдържание"
                               // label="Content"
                               type="text"

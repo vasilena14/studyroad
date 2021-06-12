@@ -146,7 +146,7 @@ export default function NewCourse() {
             label="Описание"
             // label="Description"
             multiline
-            rows="2"
+            rows="5"
             value={values.description}
             onChange={handleChange("description")}
             className={classes.textField}

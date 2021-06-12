@@ -104,7 +104,7 @@ export default function NewLesson(props) {
               // label="Content"
               type="text"
               multiline
-              rows="5"
+              rows="20"
               fullWidth
               value={values.content}
               onChange={handleChange("content")}
