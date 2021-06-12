@@ -20,6 +20,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 8,
     padding: `0px ${theme.spacing(2.5)}px ${theme.spacing(2)}px`,
   },
+  credit: {
+    textAlign: "center",
+    fontSize: "14px",
+    color: "#3f5d71",
+  },
 }));
 
 export default function More() {
@@ -51,6 +56,20 @@ export default function More() {
           <span style={{ color: "#f4b318", fontWeight: "500" }}>Имейла</span>, с
           които си се регистрирал в нашия сайт и накратко представиш идеята си
           за това какви твои знания биха били полезни на хората.
+        </Typography>
+        <Typography variant="h5" component="h2" className={classes.title}>
+          Други въпроси
+        </Typography>
+        <Typography variant="body1" className={classes.content}>
+          За въпроси, свързани с вашия акаунт или с качените от вас курсове, ако
+          имате дори предложения за подобряване работата на платформата, може да
+          ни пишете на{" "}
+          <a
+            style={{ color: "#f4b318", fontWeight: "500" }}
+            href="mailto:studyroad.platform@gmail.com"
+          >
+            studyroad.platform@gmail.com
+          </a>
         </Typography>
       </Card>
     </>
