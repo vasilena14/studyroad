@@ -8,9 +8,9 @@ const getCustomErrorMessage = (err) => {
       err.message.lastIndexOf("{") + 1,
       err.message.lastIndexOf("}")
     );
-    output = fieldName + " already exists";
+    output = fieldName + " вече съществува";
   } catch (ex) {
-    output = "Field already exists";
+    output = "Полето вече съществува";
   }
   return output;
 };
