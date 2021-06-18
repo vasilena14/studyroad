@@ -74,12 +74,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 5,
   },
   action: {
-    margin: "10px 0px",
+    margin: "10px 10px 10px 0",
     display: "flex",
     justifyContent: "flex-end",
   },
   state: {
-    margin: "7px 10px 0 10px",
+    margin: "7px 10px 0 0",
     alignItems: "center",
     color: "#8c8c8c",
     display: "inline-flex",
@@ -91,6 +91,9 @@ const useStyles = makeStyles((theme) => ({
   enroll: {
     // float: "right",
     textAlign: "right",
+  },
+  cardHeader: {
+    flex: "1 1 auto",
   },
 }));
 
@@ -193,6 +196,7 @@ export default function Course({ match }) {
       <Card className={classes.card} elevation={4}>
         <CardHeader
           title={course.name}
+          classes={{ action: classes.cardHeader }}
           subheader={
             <div>
               <Link to={"/user/" + course.tutor._id} className={classes.sub}>
@@ -245,7 +249,7 @@ export default function Course({ match }) {
               )}
 
               {course.published && (
-                <div>
+                <div style={{ textAlign: "end" }}>
                   <span className={classes.state}>
                     <PeopleIcon /> {state.totalEnrolled}
                     {/* enrolled */}
