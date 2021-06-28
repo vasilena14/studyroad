@@ -84,7 +84,7 @@ export default function Courses(props) {
                     {jwt ? (
                       <Enroll courseId={course._id} />
                     ) : (
-                      <Link to="/signin" style={{ color: "#f4b318" }}>
+                      <Link to="/signup" style={{ color: "#f4b318" }}>
                         {/* Sign in to Enroll */}
                         Регистрирай се
                       </Link>

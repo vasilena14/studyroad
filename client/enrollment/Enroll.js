@@ -42,7 +42,7 @@ export default function Enroll(props) {
           Започни
         </Button>
       ) : (
-        <Link to="/signin">
+        <Link to="/signup">
           <Button variant="text" color="secondary" size="small">
             Регистрирай се,
             <br />
